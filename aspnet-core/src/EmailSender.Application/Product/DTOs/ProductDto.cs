@@ -22,6 +22,7 @@ namespace EmailSender.ProductDtos
         public bool IsActive => Stock > 0;
         public bool LowStock => Stock > 0 && Stock < 5;
         public DateTime CreationTime { get; set; }
+        public bool Ismain {  get; set; }
         public byte[] Thumbnail { get; set; }
     }
 

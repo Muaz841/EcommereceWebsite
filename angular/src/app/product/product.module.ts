@@ -24,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 
 
@@ -34,7 +35,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     declarations: [ProductComponent,CreateProductComponent],
     imports: [CalendarModule,SharedModule,InputTextModule,FormsModule,IconFieldModule,DropdownModule,SelectButtonModule,
         InputIconModule,FormsModule,TagModule, PaginatorModule,ReactiveFormsModule, ProductsRoutingModule,InputTextareaModule,
-        MultiSelectModule, CommonModule,TableModule,FileUploadModule, PageModule,ButtonModule,ToastModule,CardModule],
+        MultiSelectModule, CommonModule,TableModule,FileUploadModule, ToggleButtonModule,PageModule,ButtonModule,ToastModule,CardModule],
     providers: [ProductServiceProxy, CategoryServiceServiceProxy,MessageService]
 })
 export class ProductModule {}

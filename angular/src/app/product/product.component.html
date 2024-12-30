@@ -59,7 +59,7 @@
                             
                             <div class="col-md-5">
                                 <p-calendar [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" [numberOfMonths]="2"
-                                    selectionMode="range" class="py-1 px-1 calendar-small" placeholder="Select Date..."  [(ngModel)]="dateRange"  (onSelect)=" onDateSearch()"/>
+                                    selectionMode="range" class="py-1 px-1 calendar-small" placeholder="Select Date..."  [(ngModel)]="dateRange"  (onClose)=" onDateSearch()"/>
                             </div>
 
                             <!-- Danger Button -->
@@ -125,7 +125,6 @@
                             {{ getStatusLabel(prod) }}
                         </span></td>
                         <td>{{ prod.creationTime.toDate() | date: 'dd MMM yyyy' }}</td>
-
                     
                         <td class="buttonstyling">
                             <button
@@ -147,6 +146,7 @@
                                 >
                                 <i class="fas fa-trash colorsetting"></i>
                             </button>
+                            <p-tag *ngIf="prod.ismain" severity="success" value="Main"/>
                         </td>                    
                 </tr>
             }

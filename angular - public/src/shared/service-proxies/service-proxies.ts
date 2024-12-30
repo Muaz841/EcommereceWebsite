@@ -154,17 +154,27 @@ export class CategoryServiceServiceProxy {
 
     /**
      * @param filterText (optional) 
+     * @param startDate (optional) 
+     * @param endDate (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return OK
      */
-    getAll(filterText: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CategoryDtoPagedResultDto> {
+    getAll(filterText: string | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CategoryDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/CategoryService/GetAll?";
         if (filterText === null)
             throw new Error("The parameter 'filterText' cannot be null.");
         else if (filterText !== undefined)
             url_ += "FilterText=" + encodeURIComponent("" + filterText) + "&";
+        if (startDate === null)
+            throw new Error("The parameter 'startDate' cannot be null.");
+        else if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toISOString() : "") + "&";
+        if (endDate === null)
+            throw new Error("The parameter 'endDate' cannot be null.");
+        else if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toISOString() : "") + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -554,6 +564,127 @@ export class ConfigurationServiceProxy {
 }
 
 @Injectable()
+export class DashboardServiceServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    /**
+     * @return OK
+     */
+    dashboardRevenue(): Observable<DashboardRevenueDto> {
+        let url_ = this.baseUrl + "/api/services/app/DashboardService/DashboardRevenue";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDashboardRevenue(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDashboardRevenue(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<DashboardRevenueDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<DashboardRevenueDto>;
+        }));
+    }
+
+    protected processDashboardRevenue(response: HttpResponseBase): Observable<DashboardRevenueDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DashboardRevenueDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return OK
+     */
+    graphStats(): Observable<StatsGraphDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/DashboardService/GraphStats";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGraphStats(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGraphStats(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<StatsGraphDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<StatsGraphDto[]>;
+        }));
+    }
+
+    protected processGraphStats(response: HttpResponseBase): Observable<StatsGraphDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(StatsGraphDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class OrderServicesServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -617,39 +748,21 @@ export class OrderServicesServiceProxy {
     }
 
     /**
-     * @param filterText (optional) 
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param body (optional) 
      * @return OK
      */
-    orderList(filterText: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<OrderListDtoPagedResultDto> {
+    orderList(body: PagedOrderResultRequestDto | undefined): Observable<OrderListDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/OrderServices/OrderList";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = new FormData();
-        if (filterText === null || filterText === undefined)
-            throw new Error("The parameter 'filterText' cannot be null.");
-        else
-            content_.append("FilterText", filterText.toString());
-        if (sorting === null || sorting === undefined)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else
-            content_.append("Sorting", sorting.toString());
-        if (skipCount === null || skipCount === undefined)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else
-            content_.append("SkipCount", skipCount.toString());
-        if (maxResultCount === null || maxResultCount === undefined)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else
-            content_.append("MaxResultCount", maxResultCount.toString());
+        const content_ = JSON.stringify(body);
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json",
                 "Accept": "text/plain"
             })
         };
@@ -792,6 +905,114 @@ export class OrderServicesServiceProxy {
         }
         return _observableOf(null as any);
     }
+
+    /**
+     * @return OK
+     */
+    orderCount(): Observable<OrderCountDto> {
+        let url_ = this.baseUrl + "/api/services/app/OrderServices/OrderCount";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processOrderCount(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processOrderCount(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<OrderCountDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<OrderCountDto>;
+        }));
+    }
+
+    protected processOrderCount(response: HttpResponseBase): Observable<OrderCountDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OrderCountDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param orderID (optional) 
+     * @param status (optional) 
+     * @return OK
+     */
+    orderStatusChange(orderID: number | undefined, status: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/OrderServices/OrderStatusChange?";
+        if (orderID === null)
+            throw new Error("The parameter 'orderID' cannot be null.");
+        else if (orderID !== undefined)
+            url_ += "OrderID=" + encodeURIComponent("" + orderID) + "&";
+        if (status === null)
+            throw new Error("The parameter 'status' cannot be null.");
+        else if (status !== undefined)
+            url_ += "Status=" + encodeURIComponent("" + status) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processOrderStatusChange(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processOrderStatusChange(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processOrderStatusChange(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable()
@@ -911,17 +1132,27 @@ export class ProductServiceProxy {
 
     /**
      * @param filterText (optional) 
+     * @param startDate (optional) 
+     * @param endDate (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return OK
      */
-    getAll(filterText: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<ProductDtoPagedResultDto> {
+    getAll(filterText: string | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<ProductDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/Product/GetAll?";
         if (filterText === null)
             throw new Error("The parameter 'filterText' cannot be null.");
         else if (filterText !== undefined)
             url_ += "FilterText=" + encodeURIComponent("" + filterText) + "&";
+        if (startDate === null)
+            throw new Error("The parameter 'startDate' cannot be null.");
+        else if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toISOString() : "") + "&";
+        if (endDate === null)
+            throw new Error("The parameter 'endDate' cannot be null.");
+        else if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toISOString() : "") + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -4266,6 +4497,75 @@ export class UserServiceProxy {
     }
 }
 
+@Injectable()
+export class ApiServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
+
+    /**
+     * @param userId (optional) 
+     * @param token (optional) 
+     * @return OK
+     */
+    userVerification(userId: number | undefined, token: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/UserVerification?";
+        if (userId === null)
+            throw new Error("The parameter 'userId' cannot be null.");
+        else if (userId !== undefined)
+            url_ += "userId=" + encodeURIComponent("" + userId) + "&";
+        if (token === null)
+            throw new Error("The parameter 'token' cannot be null.");
+        else if (token !== undefined)
+            url_ += "token=" + encodeURIComponent("" + token) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUserVerification(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUserVerification(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUserVerification(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
 export class ApplicationInfoDto implements IApplicationInfoDto {
     version: string | undefined;
     releaseDate: moment.Moment;
@@ -5317,6 +5617,61 @@ export interface ICreateUserDto {
     password: string;
 }
 
+export class DashboardRevenueDto implements IDashboardRevenueDto {
+    totalRevenue: number;
+    totalOrder: number;
+    totalCustomer: number;
+    totalProducts: number;
+
+    constructor(data?: IDashboardRevenueDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalRevenue = _data["totalRevenue"];
+            this.totalOrder = _data["totalOrder"];
+            this.totalCustomer = _data["totalCustomer"];
+            this.totalProducts = _data["totalProducts"];
+        }
+    }
+
+    static fromJS(data: any): DashboardRevenueDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new DashboardRevenueDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalRevenue"] = this.totalRevenue;
+        data["totalOrder"] = this.totalOrder;
+        data["totalCustomer"] = this.totalCustomer;
+        data["totalProducts"] = this.totalProducts;
+        return data;
+    }
+
+    clone(): DashboardRevenueDto {
+        const json = this.toJSON();
+        let result = new DashboardRevenueDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IDashboardRevenueDto {
+    totalRevenue: number;
+    totalOrder: number;
+    totalCustomer: number;
+    totalProducts: number;
+}
+
 export class DiscountType implements IDiscountType {
     id: number;
     discountName: string | undefined;
@@ -5800,6 +6155,61 @@ export interface IIsTenantAvailableOutput {
     tenantId: number | undefined;
 }
 
+export class OrderCountDto implements IOrderCountDto {
+    processingOrders: number;
+    shippedOrders: number;
+    deliveredOrders: number;
+    cancelledOrders: number;
+
+    constructor(data?: IOrderCountDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.processingOrders = _data["processingOrders"];
+            this.shippedOrders = _data["shippedOrders"];
+            this.deliveredOrders = _data["deliveredOrders"];
+            this.cancelledOrders = _data["cancelledOrders"];
+        }
+    }
+
+    static fromJS(data: any): OrderCountDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OrderCountDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["processingOrders"] = this.processingOrders;
+        data["shippedOrders"] = this.shippedOrders;
+        data["deliveredOrders"] = this.deliveredOrders;
+        data["cancelledOrders"] = this.cancelledOrders;
+        return data;
+    }
+
+    clone(): OrderCountDto {
+        const json = this.toJSON();
+        let result = new OrderCountDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IOrderCountDto {
+    processingOrders: number;
+    shippedOrders: number;
+    deliveredOrders: number;
+    cancelledOrders: number;
+}
+
 export class OrderDetailsDto implements IOrderDetailsDto {
     orderProducts: OrderProductDto[] | undefined;
     shippingAddress: string | undefined;
@@ -6145,6 +6555,69 @@ export interface IOrderProductDto {
     quantity: number;
     productPrice: number;
     productName: string | undefined;
+}
+
+export class PagedOrderResultRequestDto implements IPagedOrderResultRequestDto {
+    maxResultCount: number;
+    skipCount: number;
+    sorting: string | undefined;
+    filterText: string | undefined;
+    startDate: moment.Moment | undefined;
+    endDate: moment.Moment | undefined;
+
+    constructor(data?: IPagedOrderResultRequestDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.maxResultCount = _data["maxResultCount"];
+            this.skipCount = _data["skipCount"];
+            this.sorting = _data["sorting"];
+            this.filterText = _data["filterText"];
+            this.startDate = _data["startDate"] ? moment(_data["startDate"].toString()) : <any>undefined;
+            this.endDate = _data["endDate"] ? moment(_data["endDate"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): PagedOrderResultRequestDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedOrderResultRequestDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["maxResultCount"] = this.maxResultCount;
+        data["skipCount"] = this.skipCount;
+        data["sorting"] = this.sorting;
+        data["filterText"] = this.filterText;
+        data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
+        data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
+        return data;
+    }
+
+    clone(): PagedOrderResultRequestDto {
+        const json = this.toJSON();
+        let result = new PagedOrderResultRequestDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPagedOrderResultRequestDto {
+    maxResultCount: number;
+    skipCount: number;
+    sorting: string | undefined;
+    filterText: string | undefined;
+    startDate: moment.Moment | undefined;
+    endDate: moment.Moment | undefined;
 }
 
 export class PermissionDto implements IPermissionDto {
@@ -7286,6 +7759,53 @@ export interface ISmtpSettingsDto {
     domain: string | undefined;
     enableSsl: boolean;
     senderEmail: string | undefined;
+}
+
+export class StatsGraphDto implements IStatsGraphDto {
+    creationtime: moment.Moment;
+    revenue: number;
+
+    constructor(data?: IStatsGraphDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.creationtime = _data["creationtime"] ? moment(_data["creationtime"].toString()) : <any>undefined;
+            this.revenue = _data["revenue"];
+        }
+    }
+
+    static fromJS(data: any): StatsGraphDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new StatsGraphDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["creationtime"] = this.creationtime ? this.creationtime.toISOString() : <any>undefined;
+        data["revenue"] = this.revenue;
+        return data;
+    }
+
+    clone(): StatsGraphDto {
+        const json = this.toJSON();
+        let result = new StatsGraphDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IStatsGraphDto {
+    creationtime: moment.Moment;
+    revenue: number;
 }
 
 export enum TenantAvailabilityState {

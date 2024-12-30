@@ -62,6 +62,7 @@ export class CategoryComponent extends PagedListingComponentBase<CategoryDto> {
       
       });            
       this.showPaging(result, pageNumber);   
+      this.dateRange = [];
     });
   }  
 
@@ -104,14 +105,10 @@ export class CategoryComponent extends PagedListingComponentBase<CategoryDto> {
 
 
   onDateSearch(): void {  
-    if (this.dateRange && this.dateRange.length === 2) { 
-      console.log("working");
-            
-        this.getDataPage(1);
-    } else {
-        abp.message.warn('Please select both start and end dates.');
-    }
-}
+    if (this.dateRange && this.dateRange.length === 2) {this.getDataPage(1);} }  
+    
+    
+
     protected editcategory(entity: CategoryDto): void {
       this.router.navigate(["app/categories/edit-category", entity.id]);
     }

@@ -98,7 +98,8 @@ dateRange: Date[] = [];
             this._orderService.orderCount().subscribe((result) => {
               this.orderStats = result;              
               this.cd.detectChanges();                
-            });                     
+            });           
+            this.dateRange= [];          
             this.cd.detectChanges();                
           });    
   }
@@ -203,11 +204,6 @@ dateRange: Date[] = [];
       }
 
       onDateSearch(): void {  
-        if (this.dateRange && this.dateRange.length === 2) { 
-          console.log("working");                
-            this.getDataPage(1);
-        } else {
-            abp.message.warn('Please select both start and end dates.');
-        }
+        if (this.dateRange && this.dateRange.length === 2) {this.getDataPage(1);}                                      
     }
 }

@@ -6735,6 +6735,7 @@ export class ProductDto implements IProductDto {
     readonly isActive: boolean;
     readonly lowStock: boolean;
     creationTime: moment.Moment;
+    ismain: boolean;
     thumbnail: string | undefined;
 
     constructor(data?: IProductDto) {
@@ -6756,6 +6757,7 @@ export class ProductDto implements IProductDto {
             (<any>this).isActive = _data["isActive"];
             (<any>this).lowStock = _data["lowStock"];
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.ismain = _data["ismain"];
             this.thumbnail = _data["thumbnail"];
         }
     }
@@ -6777,6 +6779,7 @@ export class ProductDto implements IProductDto {
         data["isActive"] = this.isActive;
         data["lowStock"] = this.lowStock;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["ismain"] = this.ismain;
         data["thumbnail"] = this.thumbnail;
         return data;
     }
@@ -6798,6 +6801,7 @@ export interface IProductDto {
     isActive: boolean;
     lowStock: boolean;
     creationTime: moment.Moment;
+    ismain: boolean;
     thumbnail: string | undefined;
 }
 

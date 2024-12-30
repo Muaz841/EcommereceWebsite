@@ -24,7 +24,7 @@ namespace EmailSender.CategoryServices
 
         public CategoryService(IRepository<Category, int> categoryRepository,
             IRepository<ProductCategory, int> productCategoryRepository,
-            ExportToExcel excel,IObjectMapper objectMapper)
+            ExportToExcel excel, IObjectMapper objectMapper)
         {
             _categoryRepository = categoryRepository;
             _productCategoryRepository = productCategoryRepository;
@@ -34,27 +34,28 @@ namespace EmailSender.CategoryServices
 
         public async Task<PagedResultDto<CategoryDto>> GetAllAsync(PagedCategoryResultRequestDto input)
         {
-           var filter = string.IsNullOrWhiteSpace(input.FilterText) ? string.Empty : input.FilterText.Trim().ToLower();
+            var filter = string.IsNullOrWhiteSpace(input.FilterText) ? string.Empty : input.FilterText.Trim().ToLower();
 
-          var  filteredcategories = _categoryRepository.GetAll().AsNoTracking()
-              .WhereIf(!string.IsNullOrEmpty(filter), Category => Category.Name.ToLower().Contains(filter) &&
-                       (!input.StartDate.HasValue || Category.CreationTime >= input.StartDate.Value) &&
-                       (!input.EndDate.HasValue || Category.CreationTime <= input.EndDate.Value));
+            var filteredcategories = _categoryRepository.GetAll().AsNoTracking()
+              .Where(category =>
+              (string.IsNullOrEmpty(filter) || category.Name.ToLower().Contains(filter)) &&
+              (!input.StartDate.HasValue || category.CreationTime >= input.StartDate.Value) &&
+            (!input.EndDate.HasValue || category.CreationTime <= input.EndDate.Value));
 
-           var totalCount = await filteredcategories.CountAsync();
-          
-           var paged = await  filteredcategories.OrderBy(input.Sorting ?? "id desc")
-                                                  .PageBy(input.SkipCount,input.MaxResultCount)
-                                                  .ToListAsync();
+            var totalCount = await filteredcategories.CountAsync();
 
-                            return new PagedResultDto<CategoryDto>(
-                                                     totalCount,
-                                                     ObjectMapper.Map<List<CategoryDto>>(paged));
+            var paged = await filteredcategories.OrderBy(input.Sorting ?? "id desc")
+                                                   .PageBy(input.SkipCount, input.MaxResultCount)
+                                                   .ToListAsync();
+
+            return new PagedResultDto<CategoryDto>(
+                                     totalCount,
+                                     ObjectMapper.Map<List<CategoryDto>>(paged));
         }
 
         public async Task Update(CategoryDto input)
         {
-            await _categoryRepository.GetAll().Where(c=> c.Id  == input.Id)
+            await _categoryRepository.GetAll().Where(c => c.Id == input.Id)
                       .UpdateFromQueryAsync(c => new Category
                       {
                           Thumbnail = input.Thumbnail,
@@ -65,14 +66,14 @@ namespace EmailSender.CategoryServices
 
         public async Task CreateAsync(CategoryDto input)
         {
-            
+
             var category = _objectMapper.Map<Category>(input);
-            await _categoryRepository.InsertAsync(category);            
+            await _categoryRepository.InsertAsync(category);
         }
 
         public async Task<List<CategoryListDto>> GetList()
         {
-            
+
             var categories = await _categoryRepository.GetAll()
                 .AsNoTracking()
                 .Select(category => new CategoryListDto
@@ -85,10 +86,10 @@ namespace EmailSender.CategoryServices
             return categories;
         }
 
-        public  async Task GetExcelFile()
+        public async Task GetExcelFile()
         {
             var category = _categoryRepository.GetAll().AsNoTracking().ToList();
-             await _excel.ExportExcelFile(category, "CategoryList");           
+            await _excel.ExportExcelFile(category, "CategoryList");
         }
 
         public async Task<CategoryDto> GetById(int input)

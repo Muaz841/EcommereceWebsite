@@ -9,14 +9,15 @@
           </div>
           
           <div class="col-md-6 text-right gap">
-            <a href="javascript:;" class="btn btn-outline-danger" [routerLink]="['/app/categories']">
+            <button  href="javascript:;" class="btn btn-outline-danger" [routerLink]="['/app/categories']">
               <i class="fas fa-xmark"></i>
               {{ "Cancel" | localize }}
-            </a>
-            <a href="javascript:;" class="btn bg-inline-blue" (click)="submit()">
+            </button>
+            <button  href="javascript:;" class="btn bg-inline-blue" [disabled]="isViewMode" (click)="submit()">
               <i class="fa fa-check"></i>
               {{ CategoryDto.id ? "UPDATE CATEGORY" : "ADD CATEGORY" | localize }}
-            </a>
+            </button>
+            
           </div>
       </div>
   </div>
@@ -55,7 +56,7 @@
               <ng-template #imagePreview>
                 <div class="image-preview">
                   <img [src]="previewThumbnail" alt="Preview" class="uploaded-image" />
-                  <button type="button" class="remove-image" (click)="removeThumbnail()">&times;</button>
+                  <button type="button" class="remove-image" [disabled]="isViewMode" (click)="removeThumbnail()">&times;</button>
                 </div>
               </ng-template>
             </div>

@@ -17,10 +17,9 @@ import { AppComponent } from './app.component';
                         // canActivate: [AppRouteGuard]
                     },
                     {
-                        path: 'order',
-                        loadChildren: () => import('./order/order.module').then((m) => m.OrdersModule),
-                        // canActivate: [AppRouteGuard]
-                    },
+                        path: 'verification',
+                        loadChildren: () => import('./userEmailVerification/verification.component.Module').then((m) => m.VerificationModule),                      
+                    },            
                     {
                         path: 'about',
                         loadChildren: () => import('./about/about.module').then((m) => m.AboutModule),
@@ -37,21 +36,7 @@ import { AppComponent } from './app.component';
                         loadChildren: () => import('./roles/roles.module').then((m) => m.RolesModule),
                         data: { permission: 'Pages.Roles' },
                        // canActivate: [AppRouteGuard]
-                    },
-                    {
-                        path: 'products',
-                        loadChildren: () => import('./product/product.module').then((m) => m.ProductModule),
-                        data: { permission: 'Pages.Roles'  },
-                        // canActivate: [AppRouteGuard]
-                        
-                    },
-                    {
-                        path: 'categories',
-                        loadChildren: () => import('./categories/categories.module').then((m) => m.CategoryModule),
-                        data: { permission: 'Pages.Roles'  },
-                        // canActivate: [AppRouteGuard]
-                        
-                    },
+                    },                           
                     {
                         path: 'tenants',
                         loadChildren: () => import('./tenants/tenants.module').then((m) => m.TenantsModule),

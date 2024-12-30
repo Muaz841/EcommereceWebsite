@@ -96,9 +96,10 @@ namespace EmailSender.order
 
             var filteredOrders = _orderRepository.GetAll()
                  .AsNoTracking().Include(o => o.OrderProducts)
-                 .Where(order => string.IsNullOrEmpty(filtertext) || order.Customer.Name.ToLower().Contains(filtertext) &&
-                       (!input.StartDate.HasValue || order.CreationTime >= input.StartDate.Value) &&
-                       (!input.EndDate.HasValue || order.CreationTime <= input.EndDate.Value));
+                 .Where(order =>
+                                    (string.IsNullOrEmpty(filtertext) || order.Customer.Name.ToLower().Contains(filtertext)) &&
+                                    (!input.StartDate.HasValue || order.CreationTime >= input.StartDate.Value) &&
+                                    (!input.EndDate.HasValue || order.CreationTime <= input.EndDate.Value));
 
             var data = await filteredOrders
             .Select(o => new OrderListDto

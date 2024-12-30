@@ -68,10 +68,10 @@ namespace EmailSender.Authorization.Accounts
            
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
+            //var verificationUrl = $"https://localhost:44311/api/UserVerification?userId={user.Id}&token={Uri.EscapeDataString(token)}";
+            var verificationUrl = $"http://localhost:4200/app/verification/verify/{user.Id}/{Uri.EscapeDataString(token)}";
 
-            var verificationUrl = $"http://localhost:4200/app/verification/verify/{{userId}}/{Uri.EscapeDataString(token)}";
-
-
+           
             var mailData = new EmailSenderDto
             {
                 useremail = user.EmailAddress,
@@ -85,7 +85,7 @@ namespace EmailSender.Authorization.Accounts
             
             return new RegisterOutput
             {
-                CanLogin = user.IsActive && (user.IsEmailConfirmed || !isEmailConfirmationRequiredForLogin)
+                CanLogin = user.IsActive && (user.IsEmailConfirmed || isEmailConfirmationRequiredForLogin)
             };
         }
     }

@@ -140,9 +140,9 @@ namespace EmailSender.ProductServices
                        (string.IsNullOrEmpty(filterText) || product.Name.ToLower().Contains(filterText)) &&
                        (!input.StartDate.HasValue || product.CreationTime >= input.StartDate.Value) &&
                        (!input.EndDate.HasValue || product.CreationTime <= input.EndDate.Value))
-                   .Include(product => product.ProductDetails)
-                   .Include(product => product.ProductCategories)
-                       .ThenInclude(pc => pc.Category);
+                             .Include(product => product.ProductDetails)
+                                .Include(product => product.ProductCategories)
+                                 .ThenInclude(pc => pc.Category);
 
 
             var data = await filteredProducts
@@ -154,7 +154,8 @@ namespace EmailSender.ProductServices
                     CreationTime = x.CreationTime,
                     CategoryName = x.ProductCategories.FirstOrDefault().Category.Name, 
                     BasePrice = x.ProductDetails.FirstOrDefault().BasePrice,
-                    Stock = x.ProductDetails.FirstOrDefault().Stock
+                    Stock = x.ProductDetails.FirstOrDefault().Stock,
+                    Ismain = x.main,
                 })
                 .OrderBy(input.Sorting ?? "id desc")
                 .PageBy(input)  

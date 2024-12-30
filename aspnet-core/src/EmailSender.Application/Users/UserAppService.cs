@@ -89,7 +89,7 @@ namespace EmailSender.Users
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
-          var verificationUrl = $"http://localhost:4200/app/verification/verify/{{userId}}/{Uri.EscapeDataString(token)}";
+          var verificationUrl = $"http://localhost:4200/app/verification/verify/{user.Id}/{Uri.EscapeDataString(token)}";
 
 
             CheckErrors(await _userManager.CreateAsync(user, input.Password));

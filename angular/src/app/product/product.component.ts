@@ -180,15 +180,7 @@ export class ProductComponent extends PagedListingComponentBase<ProductDto> {
   }
 
   onDateSearch(): void {  
-    if (this.dateRange && this.dateRange.length === 2) { 
-      console.log("working");
-            
-        this.getDataPage(1);
-    } else {
-        abp.message.warn('Please select both start and end dates.');
-    }
-}
-  
+    if (this.dateRange && this.dateRange.length === 2) {this.getDataPage(1);} }                                     
   onsearch() {
     this.getDataPage(1);
   }

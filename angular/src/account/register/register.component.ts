@@ -40,7 +40,7 @@ export class RegisterComponent extends AppComponentBase {
       )
       .subscribe((result: RegisterOutput) => {
         if (!result.canLogin) {
-          abp.notify.success(this.l('SuccessfullyRegistered Mail Sent At your Address Kindly Verify'));
+          abp.message.success(this.l('SuccessfullyRegistered Mail Sent At your Address Kindly Verify'));
           this._router.navigate(['/login']);
           return;
         }

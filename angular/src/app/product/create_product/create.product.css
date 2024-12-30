@@ -44,7 +44,7 @@
     height: 300px;
   }
 .mediaSection{
-  height: 75vh;
+  height: 77vh;
 }
   .card-img-top {
     object-fit: contain; /* Ensures image fits within the container without distortion */
