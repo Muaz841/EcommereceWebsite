@@ -21,7 +21,7 @@ customerReviews:  ProductReviewsDto[] = [];
     super(injector);
   }
   ngOnInit(): void {
-    this._productServie.getlatest().subscribe((result) => {this.lastestproduct = result;
+    this._productServie.getLatest().subscribe((result) => {this.lastestproduct = result;
       this.cd.detectChanges();            
      },
    () => abp.notify.error('Error fetching latest products')

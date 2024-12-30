@@ -12,6 +12,21 @@ import { AppComponent } from './app.component';
                 data: { breadcrumb: 'App' },
                 children: [
                     {
+                        path: 'onSaleProducts',
+                        loadChildren: () => import('./onSaleProducts/onSaleProductsModue').then((m) => m.onSaleProductsModule),
+                        // canActivate: [AppRouteGuard]
+                    },
+                    {
+                        path: 'reviewScreen',
+                        loadChildren: () => import('./reviewScreen/reviewScreenModue').then((m) => m.reviewScreenModule),
+                        // canActivate: [AppRouteGuard]
+                    },
+                    {
+                        path: 'newArrivals',
+                        loadChildren: () => import('./newArrivals/newArrivalsModue').then((m) => m.newArrivalssModule),
+                        // canActivate: [AppRouteGuard]
+                    },
+                    {
                         path: 'dashboard',
                         loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
                         // canActivate: [AppRouteGuard]

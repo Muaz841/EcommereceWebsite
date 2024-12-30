@@ -13,12 +13,12 @@
     width: 100%;
 }
 .custom-card {
-    height: 322px; /* Adjust to your preferred height */
+    height: 328px; /* Adjust to your preferred height */
     overflow: hidden; /* Ensure content doesn't overflow */
   }
 
   .address-custom-card {
-    height: 322px; /* Adjust to your preferred height */
+    height: 328px; /* Adjust to your preferred height */
     overflow: hidden; /* Ensure content doesn't overflow */
   }
 .bg-inline-green{

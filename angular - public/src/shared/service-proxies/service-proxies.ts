@@ -1439,8 +1439,8 @@ export class PublicSiteServiceProxy {
     /**
      * @return OK
      */
-    getProducts(): Observable<CreateUpdateProductDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/PublicSite/GetProducts";
+    getAllProducts(): Observable<PublicProductDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/PublicSite/GetAllProducts";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1452,20 +1452,20 @@ export class PublicSiteServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetProducts(response_);
+            return this.processGetAllProducts(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetProducts(response_ as any);
+                    return this.processGetAllProducts(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<CreateUpdateProductDto[]>;
+                    return _observableThrow(e) as any as Observable<PublicProductDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<CreateUpdateProductDto[]>;
+                return _observableThrow(response_) as any as Observable<PublicProductDto[]>;
         }));
     }
 
-    protected processGetProducts(response: HttpResponseBase): Observable<CreateUpdateProductDto[]> {
+    protected processGetAllProducts(response: HttpResponseBase): Observable<PublicProductDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1479,7 +1479,7 @@ export class PublicSiteServiceProxy {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200.push(CreateUpdateProductDto.fromJS(item));
+                    result200.push(PublicProductDto.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -1497,8 +1497,66 @@ export class PublicSiteServiceProxy {
     /**
      * @return OK
      */
-    getlatest(): Observable<PublicProductDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/PublicSite/Getlatest";
+    newArrivals(): Observable<PublicProductDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/PublicSite/NewArrivals";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processNewArrivals(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processNewArrivals(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PublicProductDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PublicProductDto[]>;
+        }));
+    }
+
+    protected processNewArrivals(response: HttpResponseBase): Observable<PublicProductDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(PublicProductDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return OK
+     */
+    getLatest(): Observable<PublicProductDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/PublicSite/GetLatest";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1510,11 +1568,11 @@ export class PublicSiteServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetlatest(response_);
+            return this.processGetLatest(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetlatest(response_ as any);
+                    return this.processGetLatest(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<PublicProductDto[]>;
                 }
@@ -1523,7 +1581,7 @@ export class PublicSiteServiceProxy {
         }));
     }
 
-    protected processGetlatest(response: HttpResponseBase): Observable<PublicProductDto[]> {
+    protected processGetLatest(response: HttpResponseBase): Observable<PublicProductDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -6290,6 +6348,8 @@ export class OrderDto implements IOrderDto {
     orderId: number;
     creationDate: moment.Moment;
     status: number;
+    productThumbnail: string | undefined;
+    productsCount: number;
 
     constructor(data?: IOrderDto) {
         if (data) {
@@ -6314,6 +6374,8 @@ export class OrderDto implements IOrderDto {
             this.orderId = _data["orderId"];
             this.creationDate = _data["creationDate"] ? moment(_data["creationDate"].toString()) : <any>undefined;
             this.status = _data["status"];
+            this.productThumbnail = _data["productThumbnail"];
+            this.productsCount = _data["productsCount"];
         }
     }
 
@@ -6338,6 +6400,8 @@ export class OrderDto implements IOrderDto {
         data["orderId"] = this.orderId;
         data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
         data["status"] = this.status;
+        data["productThumbnail"] = this.productThumbnail;
+        data["productsCount"] = this.productsCount;
         return data;
     }
 
@@ -6358,6 +6422,8 @@ export interface IOrderDto {
     orderId: number;
     creationDate: moment.Moment;
     status: number;
+    productThumbnail: string | undefined;
+    productsCount: number;
 }
 
 export class OrderListDto implements IOrderListDto {
@@ -6371,6 +6437,8 @@ export class OrderListDto implements IOrderListDto {
     shippedCount: number;
     deliveredCount: number;
     cancelledCount: number;
+    productThumbnail: string | undefined;
+    productsCount: number;
 
     constructor(data?: IOrderListDto) {
         if (data) {
@@ -6393,6 +6461,8 @@ export class OrderListDto implements IOrderListDto {
             this.shippedCount = _data["shippedCount"];
             this.deliveredCount = _data["deliveredCount"];
             this.cancelledCount = _data["cancelledCount"];
+            this.productThumbnail = _data["productThumbnail"];
+            this.productsCount = _data["productsCount"];
         }
     }
 
@@ -6415,6 +6485,8 @@ export class OrderListDto implements IOrderListDto {
         data["shippedCount"] = this.shippedCount;
         data["deliveredCount"] = this.deliveredCount;
         data["cancelledCount"] = this.cancelledCount;
+        data["productThumbnail"] = this.productThumbnail;
+        data["productsCount"] = this.productsCount;
         return data;
     }
 
@@ -6437,6 +6509,8 @@ export interface IOrderListDto {
     shippedCount: number;
     deliveredCount: number;
     cancelledCount: number;
+    productThumbnail: string | undefined;
+    productsCount: number;
 }
 
 export class OrderListDtoPagedResultDto implements IOrderListDtoPagedResultDto {
@@ -6735,6 +6809,7 @@ export class ProductDto implements IProductDto {
     readonly isActive: boolean;
     readonly lowStock: boolean;
     creationTime: moment.Moment;
+    ismain: boolean;
     thumbnail: string | undefined;
 
     constructor(data?: IProductDto) {
@@ -6756,6 +6831,7 @@ export class ProductDto implements IProductDto {
             (<any>this).isActive = _data["isActive"];
             (<any>this).lowStock = _data["lowStock"];
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
+            this.ismain = _data["ismain"];
             this.thumbnail = _data["thumbnail"];
         }
     }
@@ -6777,6 +6853,7 @@ export class ProductDto implements IProductDto {
         data["isActive"] = this.isActive;
         data["lowStock"] = this.lowStock;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["ismain"] = this.ismain;
         data["thumbnail"] = this.thumbnail;
         return data;
     }
@@ -6798,6 +6875,7 @@ export interface IProductDto {
     isActive: boolean;
     lowStock: boolean;
     creationTime: moment.Moment;
+    ismain: boolean;
     thumbnail: string | undefined;
 }
 

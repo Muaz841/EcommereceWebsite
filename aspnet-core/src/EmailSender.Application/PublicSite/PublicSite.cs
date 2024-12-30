@@ -13,6 +13,7 @@ using EmailSender.CartEntity;
 using EmailSender.ProductEntities;
 using EmailSender.Authorization.Users;
 using Castle.MicroKernel;
+using System;
 
 
 
@@ -45,35 +46,68 @@ namespace EmailSender.PublicSite
 
         }
 
-        public async Task<List<CreateUpdateProductDto>> GetProducts()
+
+        public async Task<List<PublicProductDto>> GetAllProducts()
         {
-            var product = await _productRepository.GetAll()
-                          .AsNoTracking()
-                          .Include(p => p.ProductDetails)
-                          .Include(p => p.ProductCategories)
-                          .Include(p => p.ProductMedia).ToListAsync();
 
+            var filteredProducts = _productRepository.GetAll()
+                   .AsNoTracking()
+                   .Include(product => product.ProductDetails)
+                   .Include(p => p.ProductReviews)
+                   .Include(product => product.ProductCategories)
+                     .ThenInclude(pc => pc.Category);
 
-            var productDto = product.Select(product => new CreateUpdateProductDto
-            {
-                Name = product.Name,
-                Thumbnail = product.Thumbnail,
-                DiscountId = product.ProductDetails.FirstOrDefault()?.DiscountId,
-                DiscountPrice = product.ProductDetails.FirstOrDefault()?.DiscountedPrice,
-                BasePrice = product.ProductDetails.FirstOrDefault().BasePrice,
-                Quantity = product.ProductDetails.FirstOrDefault()?.Stock,
-                CategoryId = product.ProductCategories.FirstOrDefault()?.CategoryId,
-                Description = product.ProductDetails.FirstOrDefault()?.Description,
-                Images = product.ProductMedia.Select(m => new ProductMediaDTO
+            var data = await filteredProducts
+                .Where(x => x.ProductDetails.Any(pd => pd.Stock > 0))
+                .OrderByDescending(product => product.CreationTime)                
+                .Select(x => new PublicProductDto
                 {
-                    image = m.image,
-                    imagename = m.Description
-                }).ToList()
-            }).ToList();
+                    productID = x.Id,
+                    description = x.ProductDetails.FirstOrDefault().Description,
+                    Thumbnail = x.Thumbnail,
+                    BasePrice = x.ProductDetails.FirstOrDefault().DiscountedPrice > 0
+                                ? x.ProductDetails.FirstOrDefault().DiscountedPrice
+                                : x.ProductDetails.FirstOrDefault().BasePrice,
+                    Rating = x.ProductReviews.Any()
+                                ? (int)x.ProductReviews.Average(r => r.ratings)
+                                : 0
+                })
+                .ToListAsync();
 
-            return productDto;
+            return data;
         }
-        public async Task<List<PublicProductDto>> Getlatest()
+
+        public async Task<List<PublicProductDto>> NewArrivals()
+        {
+            var thirtyDaysAgo = DateTime.Now.AddDays(-30);
+
+            var filteredProducts = _productRepository.GetAll()
+                   .AsNoTracking()
+                   .Include(product => product.ProductDetails)
+                   .Include(p => p.ProductReviews)
+                   .Include(product => product.ProductCategories)
+                     .ThenInclude(pc => pc.Category);
+
+            var data = await filteredProducts
+                .Where(x => x.ProductDetails.Any(pd => pd.Stock > 0) && x.CreationTime >= thirtyDaysAgo)
+                .OrderByDescending(product => product.CreationTime)
+                .Select(x => new PublicProductDto
+                {
+                    productID = x.Id,
+                    description = x.ProductDetails.FirstOrDefault().Description,
+                    Thumbnail = x.Thumbnail,
+                    BasePrice = x.ProductDetails.FirstOrDefault().DiscountedPrice > 0
+                                ? x.ProductDetails.FirstOrDefault().DiscountedPrice
+                                : x.ProductDetails.FirstOrDefault().BasePrice,
+                    Rating = x.ProductReviews.Any()
+                                ? (int)x.ProductReviews.Average(r => r.ratings)
+                                : 0
+                })
+                .ToListAsync();
+
+            return data;
+        }
+        public async Task<List<PublicProductDto>> GetLatest()
         {
 
             var filteredProducts = _productRepository.GetAll()
@@ -276,5 +310,9 @@ namespace EmailSender.PublicSite
                 })
                 .ToListAsync();
         }
+            
+        
+        
+     
     }
 }

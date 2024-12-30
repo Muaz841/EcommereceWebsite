@@ -1,0 +1,39 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light background for contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Stylish "On Sale" heading */
+.sale-heading {
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #1e90ff; /* Bright blue */
+    background: linear-gradient(to right, #1e90ff, #00bfff, #87ceeb); /* Gradient from dark to light blue */
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: saleAnimation 2s ease-in-out infinite alternate;
+}
+
+/* Animation */
+@keyframes saleAnimation {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}

@@ -48,15 +48,7 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
         return [
             //new MenuItem(this.l('About'), '/app/about', 'fas fa-info-circle'),
             new MenuItem(
-                this.l('Dashboard'), '/app/dashboard', 'fas fa-home', undefined, undefined,'#EEA520'),
-            new MenuItem(
-                this.l('Roles'),
-                '/app/roles',
-                'fas fa-theater-masks',
-                'Pages.Roles',
-                undefined,
-                '#EEA520' 
-            ),
+                this.l('Dashboard'), '/app/dashboard', 'fas fa-home', undefined, undefined,'#EEA520'),          
             new MenuItem(
                 this.l('Products'),
                 '/app/products',
@@ -66,7 +58,7 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                   '#EEA520'
             ),
             new MenuItem(
-                this.l('Category'),
+                this.l('Categorys'),
                 '/app/categories',
                 'bi bi-box-seam',
                 'Pages.Roles',
@@ -96,6 +88,14 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 'Pages.Users',
                 undefined,
                   '#EEA520'
+            ),
+            new MenuItem(
+                this.l('Roles'),
+                '/app/roles',
+                'fas fa-theater-masks',
+                'Pages.Roles',
+                undefined,
+                '#EEA520' 
             ),
             new MenuItem(this.l('Email'), '', 'fas fa-envelope-open-text', '',  
             [

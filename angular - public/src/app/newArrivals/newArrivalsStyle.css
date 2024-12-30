@@ -1,0 +1,31 @@
+/* Main container styling */
+.heading-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  
+  .new-arrivals-heading {
+    font-size: 7.5rem;
+    font-weight: bold;
+    color: #131A3F;
+    background: linear-gradient(90deg, #131A3F, #EEA520); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    animation: pop-effect 1.5s infinite;
+    display: inline-block;
+    position: relative;
+  }
+  
+  
+  @keyframes pop-effect {
+    0%, 100% {
+      transform: scale(1);
+      text-shadow: 0 0 10px rgba(238, 165, 32, 0.7), 0 0 20px rgba(19, 26, 63, 0.5); 
+    }
+    50% {
+      transform: scale(1.1); 
+      text-shadow: 0 0 20px rgba(238, 165, 32, 0.9), 0 0 30px rgba(19, 26, 63, 0.7); 
+    }
+  }
+  
