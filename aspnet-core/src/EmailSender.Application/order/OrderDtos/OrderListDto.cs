@@ -10,7 +10,7 @@ namespace EmailSender.order.OrderDtos
     public  class OrderListDto
     {
         public int OrderID { get; set; }
-
+        
         public DateTime CreationDate { get; set; }
 
         public string CustomerName { get; set; }
@@ -24,6 +24,10 @@ namespace EmailSender.order.OrderDtos
         public int ShippedCount { get; set; }
         public int DeliveredCount { get; set; }
         public int CancelledCount { get; set; }
+
+        public byte[] ProductThumbnail { get; set; }
+
+        public int ProductsCount { get; set; }
 
     }
 

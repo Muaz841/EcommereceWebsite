@@ -12,6 +12,7 @@ const routes: Routes = [
         path: 'email-Template',
         component: EmailTemplatesComponent,
         pathMatch: 'full',
+        data: { breadcrumb: 'EmailTemplates' }
     },
     {
         path: 'host-Template',

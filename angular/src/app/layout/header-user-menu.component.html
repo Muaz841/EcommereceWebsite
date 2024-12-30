@@ -19,13 +19,31 @@
 
     <a href="javascript:;" class="nav-link" dropdownToggle>
       <i class="bi bi-caret-down" style="color: black !important;"></i>
-  <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-    <a class="dropdown-item" [routerLink]="['update-password']">
-      <i class="fas fa-user-edit"></i> {{ "UpdatePassword" | localize }}
-    </a>
-    <a class="dropdown-item" href="javascript:;" (click)="logout()">
-      <i class="fas fa-sign-out-alt"></i> {{ "Logout" | localize }}
-    </a>
-  </div>
+
+      <div class="dropdown-menu dropdown-menu-right"  *dropdownMenu>
+
+
+        <div class="card" style="width: 18rem;">
+          <div class="card-header" style="background-color: #EEA520 !important;">
+            <img
+            class="user-image img-circle elevation-2"
+            src="assets/img/user.png"
+            alt="User Image"
+            style="margin-right: 10px;"
+          />
+          <p class="mb-0">{{ shownLoginName }}                    
+          </p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <a class="dropdown-item" [routerLink]="['update-password']">
+              <i class="fas fa-user-edit"></i> {{ "UpdatePassword" | localize }}
+            </a>    
+            <!-- <a class="dropdown-item" href="javascript:;" (click)="logout()">
+              <i class="fas fa-sign-out-alt"></i> {{ "Logout" | localize }}
+            </a> -->
+          </ul>
+        </div>             
+      </div>
+
 </a>
 </div>

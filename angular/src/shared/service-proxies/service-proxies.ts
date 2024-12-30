@@ -6290,6 +6290,8 @@ export class OrderDto implements IOrderDto {
     orderId: number;
     creationDate: moment.Moment;
     status: number;
+    productThumbnail: string | undefined;
+    productsCount: number;
 
     constructor(data?: IOrderDto) {
         if (data) {
@@ -6314,6 +6316,8 @@ export class OrderDto implements IOrderDto {
             this.orderId = _data["orderId"];
             this.creationDate = _data["creationDate"] ? moment(_data["creationDate"].toString()) : <any>undefined;
             this.status = _data["status"];
+            this.productThumbnail = _data["productThumbnail"];
+            this.productsCount = _data["productsCount"];
         }
     }
 
@@ -6338,6 +6342,8 @@ export class OrderDto implements IOrderDto {
         data["orderId"] = this.orderId;
         data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
         data["status"] = this.status;
+        data["productThumbnail"] = this.productThumbnail;
+        data["productsCount"] = this.productsCount;
         return data;
     }
 
@@ -6358,6 +6364,8 @@ export interface IOrderDto {
     orderId: number;
     creationDate: moment.Moment;
     status: number;
+    productThumbnail: string | undefined;
+    productsCount: number;
 }
 
 export class OrderListDto implements IOrderListDto {
@@ -6371,6 +6379,8 @@ export class OrderListDto implements IOrderListDto {
     shippedCount: number;
     deliveredCount: number;
     cancelledCount: number;
+    productThumbnail: string | undefined;
+    productsCount: number;
 
     constructor(data?: IOrderListDto) {
         if (data) {
@@ -6393,6 +6403,8 @@ export class OrderListDto implements IOrderListDto {
             this.shippedCount = _data["shippedCount"];
             this.deliveredCount = _data["deliveredCount"];
             this.cancelledCount = _data["cancelledCount"];
+            this.productThumbnail = _data["productThumbnail"];
+            this.productsCount = _data["productsCount"];
         }
     }
 
@@ -6415,6 +6427,8 @@ export class OrderListDto implements IOrderListDto {
         data["shippedCount"] = this.shippedCount;
         data["deliveredCount"] = this.deliveredCount;
         data["cancelledCount"] = this.cancelledCount;
+        data["productThumbnail"] = this.productThumbnail;
+        data["productsCount"] = this.productsCount;
         return data;
     }
 
@@ -6437,6 +6451,8 @@ export interface IOrderListDto {
     shippedCount: number;
     deliveredCount: number;
     cancelledCount: number;
+    productThumbnail: string | undefined;
+    productsCount: number;
 }
 
 export class OrderListDtoPagedResultDto implements IOrderListDtoPagedResultDto {

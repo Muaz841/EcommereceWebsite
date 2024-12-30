@@ -29,6 +29,7 @@ totalproducts: number
     const orderId = Number(this.route.snapshot.paramMap.get('id'));
    this._orderservice.orderByID(orderId).subscribe((result:OrderDetailsDto ) => {
     this.orderDetails = result ;
+    this.cdr.detectChanges(); 
     this.totalproducts = this.orderDetails.orderProducts.length;
     this.calculateTotals();
     this.cdr.detectChanges();       

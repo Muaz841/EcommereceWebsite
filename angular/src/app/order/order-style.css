@@ -65,6 +65,13 @@
   border-radius: 4px;
 }
 
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover; 
+    margin: 10px;
+    border-radius: 50%;
+  }
 
 .status-shipped {
   color: #2BB2FE;

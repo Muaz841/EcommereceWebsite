@@ -25,6 +25,13 @@
     color: #EEA520;
     background-color: rgb(238, 165, 32, 10%);
 }
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover; 
+    margin: 10px;
+    border-radius: 50%;
+  }
 
 .customerstyling{
     display: flex;

@@ -14,6 +14,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module';
 // layout
 import { HeaderComponent } from './layout/header.component';
+import { CalendarModule } from 'primeng/calendar';
 import { HeaderLeftNavbarComponent } from './layout/header-left-navbar.component';
 import { HeaderLanguageMenuComponent } from './layout/header-language-menu.component';
 import { HeaderUserMenuComponent } from './layout/header-user-menu.component';

@@ -93,7 +93,13 @@
     font-size: 16px;
     color: #333;
   }
-  
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover; 
+    margin: 10px;
+    border-radius: 50%;
+  }
   .stat-card.processing {
     border-left: 4px solid #f9a825;
   }

@@ -295,7 +295,7 @@ namespace EmailSender.Users
             var user =  _userManager.GetUserById(UserId);
 
             var ordersData = _orderRepository.GetAll().AsNoTracking().
-                Include(o => o.OrderProducts).Where(o => o.CustomerId == UserId).ToListAsync();                        
+                Include(o => o.OrderProducts).ThenInclude(op => op.products).Where(o => o.CustomerId == UserId).ToListAsync();
 
             var orderdetails = new UserDetailsDto
             {
@@ -304,8 +304,8 @@ namespace EmailSender.Users
                 Useremail = user.EmailAddress,
                 UserPhone = user.PhoneNumber,
                 UserThumbnail = user.Thumbnail,
-                IsActive = user.IsActive,              
-                processingOrders =(await ordersData).Count(o => o.Status == 0),
+                IsActive = user.IsActive,
+                processingOrders = (await ordersData).Count(o => o.Status == 0),
                 cancelledOrders = (await ordersData).Count(o => o.Status == 3),
 
                 Orders = (await ordersData).Select(order => new OrderDto
@@ -315,10 +315,15 @@ namespace EmailSender.Users
                     ShippingAddress = order.ShippingAddress,
                     CreationDate = order.CreationTime,
                     Status = order.Status,
+                    ProductsCount = order.OrderProducts.Count(),
+                    ProductThumbnail = order.OrderProducts
+                              .OrderBy(op => op.Id)
+                              .Select(op => op.products.Thumbnail)
+                              .FirstOrDefault(),
                     OrderProducts = order.OrderProducts.Select(op =>
                     {
-                        var product = op.products; 
-                        var productDetail = product?.ProductDetails?.FirstOrDefault(); 
+                        var product = op.products;
+                        var productDetail = product?.ProductDetails?.FirstOrDefault();
 
                         return new OrderProductDto
                         {

@@ -95,7 +95,7 @@ namespace EmailSender.order
             string filtertext = string.IsNullOrWhiteSpace(input.FilterText) ? string.Empty : input.FilterText.Trim().ToLower();
 
             var filteredOrders = _orderRepository.GetAll()
-                 .AsNoTracking().Include(o => o.OrderProducts)
+                 .AsNoTracking().Include(o => o.OrderProducts).ThenInclude(op => op.products)
                  .Where(order =>
                                     (string.IsNullOrEmpty(filtertext) || order.Customer.Name.ToLower().Contains(filtertext)) &&
                                     (!input.StartDate.HasValue || order.CreationTime >= input.StartDate.Value) &&
@@ -110,6 +110,12 @@ namespace EmailSender.order
                 TotalAmount = o.TotalPrice,
                 PaymentType = "VISA",
                 Status = o.Status,
+                ProductsCount = o.OrderProducts.Count(),
+                ProductThumbnail = o.OrderProducts
+                              .OrderBy(op => op.Id) 
+                              .Select(op => op.products.Thumbnail) 
+                              .FirstOrDefault()
+
             }).OrderBy(input.Sorting ?? "OrderID asc")
                 .PageBy(input)
                 .ToListAsync();

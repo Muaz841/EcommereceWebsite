@@ -1,12 +1,15 @@
 <li class="nav-item dropdown" dropdown>
-  <a href="javascript:;" class="nav-link" dropdownToggle>
-  
-      
-      <i class="fa-solid fa-calendar-days"></i>    
-      <i class="fa-solid fa-envelope"></i> 
-      <i class="fa-solid fa-bell"></i>
-      <i class="d-inline-block {{ currentLanguage.icon }}"></i>
-  </a>
+    
+    <div class="nav-link">
+        <i class="fa-solid fa-calendar-days"></i>    
+        <i class="fa-solid fa-envelope"></i> 
+        <i class="fa-solid fa-bell"></i>
+        <a href="javascript:;" dropdownToggle>          
+            <i class="d-inline-block {{ currentLanguage.icon }}"></i>
+        </a>
+    </div>
+
+   
   <div class="dropdown-menu dropdown-menu-right p-0" *dropdownMenu>
       @for (language of languages; track language) {
           @if (language.name != currentLanguage.name) {

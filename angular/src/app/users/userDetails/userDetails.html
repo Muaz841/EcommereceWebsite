@@ -56,12 +56,13 @@
             </div>
           </div>
       
-          <!-- Orders Table -->
+          
           <table class="orders-table">
             <thead>
               <tr>                
                 <th>ID</th>                
                 <th>Date</th>
+                <th scope="col">Products</th>
                 <th>Total</th>
                 <th>Status</th>
               </tr>
@@ -70,7 +71,11 @@
               <tr *ngFor="let order of userDetails.orders">                
                 <td style="color: #EEA520; font-weight: bold">{{order.orderId}}</td>                
                 <td>{{ order.creationDate.format('DD MMM YYYY')}}</td>
-                <td>$121.00</td>
+                <td>
+                  <img [src]="'data:image/jpeg;base64,' + order.productThumbnail" alt="Product Thumbnail" class="thumbnail">
+                  + {{order.productsCount }}
+              </td>  
+                <td>{{order.totalPrice}}</td>
                 <td><span [ngClass]="getStatusClass(order)" [style.background-color]="getStatusColor(order)">
                   {{ getStatusLabel(order) }}
               </span></td>

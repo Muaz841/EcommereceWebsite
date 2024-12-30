@@ -9,6 +9,7 @@ import {
 import {BehaviorSubject} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import {MenuItem} from '@shared/layout/menu-item';
+import { AppAuthService } from '@shared/auth/app-auth.service';
 
 @Component({
     selector: 'sidebar-menu',
@@ -22,8 +23,8 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
     routerEvents: BehaviorSubject<RouterEvent> = new BehaviorSubject(undefined);
     homeRoute = '/app/dashboard';
 
-    constructor(injector: Injector, private router: Router, ) {
-        
+    constructor(injector: Injector, private router: Router,private _authService: AppAuthService, ) {
+            
         super(injector);
     }
 
@@ -40,7 +41,9 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 }
         });
     }
-
+    logout(): void {
+        this._authService.logout();
+      }
     getMenuItems(): MenuItem[] {
         return [
             //new MenuItem(this.l('About'), '/app/about', 'fas fa-info-circle'),

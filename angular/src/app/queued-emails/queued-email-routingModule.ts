@@ -8,6 +8,7 @@ const routes: Routes = [
         path: '',
         component: QueuedEmailComponent,
         pathMatch: 'full',
+        data: { breadcrumb: 'QueuedEmails' }
     },
 ];
 

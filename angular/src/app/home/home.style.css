@@ -194,7 +194,7 @@
 
 /* Fixed height for table container */
 .table-container {
-  max-height: 800px; /* Adjust as needed */
+    height: 430px; /* Adjust as needed */
   overflow-y: auto;
 }
 
@@ -225,6 +225,14 @@ span[ngClass] {
 .custom-card {
     height: 622px; /* Adjust to your preferred height */
     overflow: hidden; /* Ensure content doesn't overflow */
+  }
+
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover; 
+    margin: 10px;
+    border-radius: 50%;
   }
     
   

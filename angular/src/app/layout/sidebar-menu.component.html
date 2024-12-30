@@ -1,17 +1,39 @@
-<nav class="mt-2">
-  <ul
-    class="nav nav-pills nav-sidebar flex-column nav-flat"
-    data-widget="treeview"
-    role="menu"
-    data-accordion="false"
-    >
-    @for (item of menuItems; track item) {
-      <ng-container
-        *ngTemplateOutlet="sidebarInner; context: { item: item }"
-      ></ng-container>
-    }
-  </ul>
-</nav>
+<div>
+  <nav class="mt-2">
+    <ul
+      class="nav nav-pills nav-sidebar flex-column nav-flat"
+      data-widget="treeview"
+      role="menu"
+      data-accordion="false"
+      >
+      @for (item of menuItems; track item) {
+        <ng-container
+          *ngTemplateOutlet="sidebarInner; context: { item: item }"
+        ></ng-container>
+      }
+    </ul>
+  </nav>
+
+  <div style="display: flex; flex-direction: column; gap: 16px; width: 200px; margin: auto;">
+    <!-- Contact Support Button -->
+    <button style="display: flex; align-items: center;  justify-content: start; background-color: #F8F9FA; border: none; border-radius: 8px; padding: 12px 16px; font-size: 16px; font-family: Arial, sans-serif; color: #212529; cursor: pointer;">
+      <span style="margin-right: 8px;">
+        <img src="../../assets/img/contact.svg" height="24" width="24" alt="Logout Icon">
+  
+      </span>
+      Contact Support
+    </button>
+   
+    <button  (click)="logout()" style="display: flex; align-items: center; justify-content: start; background-color: #FDECEC; border: none; border-radius: 8px; padding: 12px 16px; font-size: 16px; font-family: Arial, sans-serif; color: #D9534F; cursor: pointer; ">
+      <span style="margin-right: 8px;">
+        <img src="../../assets/img/logout icon.svg" height="24" width="24" alt="Logout Icon">
+      </span>
+      Logout
+    </button>
+  </div>
+  
+</div>
+
 
 <ng-template #sidebarInner let-item="item">
   @if (isMenuItemVisible(item)) {

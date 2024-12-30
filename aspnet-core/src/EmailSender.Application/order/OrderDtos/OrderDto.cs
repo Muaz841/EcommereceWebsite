@@ -22,6 +22,10 @@ namespace EmailSender.order.OrderDtos
         public DateTime CreationDate { get; set; }
 
         public int Status { get; set; }
+
+        public byte[] ProductThumbnail { get; set; }
+
+        public int ProductsCount { get; set; }
     }
     public class OrderProductDto : Entity<int>
     {
