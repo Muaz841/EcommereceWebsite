@@ -1,0 +1,19 @@
+﻿@if (isMultiTenancyEnabled) {
+  <div class=" tenant-change-component" style="text-align: left;">
+    <span>
+      {{ "CurrentTenant" | localize }}:
+      @if (tenancyName) {
+        <span title="{{ name }}">
+          <strong>{{ tenancyName }}</strong>
+        </span>
+      }
+      @if (!tenancyName) {
+        <span>{{ "NotSelected" | localize }}</span>
+      }<br>
+      <div style="text-align: left;">
+        (<a href="javascript:;" (click)="showChangeModal()" style="color:#EEA520;">
+        {{ "Change" | localize }} </a
+        >)</div>
+    </span>
+  </div>
+}

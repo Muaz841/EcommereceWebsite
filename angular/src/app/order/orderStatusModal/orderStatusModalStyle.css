@@ -1,0 +1,11 @@
+/* Dropdown Full Width */
+.status-dropdown {
+    width: 100%;
+  }
+  
+  /* Card Footer Styling */
+  .card-footer {
+    background: none; /* Ensures no default background in footer */
+    border-top: 1px solid #ccc;
+  }
+  

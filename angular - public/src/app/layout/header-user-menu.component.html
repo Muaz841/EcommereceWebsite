@@ -1,0 +1,38 @@
+<div class="nav-item dropdown nav-user-menu" dropdown>
+    
+  
+    <!-- <div class="info">
+      <div class="info ms-2">
+        <p class="mb-0">{{ shownLoginName }}                    
+        </p>
+        <p class="mb-0" style="font-size: 0.875rem; color: gray;">
+          <span class="mb-0">{{ userRoles[0]?.name }}</span> 
+        </p>
+      </div>
+    </div> -->
+
+    <!-- <i class="fa fa-shopping-cart" style="font-size:36px; " (click)="ToCart()"></i> -->
+
+    <i class="bi bi-cart" style="font-size:36px;"
+     (click)="ToCart()" pBadge [value]= "cartCount" 
+   ></i>
+
+     
+    <a href="javascript:;" class="nav-link" dropdownToggle>            
+      <img
+      class="user-image img-circle elevation-2"
+      src="../../assets/img/Vector.svg"
+      alt="User Image"
+      style="margin-right: 10px;"
+    />
+
+  <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+    <a class="dropdown-item" [routerLink]="['update-password']">
+      <i class="fas fa-user-edit"></i> {{ "UpdatePassword" | localize }}
+    </a>
+    <a class="dropdown-item" href="javascript:;" (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i> {{ "Logout" | localize }}
+    </a>
+  </div>
+</a>
+</div>

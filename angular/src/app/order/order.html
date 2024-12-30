@@ -1,0 +1,195 @@
+<div class="display-flex">
+    <div [@routerTransition]>
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-6">
+                        <h1 style="font-weight: 800;">{{ "Order" | localize }}</h1> <app-breadcrumb></app-breadcrumb>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a  (click)="exportToExcel()"  href="javascript:;" class="btn bg-outline-blue"><!--(click)="createUser()"-->
+                            <i class="fas fa-download"></i>
+                            {{ "Export" | localize }}
+                            
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content px-2">
+            <div class="row">
+                <div class="col-md-3">
+                    <p-card>
+                        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                            <h5 style="font-size: 1.1rem; font-weight: 600;">Processing</h5>
+                            <img src="../../assets/img/orders/Circle Icon Bagde.svg" style="height: 2rem; width: 2rem;" />
+                        </div>
+                        <p class="m-0" style="font-weight: 700 !important;" *ngIf="orderStats">
+                           {{orderStats.processingOrders}}
+                        </p>
+                    </p-card>
+                </div>
+                <div class="col-md-3">
+                    <p-card>
+                        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                            <h5 style="font-size: 1.1rem; font-weight: 600;">Shipped</h5>
+                            <img src="../../assets/img/orders/Circle Icon Bagde shipped.svg" style="height: 2rem; width: 2rem;" />
+                        </div>
+                        <p class="m-0" style="font-weight: 700 !important;" *ngIf="orderStats">
+                            {{orderStats.shippedOrders}}
+                        </p>
+                    </p-card>
+                </div>
+                <div class="col-md-3">
+                    <p-card>
+                        <div style="display: flex; align-items: flex-start; justify-content: space-between;" >
+                            <h5 style="font-size: 1.1rem; font-weight: 600;">Delivered</h5>
+                            <img src="../../assets/img/orders/Circle Icon Bagde delivered.svg" style="height: 2rem; width: 2rem;" />
+                        </div>
+                        <p class="m-0" style="font-weight: 700 !important;"*ngIf="orderStats">
+                            {{orderStats.deliveredOrders}}
+                        </p>
+                    </p-card>
+                </div>
+                <div class="col-md-3">
+                    <p-card>
+                        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                            <h5 style="font-size: 1.1rem; font-weight: 600;">Cancelled</h5>
+                            <img src="../../assets/img/orders/Circle Icon Bagde cancelled.svg" style="height: 2rem; width: 2rem;" />
+                        </div>
+                        <p class="m-0" style="font-weight: 700 !important;" *ngIf="orderStats">
+                            {{orderStats.cancelledOrders}}
+                        </p>
+                    </p-card>
+                </div>
+            </div>
+        </section>
+        <div class="d-flex py-1 ">
+            <section class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                        <div class="card p-3">
+                            <div class="row">
+                                
+                                <div class="d-inline-flex p-2 col-md-6">
+                                    <div class="button-container">
+                                        <button class="button-group" [ngClass]="{'selected': selectedButton === 4}" (click)="selectButton(4)">
+                                            All
+                                        </button>
+                                        <button class="button-group" [ngClass]="{'selected': selectedButton === 0}" (click)="selectButton(0)">
+                                            Processing
+                                        </button>
+                                        <button class="button-group" [ngClass]="{'selected': selectedButton === 1}" (click)="selectButton(1)">
+                                            Shipped
+                                        </button>
+                                        <button class="button-group" [ngClass]="{'selected': selectedButton === 2}" (click)="selectButton(2)">
+                                            Delivered
+                                        </button>
+                                        <button class="button-group" [ngClass]="{'selected': selectedButton === 3}" (click)="selectButton(3)">
+                                            Cancelled
+                                        </button>
+                                    </div>
+                                </div>                                                                                                
+                                <div class="col-md-6 d-flex justify-content-end">
+                                    <div class="row">
+                                        
+                                        <div class="col-md-6">
+                                            <p-iconField iconPosition="left">
+                                                <p-inputIcon styleClass="fas fa-search" (click) = "onsearch()" />
+                                                <input type="text" pInputText [(ngModel)]="keyword" style="width: 100%;" placeholder="Search..."
+                                                (keyup.enter)="onsearch()" />
+                                            </p-iconField>
+                                        </div>
+            
+                                        
+                                        <div class="col-md-5">
+                                            <p-calendar [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" [numberOfMonths]="1"
+                                            selectionMode="range" class="py-1 px-1 calendar-small" placeholder="Select Date..."  [(ngModel)]="dateRange"  (onSelect)=" onDateSearch()"/>
+                                        </div>
+            
+                                        <!-- Danger Button -->
+                                        <!-- <div class="col-md-2">
+                                            <button type="button" class="action-button"><i class="fa fa-thin fa-trash-can"></i></button>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>                
+        <section class="content px-2">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>                              
+                              <th scope="col">Order ID</th>
+                              <th scope="col">DATE</th>
+                              <th scope="col">Customer</th>
+                              <th scope="col">Total</th>
+                              <th scope="col">Payment</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @for (
+                                order of filteredOrders
+                                | paginate
+                                : {
+                                id: 'server',
+                                itemsPerPage: pageSize,
+                                currentPage: pageNumber,
+                                totalItems: totalItems
+                              }
+                              ; track
+                              order.orderID){
+                            <tr>
+                                <td style="color: #EEA520; font-weight: 800;">                                    
+                                    {{ order.orderID }}
+                                </td>                               
+                                <td>{{ order.creationDate.format('DD MMM YYYY')}}</td>
+                                <td>{{ order.customerName }}</td>
+                                <td>{{ order.totalAmount | currency: 'USD' }}</td>
+                                <td>{{ order.paymentType }}</td>
+                                <td><span [ngClass]="getStatusClass(order)" [style.background-color]="getStatusColor(order)">
+                                    {{ getStatusLabel(order) }}
+                                </span></td>
+                                <td>
+                                    <i   (click) ="ShowOrderStatuModal(order)" class="fas fa-pencil-alt colorsetting px-1" ></i> 
+                                    <i  (click) ="viewOrderDetails(order)" class="fas fa-eye colorsetting"></i>
+                                </td>                       
+                            </tr> 
+                         }                      
+                          </tbody>
+                    </table>
+                  </div>
+            </div>
+            <div class="card-footer table-card-footer bg-light border-top">
+                <div class="row">
+                  <div class="col-sm-4 col-12 text-sm-left text-center">
+                     <p style="color: gray;">Showing {{firstShowingItem}} - {{lastShowingItems}} FROM {{ totalItems }}</p>           
+                  </div>
+                  <div class="col-sm-4 col-12 text-center">
+                    <p class="mb-0 my-2">
+                      
+                    </p>
+                  </div>
+                  <div class="col-sm-4 col-12">
+                    <div class="float-sm-right m-auto">
+                      <abp-pagination-controls
+                        id="server"
+                        (pageChange)="getDataPage($event)"
+                        >
+                      </abp-pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </section>
+        
+    </div>
+</div>

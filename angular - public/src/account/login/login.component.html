@@ -1,0 +1,122 @@
+﻿<div [@routerTransition]>
+  <p style="color: #EEA520;">LOGIN</p>
+
+  <div class="btn-group  my-2" role="group" aria-label="Basic outlined example">
+    <button  type="button" class="btn btn-outline-primary" 
+    [ngStyle]="{'background-color': '#EEA520','border-color': '#EEA520', color: '#fff',}">LOGIN</button>
+    <button    [routerLink]="['../register']" type="button" class="btn btn-outline-primary "
+    [ngStyle]="{'background-color': '#EEA520','border-color': '#EEA520', color: '#fff',}">REGISTER</button>    
+  </div>
+  <form novalidate autocomplete="off" #loginForm="ngForm" (ngSubmit)="login()">
+    <div class="form-group">
+      @if (showTenantChange()) {
+      <div class="card-header">
+        <tenant-change></tenant-change>
+      </div>
+      }
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          name="userNameOrEmailAddress"
+          [(ngModel)]="authService.authenticateModel.userNameOrEmailAddress"
+          [placeholder]="'UserNameOrEmail' | localize"
+          required
+          maxlength="256"
+          #userNameOrEmailAddressModel="ngModel"
+          #userNameOrEmailAddressEl
+        />
+        <div class="input-group-append">
+          <div class="input-group-text">
+            <span class="fas fa-user"></span>
+          </div>
+        </div>
+      </div>
+      <abp-validation-summary
+        [control]="userNameOrEmailAddressModel"
+        [controlEl]="userNameOrEmailAddressEl"
+      ></abp-validation-summary>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          [(ngModel)]="authService.authenticateModel.password"
+          [placeholder]="'Password' | localize"
+          required
+          maxlength="32"
+          #passwordModel="ngModel"
+          #passwordEl
+        />
+        <div class="input-group-append">
+          <div class="input-group-text">
+            <span class="fas fa-lock"></span>
+          </div>
+        </div>
+      </div>
+      <abp-validation-summary
+        [control]="passwordModel"
+        [controlEl]="passwordEl"
+      ></abp-validation-summary>
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <!-- Remember Me Checkbox and Label -->
+        <div style="display: flex; align-items: center">
+          <input
+            type="checkbox"
+            id="rememberMe"
+            name="rememberMe"
+            [(ngModel)]="authService.rememberMe"
+            style="margin-right: 0px; vertical-align: middle"
+          />                
+        </div>
+        <div>
+          <label for="rememberMe" style="font-weight: normal; display: inline">
+            {{ "RememberMe" | localize }}
+          </label>    
+        </div>
+        <div style="text-align: left;" >
+          <a
+            href="#"
+            style="text-decoration: none; color: inherit; font-weight: normal"
+            >Forgot Password?</a
+          >
+        </div>
+      </div>
+    </div>  
+    <div class="form-group row">
+      <div class="col-md-8">
+        <div class="custom-control custom-checkbox"></div>
+      </div>
+      <div class="col-md-12">
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg btn-block custom-login-button"
+          [ngStyle]="{
+            'background-color': '#EEA520',
+            'border-color': '#EEA520',
+            color: '#fff',            
+          }"
+          [disabled]="!loginForm.form.valid || submitting"
+        >
+          {{ "LogIn" | localize }}
+        </button>
+      </div>
+    </div>
+  </form>
+  <!-- @if (isSelfRegistrationAllowed) {
+  <p class="mb-1">
+    <a [routerLink]="['../register']">
+      <i class="fa fa-plus-circle"></i> {{ "Register" | localize }}
+    </a>
+  </p>
+  } -->
+</div>
+ 

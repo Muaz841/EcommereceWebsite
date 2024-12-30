@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="contact-details">
+    <h1>Contact <span>Detail</span></h1>
+    <form (ngSubmit)="submitPayment()">   
+      <div class="section">
+     
+        <p>We will use these details to keep you informed about your delivery.</p>
+        <input type="email" placeholder="Email" [(ngModel)]="contactDetails.email" name="email"  required />
+      </div>
+
+      
+      <div class="section" >
+        <h2>Shipping Address</h2>
+        <div class="input-group">
+          <input type="text"  name="First name" placeholder="First Name*" [(ngModel)]="contactDetails.firstName"  required />
+          <input type="text"    name="last email" placeholder="Last Name*" [(ngModel)]="contactDetails.lastName" required />
+        </div>
+        <input
+          type="text"
+          placeholder=" Delivery Address*"
+          required
+          [(ngModel)]="shippingAddress"
+          name="shippingAddress"
+        />
+        <input
+          type="tel"
+          placeholder="Phone Number*"
+          [(ngModel)]="contactDetails.phoneNumber"
+          required
+          name="phoneNumber"
+        />
+      </div>
+
+      <!-- Delivery Options -->
+      <div class="section">
+        <h2>Delivery Options</h2>
+        <div class="delivery-option">
+          <p>Standard Delivery</p>
+          <span>$6.00</span>
+        </div>
+        <p>Enter your address to see when you’ll get your order</p>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="checkbox" [(ngModel)]="isSameBillingAndDelivery"/>
+            My billing and delivery information are the same
+          </label>
+          <label>
+            <input type="checkbox" name="checkbox" [(ngModel)]="isOver13" />
+            I’m 13+ years old
+          </label>
+        </div>
+        <label>
+          <input type="checkbox" checked />
+          Yes, I’d like to receive emails about exclusive sales and more.
+        </label>
+      </div>           
+      <button  [disabled]="!allCheckboxesChecked()" type="submit"  [busy] = "loading"  class="btn">Review and Pay</button>
+    </form>
+  </div>
+
+  <div class="order-summary">
+    <h2>Order Summary</h2>
+    <div class="summary-item">
+      <p>{{itemsCount}} ITEMS</p>
+      <span>${{ calculateSubtotal() }}</span>
+    </div>
+    <div class="summary-item">
+      <p>Delivery</p>
+      <p>$6</p>
+    </div>
+    <div class="summary-item">
+      <p>Sales Tax</p>
+      <p>$71.3</p>
+    </div>
+    <div class="total">
+      <p>Total</p>
+      <span>${{ calculateTotal() }}</span>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div id="card-element" style="width: 100%;"> </div>
+      </div>
+    </div>
+
+
+    <h2>Order Details</h2>
+    <div class="order-details">
+      <div *ngFor="let product of cartProducts" class="order-item">
+        <img  [src]="'data:image/jpeg;base64,' + product.products.thumbnail" [alt]="product.name" />
+        <div>
+          <p style="font-weight: 900;">{{ product.products.name }}</p>
+          <p>{{ product.products.description }}</p>
+          <p>
+            <span class="size"> SIZE {{ "10" }}</span>
+            <span class="quantity"> QUANTITY {{ product.quantity }}</span>
+          </p>
+          <p>{{ product.products.Baseprice }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

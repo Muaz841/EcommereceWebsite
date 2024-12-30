@@ -1,0 +1,97 @@
+
+.bg-outline-blue{
+    background-color: rgb(238, 165, 32, 10%);
+    color: #EEA520;
+
+}
+.usercontainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.usercard {
+  background-color: white;
+  width: 200px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 15px;
+  position: relative; /* Needed for positioning the delete icon */
+}
+
+.usercard i {
+  position: absolute; /* Positioning the delete icon */
+  top: 10px; /* 10px from the top */
+  left: 10px; /* 10px from the left */
+  font-size: 20px; /* Icon size */
+  cursor: pointer; /* To indicate the icon is clickable */
+}
+
+.usercard img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+}
+
+.usercard .name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.usercard .statusactive,
+.usercard .statusdelete {
+  font-size: 16px;  
+  padding: 6px 12px; 
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.usercard .statusactive {
+  background-color:#87CE6F1A; /* Dark green background */
+  color: #87CE6F;  
+}
+
+.usercard .statusdelete {
+  background-color: #ED47651A; /* Dark red background */
+  color: #ED47651A;  
+}
+
+.usercard .userfooter {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+}
+
+.userfooter div {
+  text-align: center;
+}
+
+.userfooter div span {
+  font-weight: bold;
+  display: block;
+  color: #000;
+}
+
+.usercard i {
+  position: absolute; 
+  top: 10px; 
+  left: 10px; 
+  font-size: 14px;
+  cursor: pointer; 
+}
+
+

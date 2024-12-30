@@ -1,0 +1,31 @@
+<div class="nav-item dropdown nav-user-menu" dropdown>
+    
+  
+    <img
+      class="user-image img-circle elevation-2"
+      src="assets/img/user.png"
+      alt="User Image"
+      style="margin-right: 10px;"
+    />
+    <div class="info">
+      <div class="info ms-2">
+        <p class="mb-0">{{ shownLoginName }}                    
+        </p>
+        <p class="mb-0" style="font-size: 0.875rem; color: gray;">
+          <span class="mb-0">{{ userRoles[0]?.name }}</span> 
+        </p>
+      </div>
+    </div>
+
+    <a href="javascript:;" class="nav-link" dropdownToggle>
+      <i class="bi bi-caret-down" style="color: black !important;"></i>
+  <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+    <a class="dropdown-item" [routerLink]="['update-password']">
+      <i class="fas fa-user-edit"></i> {{ "UpdatePassword" | localize }}
+    </a>
+    <a class="dropdown-item" href="javascript:;" (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i> {{ "Logout" | localize }}
+    </a>
+  </div>
+</a>
+</div>

@@ -1,0 +1,86 @@
+
+.bg-outline-blue{
+    background-color: rgb(238, 165, 32, 10%);
+    color: #EEA520;
+}
+
+.bg-outline-blue:hover{
+    color: #ffffff;
+    background-color: #EEA520;
+}
+
+.searching{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.p-calendar .p-inputtext {
+    flex: 1 1 auto;
+    width: 10rem;
+    text-overflow: ellipsis;
+}
+
+.p-datepicker {
+    padding: 0.2rem;
+}
+.p-calendar .p-datepicker {
+    min-width: 100%;
+    left: -302.667px !important;
+    padding-right: 0.7rem;
+}
+
+.button-container {
+    display: flex; /* Ensures buttons are in the same line */
+    gap: 8px; /* Adds space between buttons */
+}
+
+.button-group {
+    color: #9B9B9B;
+    background-color:whitesmoke;
+    margin: 0; 
+    padding: 8px 16px; 
+    border: transparent;
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 14px; 
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.button-group:hover {
+    background-color: #EEA520;
+    color: white; 
+}
+
+.button-group.selected {
+    background-color: #EEA520; 
+    color: white; 
+}
+
+
+.status-processing {
+  color:#EEA520;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+
+.status-shipped {
+  color: #2BB2FE;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+
+.status-delivered {
+  color: #87CE6F;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.status-cancelled {
+    color: #ED4765;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }

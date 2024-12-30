@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  .card {
+    width: 435px;
+    height: auto; /* "Hug" the content */
+    position: absolute;
+    top: 266px;
+    left: 892px;
+    padding: 36px;
+    background-color: #f5f5f5;
+    opacity: 0; /* Hidden by default */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+  
+  .card p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+  }
+  
+
+  .custom-login-button {
+    background-color: #EEA520 !important;
+    border-color: #EEA520 !important;
+    color: #fff !important; /* Adjust text color for contrast */
+   
+    width: 50% !important;
+  }
+  
+  .custom-login-button:disabled {
+   
+    width: 50% !important;
+    background-color: #d8a750 !important; /* Optional: lighter shade for disabled state */
+    border-color: #d8a750 !important;
+    color: #ffffff99 !important; /* Semi-transparent text for disabled state */
+  }
+  

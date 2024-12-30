@@ -1,0 +1,32 @@
+.p-card
+{
+    height: 100%;
+    background-color:#EEA520;
+    display: flex; /* Make the card itself a flex container */
+    align-items: center; /* Center items vertically */
+    justify-content: center;
+    width: 100%;
+  padding: 1rem; /* Optional: add some padding for spacing */
+  box-sizing: border-box;
+}
+.img-style
+{   
+  width: 300px;
+   height: 300px;
+    opacity: 0.8;
+     margin-left: -25px;  
+  }
+
+  .card-body.login-card-body {
+    display: flex; /* Enable flexbox for the container */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    width: 100%; /* Ensure it takes full width */
+    height: 100%; /* Ensure the container takes full height */
+    text-align: center; /* Center text inside the <p> */
+    padding: 1rem; /* Optional: Add padding to prevent text from touching edges */
+    box-sizing: border-box; /* Prevent overflow by including padding in total width/height */
+    background-color: white;
+  }
+  

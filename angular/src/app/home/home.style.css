@@ -1,0 +1,230 @@
+
+.cardstyle{
+    background-color: #EEA520 ; 
+}
+
+.p-card{
+    height: 100%;
+}
+.p-card .p-card-body {
+    padding: 1rem;
+}
+
+/* DashBoard Cards Styling */
+.maindiv{
+    width: 100%; 
+    height: 100%; 
+    background-color: #232323; 
+    color: #ffffff; 
+    border-radius: 12px; 
+    padding: 16px; 
+    font-family: Arial, sans-serif; 
+    position: relative; 
+    overflow: hidden; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.backgrounddiv{
+    display: flex; 
+    align-items: center;
+}
+.imagediv{
+    width: 30px; 
+    height: 30px; 
+    background-color: #6E6E6E; 
+    border-radius: 50%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+.maintextdiv{
+    margin-top: 16px;
+}
+.textdiv{
+    font-size: 16px; 
+    font-weight: bold;
+}
+.contentdiv{
+    display: flex; 
+    align-items: baseline; 
+    margin-top: 8px;
+}
+.contentvalue{
+    font-size: 36px; 
+    font-weight: bold; 
+    margin-right: 8px;
+}
+.contentposition{
+    font-size: 14px; 
+    font-weight: bold; 
+    background-color: #6E6E6E; 
+    color: #ffffff; 
+    border-radius: 4px; 
+    padding: 4px 8px;
+}
+.areadiv{
+    position: absolute; 
+    width: 9rem; 
+    height: 11rem; 
+    border-radius: 50%; 
+    background-color: rgb(255, 167, 38); 
+    top: -6rem; 
+    right: -3rem;
+}
+.areadiv2{
+    position: absolute; 
+    width: 9rem; 
+    height: 11rem; 
+    border-radius: 50%; 
+    background-color: rgb(255, 167, 38); 
+    top: 7rem; 
+    right: -3rem;
+}
+.areadiv3{
+    position: absolute; 
+    width: 7rem; 
+    height: 6rem; 
+    border-radius: 50%; 
+    background-color: rgb(255, 167, 38); 
+    top: 6rem; 
+    right: -3rem;
+}
+.areadiv3part{
+    position: absolute; 
+    width: 7rem; 
+    height: 6rem; 
+    border-radius: 50%; 
+    background-color: rgb(255, 167, 38); 
+    top: 0rem; 
+    right: -5rem;
+}
+.areadiv4{
+    position: absolute; 
+    width: 6rem; 
+    height: 6rem; 
+    border-radius: 50%; 
+    background-color: rgb(255, 167, 38); 
+    top: 6rem; 
+    right: -4rem;
+}
+.areadiv4part{
+    position: absolute; 
+    width: 8rem; 
+    height: 8rem; 
+    border-radius: 50%; 
+    background-color: rgb(255, 167, 38); 
+    top: -5rem; 
+    right: -4rem;
+}
+.areadiv5{
+    position: absolute; 
+    width: 11rem; 
+    height: 14rem; 
+    border-radius: 50%; 
+    background-color: #ffffff00; 
+    top: -7rem; 
+    right: -7rem;
+    border: 1px solid;
+    opacity: 25%;
+}
+.areadiv5part1{
+    position: absolute; 
+    width: 12rem; 
+    height: 14rem; 
+    border-radius: 50%; 
+    background-color: #ffffff00; 
+    top: -4rem; 
+    right: -5rem;
+    border: 1px solid;
+    opacity: 25%;
+}
+.areadiv5part2{
+    position: absolute; 
+    width: 15rem; 
+    height: 14rem; 
+    border-radius: 50%; 
+    background-color: #ffffff00; 
+    top: -3rem; 
+    right: -4rem;
+    border: 1px solid;
+    opacity: 25%;
+}
+.areadiv5part3{
+    position: absolute; 
+    width: 20rem; 
+    height: 16rem; 
+    border-radius: 50%; 
+    background-color: #ffffff00; 
+    top: -2rem; 
+    right: -4rem;
+    border: 1px solid;
+    opacity: 25%;
+}
+
+.status-processing {
+    color:#EEA520;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  
+  .status-shipped {
+    color: #2BB2FE;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  
+  .status-delivered {
+    color: #87CE6F;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  .status-cancelled {
+      color: #ED4765;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    /* Remove vertical lines */
+.table.no-vertical-lines th, 
+.table.no-vertical-lines td {
+  border-right: none !important;
+}
+
+/* Fixed height for table container */
+.table-container {
+  max-height: 800px; /* Adjust as needed */
+  overflow-y: auto;
+}
+
+/* Ensure the card takes up the full height */
+p-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Styling for the status labels */
+span[ngClass] {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #fff;
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .content-header {
+    padding: 15px;
+  }
+}
+.custom-card {
+    height: 622px; /* Adjust to your preferred height */
+    overflow: hidden; /* Ensure content doesn't overflow */
+  }
+    
+  

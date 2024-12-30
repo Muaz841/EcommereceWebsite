@@ -1,0 +1,54 @@
+.nav-link {
+    background-color: transparent !important; 
+    color: black !important;
+  }
+  
+  .nav-link:hover {
+    background-color: transparent;
+    color: black !important;
+  }
+  
+  .nav-item {
+    background-color: transparent; 
+  }
+  .nav-link.active {
+    background-color: rgba(238, 165, 32, 0.2) !important;
+    color: black !important;
+  }
+  
+    .nav-link:not(.active):hover,
+    .nav-link:not(.active):focus {
+      background-color: transparent; 
+      color: black !important;
+    }
+
+    .nav-item.dropdown {
+      display: flex;                  
+      align-items: center;            
+    }
+    
+    .nav-link {
+      display: flex;                  
+      align-items: center;            
+    }
+    
+    .nav-link .user-image {
+      margin-right: 10px;             
+      width: 30px;                    
+      height: 30px;                   
+    }
+    
+    .nav-link .info p {
+      margin: 0;                      
+      color: black;                  
+    }
+    
+    .dropdown-menu {
+      margin-top: 5px;               
+    }
+    
+    .nav-link i {
+      margin-right: 20px;  
+      border-radius: 60%;
+  }
+  

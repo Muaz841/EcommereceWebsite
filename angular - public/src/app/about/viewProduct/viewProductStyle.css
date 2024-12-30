@@ -1,0 +1,139 @@
+.body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.container { 
+    display: flex;   
+  
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Ensure the card body has some spacing around the content */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .icon-check {
+    font-size: 40px; /* Adjust this value as needed */
+    color: green;    /* This keeps the green color */
+  }
+  
+  
+  /* Container for rating at the top-left */
+  .rating-container {
+    align-self: flex-start;  /* Align rating to the top-left */
+  }
+  
+  /* Style for the reviewer name and review text */
+  .reviewer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px; /* Optional: add spacing between rating and reviewer info */
+  }
+  
+.image-gallery {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.image-gallery img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.product-details {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.product-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.product-price {
+    font-size: 20px;
+    color: #f7941d;
+    margin: 10px 0;
+}
+
+.color-options, .size-options {
+    margin: 15px 0;
+}
+
+.color-options span, .size-options span {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.color-options span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 2px solid #ccc;
+}
+
+.color-blue {
+    background-color: #1a4a78;
+}
+
+.color-green {
+    background-color: #7e8e79;
+}
+
+.size-options span {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.add-to-cart {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.buy-now {
+    background-color: #f7941d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.product-info {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.product-info ul {
+    padding-left: 20px;
+}
+
+.product-info li {
+    margin-bottom: 5px;
+}
+
+

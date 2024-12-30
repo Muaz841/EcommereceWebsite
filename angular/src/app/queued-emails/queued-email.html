@@ -1,0 +1,174 @@
+<div [@routerTransition]>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Queued" | localize }}</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <div class="input-group">
+            <input type="text" class="form-control" name="keyword" [placeholder]="'Search...' | localize"
+              [(ngModel)]="keyword" (keyup.enter)="getDataPage(1)" />
+            <div class="input-group-prepend">
+              <button type="button" class="btn bg-blue" (click)="getDataPage(1)">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" style="padding: 0.25rem;">
+      <div class="table table-bordered table-hover">
+        <div class="card">
+          <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                      <tr>                              
+                        <th scope="col">Actions</th>
+                        <th scope="col">Priority</th>
+                        <th scope="col">FROM</th>
+                        <th scope="col">TO</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">STATUS</th>                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (
+                          email of queuedEmails
+                          | paginate
+                          : {
+                          id: 'server',
+                          itemsPerPage: pageSize,
+                          currentPage: pageNumber,
+                          totalItems: totalItems
+                        }
+                        ; track
+                        email.id){
+                      <tr>
+                        <td style="color: #EEA520; font-weight: 800;">                                 
+                          <button style="color: white; border-radius: 20px;" type="button" class="btn btn-warning" (click)="showDialog(email)">
+                              <i class="fas fa-eye" ></i>
+                              {{ "View" | localize }}
+                          </button>
+                      </td>                          
+                          <td>{{ email.emailPriority }}</td>
+                          <td>{{ email.from }}</td>
+                          <td>{{ email.to }}</td>
+                          <td>{{ email.subject }}</td>
+                          <td> <!-- Check if email status is 'Pending' -->
+                            <ng-container *ngIf="email.status === 'Pending'; else otherStatuses">
+                              <p-tag [value]="email.status" severity="info"> <i class="fa fa-circle-info mx-1"></i></p-tag>                 
+                            </ng-container>              
+                            <!-- Check if email status is 'Failed' -->
+                            <ng-template #otherStatuses>
+                              <ng-container *ngIf="email.status === 'Failed'; else sentStatus">
+                                <p-tag [value]="email.status" severity="danger"><i class="fa fa-xmark text-danger mx-1"></i></p-tag>
+                                <button type="button" class="btn btn-sm bg-warning mx-1" style="height: 1.7rem;" (click)="updateFailed(email.id)">
+                                  <i class="fa-solid fa-arrow-rotate-right"></i>
+                                </button>                    
+                              </ng-container>              
+                              <!-- Default to 'Sent' if status is not 'Pending' or 'Failed' -->
+                              <ng-template #sentStatus>
+                                <p-tag [value]="email.status" severity="success"><i class="fa fa-check text-success mx-1"></i></p-tag>                    
+                              </ng-template>
+                            </ng-template>
+                          </td>                       
+                      </tr> 
+                   }                      
+                    </tbody>
+              </table>
+              <div class="card-footer table-card-footer bg-light border-top">
+                <div class="row">
+                  <div class="col-sm-4 col-12 text-sm-left text-center">
+                     <p style="color: gray;">Showing {{firstShowingItem}} - {{lastShowingItems}} FROM {{ totalItems }}</p>           
+                  </div>
+                  <div class="col-sm-4 col-12 text-center">
+                    <p class="mb-0 my-2">
+                      
+                    </p>
+                  </div>
+                  <div class="col-sm-4 col-12">
+                    <div class="float-sm-right m-auto">
+                      <abp-pagination-controls
+                        id="server"
+                        (pageChange)="getDataPage($event)"
+                        >
+                      </abp-pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<p-dialog header="Email Details" [modal]="true" [(visible)]="visible" 
+          [style]="{ width: '70rem', height: '40rem' }"
+          [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
+          [dismissableMask]="true">
+
+  <div *ngIf="selectedEmail">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <!-- Row 1 with 6-6 column structure -->
+      <div style="display: flex; gap: 10px;">
+        <div style="flex: 1;"> <!-- First 6-column div -->
+          <div style="display: flex; flex-direction: column; ">
+            <span><strong>From:</strong></span>
+            <span>{{ selectedEmail.from }}</span>
+          </div>
+        </div>
+        <div style="flex: 1;"> <!-- Second 6-column div -->
+          <div style="display: flex; flex-direction: column; ">
+            <span><strong>To:</strong></span>
+            <span>{{ selectedEmail.to }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Row 2 with 6-6 structure -->
+      <div style="display: flex; gap: 10px;">
+        <div style="flex: 1;"> <!-- First 6-column div -->
+          <div style="display: flex; flex-direction: column; ">
+            <span><strong>To Name:</strong></span>
+            <span>{{ selectedEmail.toName }}</span>
+          </div>
+        </div>
+        <div style="flex: 1;"> <!-- Second 6-column div -->
+          <div style="display: flex; flex-direction: column; ">
+            <span><strong>Subject:</strong></span>
+            <span>{{ selectedEmail.subject }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Row - Full Width -->
+      <div style="display: flex; flex-direction: column; gap: 5px;">
+        <span><strong>Status:</strong></span>
+        <p-tag [value]="selectedEmail.status"
+               [severity]="selectedEmail.status === 'sent' ? 'success' : 'danger'">
+        </p-tag>
+      </div>
+
+      <div style="margin-top: 2px;  ">
+        <span><strong>Body:</strong></span>
+        <div class="card" style="height: 300px; overflow-y: auto; margin-top: 10px;">
+          <p-fieldset>
+            <p [innerHtml]="selectedEmail.body" style="margin: 0;"></p>
+          </p-fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>

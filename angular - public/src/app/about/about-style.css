@@ -1,0 +1,220 @@
+ .main-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5%;
+    text-align: center;
+    flex-wrap: nowrap;
+}
+ 
+#heading1, #heading2 {
+    font-family: 'Zumme', sans-serif;
+    font-size: 5.71vw;
+    font-weight: 900;
+    line-height: 1.1;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    margin: 0;
+    white-space: nowrap;
+}
+ 
+#heading1 {
+    color: rgba(19, 26, 63, 1);
+}
+ 
+#heading2 {
+    color: rgba(238, 165, 32, 1);
+} 
+
+.image-container {
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+  align-items: center;    /* Center the image vertically */
+  height: 100%; /* Adjust to your layout's needs */
+  width: 100%;  /* Make the container full-width */
+  text-align: center;  
+}
+
+.image-container img {
+  width: 100%;      /* Make the image fill the container horizontally */
+  height: auto;     /* Maintain the aspect ratio */
+  object-fit: cover; /* Ensures the image scales appropriately */
+  margin-bottom: 80px;
+}
+
+.sub-heading1 {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  gap: 0.5%;
+  text-align: left;
+  flex-wrap: nowrap;
+}
+
+#heading3, #heading4 {
+  font-family: 'Zumme', sans-serif;
+  font-size: 3.71vw;
+  font-weight: 800;
+  line-height: 1.1;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin-bottom: 2rem;
+  white-space: nowrap;
+}
+#heading3 {
+  color: rgba(19, 26, 63, 1);
+}
+
+#heading4 {
+  color: rgba(238, 165, 32, 1);
+} 
+
+#heading5 {
+  color: #131A3F;
+  font-family: 'Zumme', sans-serif;
+  font-size: 2.71vw;
+  font-weight: 900;
+  line-height: 1.1;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin: 0;
+  white-space: nowrap;
+} 
+body {
+  font-family: sans-serif;
+}
+#heading6 {
+  color: rgba(238, 165, 32, 1);
+  font-family: 'Zumme', sans-serif;
+  font-size: 2.71vw;
+  font-weight: 900;
+  line-height: 1.1;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin: 0;
+  white-space: nowrap;
+} 
+.container {
+  display: flex;
+  justify-content: space-between;  
+  border-radius: 20px;
+  width: 100vw;
+  background-color: #FFC107;
+  margin: 0;
+  
+}
+
+.box {
+  background-color: #FFC107; /* Yellow background color */
+  padding: 20px;  
+  text-align: center;  
+  flex: 1;
+  border-radius: 20px;
+}
+
+.box i {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.box h2 {
+  margin-bottom: 5px;
+}
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Section Title */
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.highlight {
+  color: #ffc107;
+}
+
+/* Testimonials Container */
+.testimonials-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.testimonial {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.testimonial:hover {
+  transform: scale(1.05);
+}
+
+/* Stars */
+.stars {
+  color: #ffc107;
+  font-size: 1.5rem;
+}
+.emptystars {
+  color: #ccc;
+  font-size: 1.5rem;  
+
+}
+
+/* Customer Name */
+.customer-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* Verified Badge */
+.verified-badge {
+  color: #ffc107;
+  font-size: 1rem;
+}
+
+/* Testimonial Text */
+.testimonial-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Navigation Arrows */
+.navigation-arrows {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.arrow {
+  background: #ffc107;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: background 0.3s ease;
+}
+
+.arrow:hover {
+  background: #e0a800;
+}

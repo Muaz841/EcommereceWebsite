@@ -1,0 +1,40 @@
+<div class="cart-container">
+  <div class="d-flex flex-row">
+    <div class="sub-heading1">
+      <h1 id="heading3">YOUR</h1>
+      <h1 id="heading4">CART</h1>
+    </div>
+  </div>
+  <div class="cart-content">
+    <div class="cart-items">
+      <div class="cart-item" *ngFor="let item of products">
+        <img
+          [src]="'data:image/jpeg;base64,' + item.products.thumbnail"
+          [alt]="item.products.name"
+        />
+        <div class="item-details">
+          <h3>{{ item.products.name }}</h3>
+          <p class="price">${{ item.products.basePrice }}</p>
+        </div>                
+        <i class="bi bi-trash-fill" (click)="removeProductFromCart(item.products.id)" style="color: red;"></i>
+      </div>
+    </div>
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <p>
+        Subtotal
+        <span>${{ calculateSubtotal() }}</span>
+      </p>
+      <!-- <p>
+        Discount (-20%)
+        <span>-${{ calculateDiscount() }}</span>
+      </p> -->
+      <p>Delivery Fee <span>$15</span></p>
+      <p class="total">
+        Total
+        <span>${{ calculateTotal()}}</span>
+      </p>
+      <button [routerLink]="['/app/about/contactdetails']" class="checkout">Go to Checkout</button>
+    </div>
+  </div>
+</div>

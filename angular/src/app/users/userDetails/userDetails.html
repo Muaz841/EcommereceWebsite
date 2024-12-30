@@ -1,0 +1,83 @@
+<div class="container-fluid">
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <h1 style="font-weight: 600;">{{ "User Details" | localize }}</h1> <app-breadcrumb></app-breadcrumb>
+                </div>
+                <div class="col-6 text-right">
+                  <a href="javascript:;"  [routerLink]="['/app/users']">
+                    <img src="../../../assets/img/orders/cancelbutton.svg" class="px-1"/>
+                </a>
+                </div>
+            </div>
+        </div>
+    </section>  
+    <div class="user-management">
+        <div class="user-info">
+          <div class="profile-card">
+            <div class="profile-picture">
+              <img src="../../../assets/img/user.png" alt="User Profile" />
+            </div>
+            <h2>{{userDetails.username}}</h2>
+            <div [ngClass]="getUserStatusClass(userDetails)" [style.background-color]="getUserStatusColor(userDetails)">
+              {{ getUserStatusLabel(userDetails) }}</div>
+            <ul class="details-list">
+              <li>
+                <i class="fas fa-id-card"></i> Customer ID: <strong>{{userDetails.userId}}</strong>
+              </li>
+              <li>
+                <i class="fas fa-envelope"></i> E-mail: <strong>{{userDetails.useremail}}</strong>
+              </li>         
+              <li>
+                <i class="fas fa-phone"></i> Phone Number: <strong>{{userDetails.userPhone}}</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      
+        <div class="order-summary">
+          <!-- Stats Section -->
+          <div class="stats">
+            <div class="stat-card processing p-3">
+              <div class="d-flex justify-content-between">
+                <b>Processing</b>
+                <img src="../../assets/img/orders/Circle Icon Bagde.svg" alt="Processing Icon">
+              </div>
+              <p>{{userDetails.processingOrders}}</p>              
+            </div>
+            <div class="stat-card canceled p-3">
+              <div class="d-flex justify-content-between">
+                <b>Canceled</b>
+                <img src="../../assets/img/orders/Circle Icon Bagde cancelled.svg" alt="Canceled Icon">
+              </div>
+              <p>{{userDetails.cancelledOrders}}</p>              
+            </div>
+          </div>
+      
+          <!-- Orders Table -->
+          <table class="orders-table">
+            <thead>
+              <tr>                
+                <th>ID</th>                
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of userDetails.orders">                
+                <td style="color: #EEA520; font-weight: bold">{{order.orderId}}</td>                
+                <td>{{ order.creationDate.format('DD MMM YYYY')}}</td>
+                <td>$121.00</td>
+                <td><span [ngClass]="getStatusClass(order)" [style.background-color]="getStatusColor(order)">
+                  {{ getStatusLabel(order) }}
+              </span></td>
+              </tr>             
+            </tbody>
+          </table>      
+        </div>
+      </div>
+      
+</div>

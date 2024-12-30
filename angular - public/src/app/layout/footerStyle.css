@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.footer {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 40px 20px;
+}
+
+.footer-top {
+   
+    text-align: left;
+    background-color: #1d1e5e;
+    color: #fff;
+    padding: 30px 20px;
+    margin-bottom: 40px; 
+    length: 40px;    
+    border-radius: 20px;
+}
+
+.footer-top h2 {   
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.newsletter {
+    align-items: right;
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
+.newsletter input {
+    display: flex;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.newsletter button {
+    background-color: #fff;
+    color: #1d1e5e;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 300px;
+    font-weight: bold;
+}
+
+.newsletter button:hover {
+    background-color: #ddd;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;  
+    border-radius: 20px;
+    width: 100%;
+    background-color: #1d1e5e;
+  }
+  
+.footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-section h4 {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff6f00;
+}
+
+.social-icons a {
+    margin-right: 10px;
+}
+
+.footer-credits {
+    display: flex; /* Use flexbox to place items on the same row */
+    justify-content: space-between; /* Space between the text and the icons */
+    align-items: center; /* Vertically align the text and icons */
+    margin-top: 30px;
+}
+
+.footer-credits p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+
+.payment-methods {
+    display: flex; /* Keep icons in a row */
+    gap: 10px; /* Space between icons */
+}
+
+.payment-methods img {
+    height: 24px;
+    width: 30px;
+}

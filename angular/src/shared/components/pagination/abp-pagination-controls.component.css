@@ -1,0 +1,58 @@
+/* Target active (selected) page item */
+.page-link.active {
+    background-color: #EEA520 !important; /* Golden background for selected page */
+    color: #ffffff !important; /* White text for selected page */
+    font-weight: bold !important; /* Optional: Emphasize the active page */
+    border-radius: 8px !important; /* Rounded corners */
+    padding: 12px 12px !important; /* Add padding for button shape */
+  }
+  
+  /* Hover effect for active page */
+  .page-link.active:hover {
+    background-color: #EEA520 !important; /* Keep golden background on hover */
+    color: #ffffff !important; /* Keep white text */
+  }
+  
+  /* Non-selected (non-active) pages */
+  .page-link {
+    background-color: #EEA5201A !important; /* Light golden transparent background */
+    color: #EEA520 !important; /* Golden text for non-active pages */
+    font-weight: bold !important; /* Optional: Bold text for visibility */
+    border-radius: 8px !important; /* Rounded corners for consistency */
+    padding: 12px 12px !important; /* Add padding for button shape */
+    width: 50px; /* Set the width of each button */
+  text-align: center; /* Center the text inside */
+  display: inline-block;
+        
+    -webkit-tap-highlight-color: transparent;
+    background-clip: padding-box !important;
+  }
+  
+  /* Hover effect for non-selected pages */
+  .page-link:hover {
+    background-color: #EEA520 !important; /* Golden background on hover */
+    color: #ffffff !important; /* White text on hover */
+  }
+/* Remove focus outlines and background-like effects */
+.page-link:focus {
+    outline: none !important; /* Remove outline */
+    box-shadow: none !important; /* Remove shadow */
+    border: none !important; /* Ensure no borders appear */
+  }
+  
+  /* Remove additional browser-specific focus effects */
+  .page-link:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .page-item {
+    margin: 0 5px; /* Horizontal gap between buttons */
+  }
+  
+  /* Optional: Ensure consistent alignment */
+  .pagination {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    align-items: center; /* Align buttons vertically */
+  }
