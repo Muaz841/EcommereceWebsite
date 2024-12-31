@@ -2,44 +2,54 @@
   <h1 class="new-arrivals-heading">New Arrivals</h1>
 </div>
 
-<div class="d-flex justify-content-center row ">
-  <div class="card col-md-2" style="width: 18rem; margin: 10px;"  *ngFor="let product of allProducts">
+<div class="d-flex justify-content-center row">
+  <div
+    class="card col-md-2"
+    style="width: 18rem; margin: 10px"
+    *ngFor="let product of allProducts"
+  >
     <img
-        [src]="'data:image/jpeg;base64,' + product.thumbnail"
-        class="card-img-top"
-        alt="Product Image"
-        style="height: 250px; object-fit: cover;" 
-      />
+      [src]="'data:image/jpeg;base64,' + product.thumbnail"
+      class="card-img-top"
+      alt="Product Image"
+      style="height: 250px; object-fit: cover"
+    />
     <div class="card-body">
-      <p-rating [(ngModel)]="product.rating"   [disabled]="true" [stars]="5"></p-rating>
-        <p class="card-text"style="
-        color: #131a3f; 
-        font-weight: 700; 
-        height: 50px; 
-        overflow: hidden; 
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-      ">
-          {{ product.description }}
-        </p>
+      <p-rating
+        [(ngModel)]="product.rating"
+        [disabled]="true"
+        [stars]="5"
+      ></p-rating>
+      <p
+        class="card-text"
+        style="
+          color: #131a3f;
+          font-weight: 700;
+          height: 50px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        "
+      >
+        {{ product.description }}
+      </p>
     </div>
     <div class="card-body">
       <button
-      type="button"
-      (click)="viewProduct(product.productID)"
-      class="btn btn-primary btn-sm"
-      style="
-        background-color: #131a3f;
-        color: white;
-        border-radius: 24px;
-        border: 2px solid #131a3f;
-      "
-    >
-      View Product - ${{ product.basePrice }}
-    </button>
+        type="button"
+        (click)="viewProduct(product.productID)"
+        class="btn btn-primary btn-sm"
+        style="
+          background-color: #131a3f;
+          color: white;
+          border-radius: 24px;
+          border: 2px solid #131a3f;
+        "
+      >
+        View Product - ${{ product.basePrice }}
+      </button>
     </div>
   </div>
-
 </div>

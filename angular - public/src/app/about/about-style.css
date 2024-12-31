@@ -26,14 +26,34 @@
     color: rgba(238, 165, 32, 1);
 } 
 
+
 .image-container {
-  display: flex;
-  justify-content: center; /* Center the image horizontally */
-  align-items: center;    /* Center the image vertically */
-  height: 100%; /* Adjust to your layout's needs */
-  width: 100%;  /* Make the container full-width */
-  text-align: center;  
+  position: relative; /* Allows positioning of child elements */
+  background-image: url('data:image/jpeg;base64,BASE64_ENCODED_IMAGE');
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the image */
+  height: 950px; /* Matches the original height */
+  border-radius: 30px; /* Rounded corners */
+  overflow: hidden; /* Ensures content stays within the rounded corners */
 }
+.bottom-left-button {
+  position: absolute; /* Allows placement relative to the container */
+  bottom: 20px; /* Positions the button 20px from the bottom */
+  left: 20px; /* Positions the button 20px from the left */
+  padding: 10px 20px; /* Adds padding for the button */
+  background-color: #ffc107; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none; /* Removes default border */
+  border-radius: 20px; /* Rounds the button corners */
+  font-size: 16px; /* Sets the font size */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth background color change */
+}
+
+.bottom-left-button:hover {
+  background-color: #e0a800; /* Slightly darker color on hover */
+}
+
 
 .image-container img {
   width: 100%;      /* Make the image fill the container horizontally */

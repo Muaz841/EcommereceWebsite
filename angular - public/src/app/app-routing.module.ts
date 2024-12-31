@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
                 children: [
                     {
                         path: 'onSaleProducts',
-                        loadChildren: () => import('./onSaleProducts/onSaleProductsModue').then((m) => m.onSaleProductsModule),
+                        loadChildren: () => import('./onSaleProducts/onSaleProductsModule').then((m) => m.onSaleProductsModule),
                         // canActivate: [AppRouteGuard]
                     },
                     {

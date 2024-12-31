@@ -1,37 +1,47 @@
 <div class="modal-body">
- 
-    <h4 class="text-center" style="margin-bottom: 15px; color: #EEA520;">Select Order Status</h4>
-    
-    <div class="row mb-3">
-      <div class="col-12">
-        <p-dropdown
-        class="p-fluid" 
-          [options]="availableStatus" 
-          [(ngModel)]="selectedStatus" 
-          optionLabel="name" 
-          optionValue="id" 
-          styleClass="status-dropdown" 
-          placeholder="Select a status">
-        </p-dropdown>
-      </div>
+  <h4 class="text-center" style="margin-bottom: 15px; color: #eea520">
+    Select Order Status
+  </h4>
+
+  <div class="row mb-3">
+    <div class="col-12">
+      <p-dropdown
+        class="p-fluid"
+        [options]="availableStatus"
+        [(ngModel)]="selectedStatus"
+        optionLabel="name"
+        optionValue="id"
+        styleClass="status-dropdown"
+        placeholder="Select a status"
+      >
+      </p-dropdown>
     </div>
-    
-    <div class="card-footer text-end " style="border-top: 1px solid #ccc; padding-top: 15px; display: flex; ">
-      <button 
-        class="btn btn-secondary me-2 mr-2" 
-        (click) = "close()"
-        style="background-color: #ED4765; color: white; border: none; " 
-        >
-        Cancel
-      </button>
-      <button 
-        class="btn btn-primary" 
-        (click) = "saveStatus()"
-        style="background-color: #87CE6F1A; color: #87CE6F; border-color: #ccc;display: flex; justify-content: end;" 
-        >
-        Save
-      </button>
-    </div>
- 
+  </div>
+
+  <div
+    class="card-footer text-end"
+    style="border-top: 1px solid #ccc; padding-top: 15px; display: flex"
+  >
+    <button
+      class="btn btn-secondary me-2 mr-2"
+      (click)="close()"
+      style="background-color: #ed4765; color: white; border: none"
+    >
+      Cancel
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="saveStatus()"
+      style="
+        background-color: #87ce6f1a;
+        color: #87ce6f;
+        border-color: #ccc;
+        display: flex;
+        justify-content: end;
+      "
+    >
+      Save
+    </button>
+  </div>
 </div>
 ``

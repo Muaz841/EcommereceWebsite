@@ -1,4 +1,4 @@
- <!-- <div [@routerTransition]>
+<!-- <div [@routerTransition]>
   <section class="content-header">
     <div class="container-fluid">
       <div class="row">
@@ -238,37 +238,35 @@
         </div>
  -->
 
-
-
-   <div class="container-fluid">
-    <section class="content-header">
-      <div class="container-fluid">
-          <div class="row">
-              <div class="col-6">
-                  <h1 style="font-weight: 600;">{{ "User Management" | localize }}</h1> <app-breadcrumb></app-breadcrumb>
-              </div>
-              <!-- <div class="col-6 text-right">
+<div class="container-fluid">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1 style="font-weight: 600">{{ "User Management" | localize }}</h1>
+          <app-breadcrumb></app-breadcrumb>
+        </div>
+        <!-- <div class="col-6 text-right">
                   <a    href="javascript:;" class="btn bg-outline-blue">
                       <i class="fas fa-download"></i>
                       {{ "Export" | localize }}
                       
                   </a>
               </div> -->
-          </div>
       </div>
-  </section>   
-  
+    </div>
+  </section>
+
   <!-- buttons -->
-  <div class="d-flex py-1 ">
+  <div class="d-flex py-1">
     <section class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">                
-                <div class="card p-3">
-                    <div class="row">
-                        
-                        <div class="d-inline-flex p-2 col-md-6">
-                            <div class="button-container">
-                                <!-- <button class="button-group" [ngClass]="{'selected': selectedButton === 4}" (click)="selectButton(4)">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card p-3">
+            <div class="row">
+              <div class="d-inline-flex p-2 col-md-6">
+                <div class="button-container">
+                  <!-- <button class="button-group" [ngClass]="{'selected': selectedButton === 4}" (click)="selectButton(4)">
                                     All
                                 </button>
                                 <button class="button-group" [ngClass]="{'selected': selectedButton === 0}" (click)="selectButton(0)">
@@ -283,60 +281,72 @@
                                 <button class="button-group" [ngClass]="{'selected': selectedButton === 3}" (click)="selectButton(3)">
                                     Cancelled
                                 </button> -->
-                            </div>
-                        </div>                                                                                                
-                        <div class="col-md-6 d-flex justify-content-end">
-                            <div class="row">
-                                
-                                <div class="col-md-12">
-                                    <p-iconField iconPosition="left">
-                                        <p-inputIcon styleClass="fas fa-search"    (click)="getDataPage(1)"  />
-                                        <input type="text" pInputText [(ngModel)]="keyword"
-                                        (keyup.enter)="getDataPage(1)"   style="width: 100%;" placeholder="Search..."
-                                        />
-                                    </p-iconField>
-                                </div>
-    
-                                
-                                <!-- <div class="col-md-5">
+                </div>
+              </div>
+              <div class="col-md-6 d-flex justify-content-end">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p-iconField iconPosition="left">
+                      <p-inputIcon
+                        styleClass="fas fa-search"
+                        (click)="getDataPage(1)"
+                      />
+                      <input
+                        type="text"
+                        pInputText
+                        [(ngModel)]="keyword"
+                        (keyup.enter)="getDataPage(1)"
+                        style="width: 100%"
+                        placeholder="Search..."
+                      />
+                    </p-iconField>
+                  </div>
+
+                  <!-- <div class="col-md-5">
                                     <p-calendar [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" [numberOfMonths]="1"
                                         selectionMode="range" class="py-1 px-2 calendar-size" placeholder="Select Date..." />
                                 </div>                                   -->
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-      </div>  
-
-      <div class="usercontainer">          
-          <div *ngFor="let user of users" class="usercard">
-            <a (click)="checking(user)">
-            <i (click)="delete(user)" style ="color: red;" class="bi bi-trash"></i>
-            <!-- User Thumbnail -->
-            <img src="../../../assets/img/user.png" alt="User Thumbnail">
-            <!-- User Name -->
-            <div class="name">{{ user.name }}</div>
-            <!-- User Status -->
-            <div [ngClass]="getStatusClass(user)" [style.background-color]="getStatusColor(user)">
-              {{ getStatusLabel(user) }}</div>
-            
-            <!-- Footer with Orders and Balance -->
-            <div class="userfooter">
-              <div> 
-                <b>Orders</b>                         
-                <span>{{ user.orders }}</span>
-              </div>
-              <div>             
-                <b>Balance</b>
-                <span>${{ user.balance | number }}</span>              
               </div>
             </div>
-          </a>   
           </div>
-   
-      
-      </div>      
-        </div> 
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="usercontainer">
+    <div *ngFor="let user of users" class="usercard">
+      <a (click)="checking(user)">
+        <i (click)="delete(user)" style="color: red" class="bi bi-trash"></i>
+        <!-- User Thumbnail -->
+        <img
+          src="../../../assets/img/user.png"
+          alt="User Thumbnail"
+          style="cursor: pointer"
+        />
+        <!-- User Name -->
+        <div class="name">{{ user.name }}</div>
+        <!-- User Status -->
+        <div
+          [ngClass]="getStatusClass(user)"
+          [style.background-color]="getStatusColor(user)"
+        >
+          {{ getStatusLabel(user) }}
+        </div>
+
+        <!-- Footer with Orders and Balance -->
+        <div class="userfooter">
+          <div>
+            <b>Orders</b>
+            <span>{{ user.orders }}</span>
+          </div>
+          <div>
+            <b>Balance</b>
+            <span>${{ user.balance | number }}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

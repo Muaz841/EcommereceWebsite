@@ -3,28 +3,28 @@
     Leave a Review for <b>{{ prod.productName }}</b>
 
     <img
-    [src]="'data:image/jpeg;base64,' + (prod.productThumbnail || '')"
-    class="card-img-top"
-    alt="{{ prod.productName || 'Product Image' }} Image"
-    style="height: 250px; object-fit: cover"
-  />
+      [src]="'data:image/jpeg;base64,' + (prod.productThumbnail || '')"
+      class="card-img-top"
+      alt="{{ prod.productName || 'Product Image' }} Image"
+      style="height: 250px; object-fit: cover"
+    />
 
-  <div class="stars">
-    <p-rating
-      [(ngModel)]="reviews[prod.productId].ratings "
-      (onRateChange)="handleReviewInput(prod.productId, $event.value, reviews[prod.productId].review )"
-      [stars]="5"
-      cancel="false"
-    >
-    </p-rating>
+    <div class="stars">
+      <p-rating
+        [(ngModel)]="reviews[prod.productId].ratings "
+        (onRateChange)="handleReviewInput(prod.productId, $event.value, reviews[prod.productId].review )"
+        [stars]="5"
+        cancel="false"
+      >
+      </p-rating>
+    </div>
+
+    <textarea
+      placeholder="Write a review..."
+      (input)="handleReviewInput(prod.productId, reviews[prod.productId]?.ratings || 0, $event.target.value)"
+      [(ngModel)]="reviews[prod.productId].review"
+    ></textarea>
   </div>
-
-  <textarea
-    placeholder="Write a review..."
-    (input)="handleReviewInput(prod.productId, reviews[prod.productId]?.ratings || 0, $event.target.value)"
-    [(ngModel)]="reviews[prod.productId].review"
-  ></textarea>
-</div>
 </div>
 <div class="d-flex flex-row-reverse bd-highlight">
   <button

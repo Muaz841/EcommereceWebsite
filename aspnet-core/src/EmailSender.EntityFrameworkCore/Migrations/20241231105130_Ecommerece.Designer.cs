@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmailSender.Migrations
 {
     [DbContext(typeof(EmailSenderDbContext))]
-    [Migration("20241230103423_Ecommerece")]
+    [Migration("20241231105130_Ecommerece")]
     partial class Ecommerece
     {
         /// <inheritdoc />

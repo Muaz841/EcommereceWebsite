@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from "@angular/core";
-import * as moment from 'moment';
+import * as moment from "moment";
 import {
   PagedListingComponentBase,
   PagedRequestDto,
@@ -7,7 +7,7 @@ import {
 import {
   ProductServiceProxy,
   ProductDto,
-  ProductDtoPagedResultDto,  
+  ProductDtoPagedResultDto,
 } from "@shared/service-proxies/service-proxies";
 import { finalize } from "rxjs";
 import { log } from "node:console";
@@ -32,7 +32,7 @@ export class ProductComponent extends PagedListingComponentBase<ProductDto> {
   draftProducts: ProductDto[] = [];
   lowstockProducts: ProductDto[] = [];
   previewimage: string | ArrayBuffer | null;
-  selectedFile: File | null;  
+  selectedFile: File | null;
   dateRange: Date[] = [];
   filteredProducts: ProductDto[] = [...this.allProducts];
 
@@ -50,10 +50,9 @@ export class ProductComponent extends PagedListingComponentBase<ProductDto> {
     pageNumber: number,
     finishedCallback: Function
   ): void {
-
     if (this.dateRange && this.dateRange.length === 2) {
-      request.startDate = moment(this.dateRange[0]); 
-      request.endDate = moment(this.dateRange[1]);   
+      request.startDate = moment(this.dateRange[0]);
+      request.endDate = moment(this.dateRange[1]);
     } else {
       request.startDate = undefined;
       request.endDate = undefined;
@@ -92,7 +91,7 @@ export class ProductComponent extends PagedListingComponentBase<ProductDto> {
         });
         this.showPaging(result, pageNumber);
       });
-      this.dateRange= [];
+    this.dateRange = [];
   }
 
   protected delete(entity: ProductDto): void {
@@ -179,8 +178,11 @@ export class ProductComponent extends PagedListingComponentBase<ProductDto> {
     }
   }
 
-  onDateSearch(): void {  
-    if (this.dateRange && this.dateRange.length === 2) {this.getDataPage(1);} }                                     
+  onDateSearch(): void {
+    if (this.dateRange && this.dateRange.length === 2) {
+      this.getDataPage(1);
+    }
+  }
   onsearch() {
     this.getDataPage(1);
   }

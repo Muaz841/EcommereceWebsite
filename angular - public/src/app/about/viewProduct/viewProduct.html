@@ -1,177 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adidas 4DFWD X Parley Running Shoes</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
 
-        .container {
-            display: flex;
-            max-width: 1200px;
-            margin: 50px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+      .container {
+        display: flex;
+        max-width: 1200px;
+        margin: 50px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
 
-        .image-gallery {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
+      .image-gallery {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
 
-        .image-gallery img {
-            width: 100%;
-            border-radius: 8px;
-        }
+      .image-gallery img {
+        width: 100%;
+        border-radius: 8px;
+      }
 
-        .product-details {
-            flex: 1;
-            margin-left: 20px;
-        }
+      .product-details {
+        flex: 1;
+        margin-left: 20px;
+      }
 
-        .product-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
+      .product-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
 
-        .product-price {
-            font-size: 20px;
-            color: #f7941d;
-            margin: 10px 0;
-        }
+      .product-price {
+        font-size: 20px;
+        color: #f7941d;
+        margin: 10px 0;
+      }
 
-        .color-options, .size-options {
-            margin: 15px 0;
-        }
+      .color-options,
+      .size-options {
+        margin: 15px 0;
+      }
 
-        .color-options span, .size-options span {
-            display: inline-block;
-            margin-right: 10px;
-            cursor: pointer;
-        }
+      .color-options span,
+      .size-options span {
+        display: inline-block;
+        margin-right: 10px;
+        cursor: pointer;
+      }
 
-        .color-options span {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: inline-block;
-            border: 2px solid #ccc;
-        }
+      .color-options span {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-block;
+        border: 2px solid #ccc;
+      }
 
-        .color-blue { background-color: #1a4a78; }
-        .color-green { background-color: #7e8e79; }
+      .color-blue {
+        background-color: #1a4a78;
+      }
+      .color-green {
+        background-color: #7e8e79;
+      }
 
-        .size-options span {
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #333;
-        }
+      .size-options span {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #333;
+      }
 
-        .add-to-cart {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+      .add-to-cart {
+        background-color: #333;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+      }
 
-        .buy-now {
-            background-color: #f7941d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-size: 16px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
+      .buy-now {
+        background-color: #f7941d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 16px;
+        margin-left: 10px;
+        cursor: pointer;
+      }
 
-        .product-info {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #666;
-        }
+      .product-info {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #666;
+      }
 
-        .product-info ul {
-            padding-left: 20px;
-        }
+      .product-info ul {
+        padding-left: 20px;
+      }
 
-        .product-info li {
-            margin-bottom: 5px;
-        }
-        .quantity-selector {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
+      .product-info li {
+        margin-bottom: 5px;
+      }
+      .quantity-selector {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+      }
 
-.quantity-btn {
-  font-size: 18px;
-  padding: 5px 15px;
-  margin: 0 10px;
-  border: 1px solid #EEA520;
-  background-color: #EEA520;
-  cursor: pointer;
-  border-radius: 30%;
-}
+      .quantity-btn {
+        font-size: 18px;
+        padding: 5px 15px;
+        margin: 0 10px;
+        border: 1px solid #eea520;
+        background-color: #eea520;
+        cursor: pointer;
+        border-radius: 30%;
+      }
 
-.quantity-btn:disabled {
-  background-color: #ddd;
-  cursor: not-allowed;
-  border: 1px solid white;
-}
+      .quantity-btn:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+        border: 1px solid white;
+      }
 
-.quantity-display {
-  font-size: 18px;
-  font-weight: bold;
-}
-
+      .quantity-display {
+        font-size: 18px;
+        font-weight: bold;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="container">
-        <div class="image-gallery">
-            <!-- Dynamic image gallery, displaying 4 images -->
-            <img *ngFor="let image of Images let i = index" 
-                 [src]=" image" 
-                 alt="Product Image" 
-                 [attr.data-index]="i"/>
+      <div class="image-gallery">
+        <!-- Dynamic image gallery, displaying 4 images -->
+        <img
+          *ngFor="let image of Images let i = index"
+          [src]=" image"
+          alt="Product Image"
+          [attr.data-index]="i"
+        />
+      </div>
+
+      <div class="product-details">
+        <!-- Product Title -->
+        <div class="product-title">{{ product.name }}</div>
+
+        <!-- Product Price -->
+        <div class="product-price">
+          {{ product.basePrice | currency: 'USD' }}
         </div>
-    
-        <div class="product-details">
-            <!-- Product Title -->
-            <div class="product-title">{{ product.name }}</div>
-    
-            <!-- Product Price -->
-            <div class="product-price">{{ product.basePrice | currency: 'USD' }}</div>
-            <div>
-                <p> Only {{product.quantity}} pieces left</p>
-            </div>
-            <!-- Color Options -->
-            <div class="color-options">
-                <div>COLOR:</div>
-                <span class="color-blue"></span>
-            <span class="color-green"></span>
-                <!-- <span *ngFor="let color of product.colors" [ngStyle]="{'background-color': color}" class="color-swatch"></span> -->
-            </div>
-    
-            <!-- Size Options
+        <div>
+          <p>Only {{product.quantity}} pieces left</p>
+        </div>
+        <!-- Color Options -->
+        <div class="color-options">
+          <div>COLOR:</div>
+          <span class="color-blue"></span>
+          <span class="color-green"></span>
+          <!-- <span *ngFor="let color of product.colors" [ngStyle]="{'background-color': color}" class="color-swatch"></span> -->
+        </div>
+
+        <!-- Size Options
             <div class="size-options">
                 <div>SIZE:</div>
                 <span>38</span>
@@ -185,42 +193,73 @@
               
             </div> -->
 
-            <div class="quantity-selector my-2">
-                <button class="quantity-btn" (click)="decreaseQuantity()" [disabled]="selectedQuantity <= 1 || product.quantity <= 0">-</button>
-                <span class="quantity-display">{{ selectedQuantity }}</span>
-                <button class="quantity-btn" (click)="increaseQuantity()" [disabled]="selectedQuantity >= product.quantity || product.quantity <= 0">+</button>
-            </div>
-    
-            <!-- Add to Cart and Buy Now Buttons -->
-            <button class="add-to-cart"   (click)="addToCart(product.id)">ADD TO CART</button>
-            <!-- <button class="buy-now" (click)="addToCart(product.id)">BUY IT NOW</button> -->
-    
-            <!-- Product Info -->
-            <div class="product-info">
-                <h6 style="font-weight: 700;">ABOUT THE PRODUCT</h6>
-                <p>{{ product.description }}</p>
-            </div>
+        <div class="quantity-selector my-2">
+          <button
+            class="quantity-btn"
+            (click)="decreaseQuantity()"
+            [disabled]="selectedQuantity <= 1 || product.quantity <= 0"
+          >
+            -
+          </button>
+          <span class="quantity-display">{{ selectedQuantity }}</span>
+          <button
+            class="quantity-btn"
+            (click)="increaseQuantity()"
+            [disabled]="selectedQuantity >= product.quantity || product.quantity <= 0"
+          >
+            +
+          </button>
         </div>
+
+        <!-- Add to Cart and Buy Now Buttons -->
+        <button class="add-to-cart" (click)="addToCart(product.id)">
+          ADD TO CART
+        </button>
+        <!-- <button class="buy-now" (click)="addToCart(product.id)">BUY IT NOW</button> -->
+
+        <!-- Product Info -->
+        <div class="product-info">
+          <h6 style="font-weight: 700">ABOUT THE PRODUCT</h6>
+          <p>{{ product.description }}</p>
+        </div>
+      </div>
     </div>
 
-    <button (click)="productReviewModal(product)" style="border-radius: 20px; margin-bottom: 10px; background-color: #EEA520; border: none; color: #FFFFFF; font-size: 18px; padding: 15px 30px;">
-        Add Review
-      </button>
-    <div class="card" style="border-radius: 20px;">
-        <div class="card-body" *ngFor="let reviewer of product.reviews || []">
-          <!-- Rating on the top-left -->
-          <div class="rating-container">
-            <p-rating [(ngModel)]="reviewer.ratings" [disabled]="true" [stars]="5"></p-rating>
-          </div>
-      
-          <!-- Reviewer name and review -->
-          <div class="reviewer-info">
-            <b>{{ reviewer.reviewerName }} <i class="bi bi-check-circle" style="color: darkgreen;"></i></b>
-            <p>{{ reviewer.reviews }}</p>
-          </div>
+    <button
+      (click)="productReviewModal(product)"
+      style="
+        border-radius: 20px;
+        margin-bottom: 10px;
+        background-color: #eea520;
+        border: none;
+        color: #ffffff;
+        font-size: 18px;
+        padding: 15px 30px;
+      "
+    >
+      Add Review
+    </button>
+    <div class="card" style="border-radius: 20px">
+      <div class="card-body" *ngFor="let reviewer of product.reviews || []">
+        <!-- Rating on the top-left -->
+        <div class="rating-container">
+          <p-rating
+            [(ngModel)]="reviewer.ratings"
+            [disabled]="true"
+            [stars]="5"
+          ></p-rating>
         </div>
-      </div>            
-      <ng-template #template>       
-      </ng-template>
-</body>
+
+        <!-- Reviewer name and review -->
+        <div class="reviewer-info">
+          <b
+            >{{ reviewer.reviewerName }}
+            <i class="bi bi-check-circle" style="color: darkgreen"></i
+          ></b>
+          <p>{{ reviewer.reviews }}</p>
+        </div>
+      </div>
+    </div>
+    <ng-template #template> </ng-template>
+  </body>
 </html>

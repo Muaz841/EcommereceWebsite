@@ -1,15 +1,11 @@
-
-
-    <div class="review-card">
-        <h2>Leave a Review</h2>
-        <div class="stars">
-            <p-rating [(ngModel)]="ratings"  [stars]="5"></p-rating>
-        </div>
-        <textarea placeholder="Write a review..." [(ngModel)]="review"></textarea>       
-        <div class="buttons">
-            <button (click)="  submitReview()" class="submit-btn">Submit Review</button>
-            <button (click)="   cancel()" class="cancel-btn">Cancel</button>
-        </div>
-    </div>
-
-
+<div class="review-card">
+  <h2>Leave a Review</h2>
+  <div class="stars">
+    <p-rating [(ngModel)]="ratings" [stars]="5"></p-rating>
+  </div>
+  <textarea placeholder="Write a review..." [(ngModel)]="review"></textarea>
+  <div class="buttons">
+    <button (click)="  submitReview()" class="submit-btn">Submit Review</button>
+    <button (click)="   cancel()" class="cancel-btn">Cancel</button>
+  </div>
+</div>

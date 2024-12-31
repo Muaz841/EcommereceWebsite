@@ -1,242 +1,263 @@
-
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-6">
-                    <h1>{{ "Order Details" | localize }}</h1> <app-breadcrumb></app-breadcrumb>
-                </div>
-                <div class="col-6 text-right gap">
-                    <a href="javascript:;"  [routerLink]="['/app/order']">
-                        <img src="../../../assets/img/orders/cancelbutton.svg" class="px-1"/>
-                    </a>
-                    <!-- <a href="javascript:;" >
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6">
+        <h1>{{ "Order Details" | localize }}</h1>
+        <app-breadcrumb></app-breadcrumb>
+      </div>
+      <div class="col-6 text-right gap">
+        <a href="javascript:;" [routerLink]="['/app/order']">
+          <img src="../../../assets/img/orders/cancelbutton.svg" class="px-1" />
+        </a>
+        <!-- <a href="javascript:;" >
                         <img src="../../../assets/img/orders/exportbutton.svg" class="px-1"/>
                     </a>
                     <a href="javascript:;" >                       
                         <img src="../../../assets/img/orders/invoicebuton.svg" class="px-1"/>
                     </a> -->
+      </div>
+    </div>
+  </div>
+</section>
+<section class="content px-2">
+  <div class="row">
+    <div class="col-md-4 mt-2">
+      <p-card>
+        <div class="order">
+          <h5 id="order">Order #</h5>
+        </div>
+        <div class="mt-4">
+          <div class="card customerstyling">
+            <div>
+              <img src="../../../assets/img/orders/added.svg" class="px-1" />
+              <label for="">Added</label>
+            </div>
+            <div>{{ orderDetails.creationDate.format('DD MMM YYYY')}}</div>
+          </div>
+          <div class="card customerstyling">
+            <div>
+              <img
+                src="../../../assets/img/orders/truckside.svg"
+                class="px-1"
+              />
+              <label for="">Payment Method</label>
+            </div>
+            <div>Visa</div>
+          </div>
+          <div class="card customerstyling">
+            <div>
+              <img
+                src="../../../assets/img/orders/creditcard.svg"
+                class="px-1"
+              />
+              <label for="">Shipping Method</label>
+            </div>
+            <div>Flat Shipping</div>
+          </div>
+        </div>
+      </p-card>
+    </div>
+    <div class="col-md-4 mt-2">
+      <div class="card custom-card">
+        <div class="card-body">
+          <div
+            style="
+              display: flex;
+              align-items: flex-start;
+              justify-content: space-between;
+            "
+          >
+            <h5 style="font-size: 1.25rem; font-weight: 600">Customer</h5>
+          </div>
+          <div class="mt-4">
+            <div class="card customerstyling">
+              <div>
+                <img
+                  src="../../../assets/img/orders/customer.svg"
+                  class="px-1"
+                />
+                <label for="">Customer</label>
+              </div>
+              <div>{{orderDetails.customerName}}</div>
+            </div>
+            <div class="card customerstyling">
+              <div>
+                <img src="../../../assets/img/orders/email.svg" class="px-1" />
+                <label for="">Email</label>
+              </div>
+              <div>{{orderDetails.customerMail}}</div>
+            </div>
+            <div class="card customerstyling">
+              <div>
+                <img src="../../../assets/img/orders/phone.svg" class="px-1" />
+                <label for="">Phone</label>
+              </div>
+              <div>{{orderDetails.customerphone}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mt-2">
+      <div class="card address-custom-card">
+        <div class="card-body">
+          <div
+            style="
+              display: flex;
+              align-items: flex-start;
+              justify-content: space-between;
+            "
+          >
+            <h5 style="font-size: 1.25rem; font-weight: 600">Address</h5>
+          </div>
+          <div class="mt-3">
+            <div class="card AddressStyling">
+              <div class="row" id="logo">
+                <div class="col-md-2 imagedesign">
+                  <img
+                    src="../../../assets/img/orders/address.svg"
+                    class="px-1"
+                  />
                 </div>
+                <div class="col-md-10">
+                  <div>Billing Address</div>
+                  <div>BANK</div>
+                </div>
+              </div>
             </div>
+            <div class="card AddressStyling">
+              <div class="row" id="logo">
+                <div class="col-md-2 imagedesign">
+                  <img
+                    src="../../../assets/img/orders/address.svg"
+                    class="px-1"
+                  />
+                </div>
+                <div class="col-md-10">
+                  <div>Shipping Address</div>
+                  <div>{{orderDetails.shippingAddress}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
-    <section class="content px-2">
-        <div class="row">
-            <div class="col-md-4 mt-2">
-                <p-card>
-                    <div class="order">
-                        <h5 id="order">Order # </h5>
-                    </div>
-                    <div class="mt-4">
-                        <div class="card customerstyling">
-                            <div>
-                                <img src="../../../assets/img/orders/added.svg" class="px-1"/>
-                                <label for="">Added</label>
-                            </div>
-                            <div>
-                                {{ orderDetails.creationDate.format('DD MMM YYYY')}}
-                            </div>
-                        </div>
-                        <div class="card customerstyling">
-                            <div>
-                                <img src="../../../assets/img/orders/truckside.svg" class="px-1"/>
-                                <label for="">Payment Method</label>
-                            </div>
-                            <div>
-                                Visa
-                            </div>
-                        </div>
-                        <div class="card customerstyling">
-                            <div>
-                                <img src="../../../assets/img/orders/creditcard.svg" class="px-1"/>
-                                <label for="">Shipping Method</label>
-                            </div>
-                            <div>
-                                Flat Shipping
-                            </div>
-                        </div>
-                    </div>
-                </p-card>
-            </div>
-            <div class="col-md-4 mt-2">
-                <div class="card custom-card">
-                    <div class="card-body">                     
-                    <div style="display: flex; align-items: flex-start; justify-content: space-between;">
-                        <h5 style="font-size: 1.25rem; font-weight: 600;">Customer</h5>
-                    </div>
-                    <div class="mt-4">
-                        <div class="card customerstyling">
-                            <div>
-                                <img src="../../../assets/img/orders/customer.svg" class="px-1"/>
-                                <label for="">Customer</label>
-                            </div>
-                            <div>
-                               {{orderDetails.customerName}}
-                            </div>
-                        </div>
-                        <div class="card customerstyling">
-                            <div>
-                                <img src="../../../assets/img/orders/email.svg" class="px-1"/>
-                                <label for="">Email</label>
-                            </div>
-                            <div>
-                                {{orderDetails.customerMail}}
-                            </div>
-                        </div>
-                        <div class="card customerstyling">
-                            <div>
-                                <img src="../../../assets/img/orders/phone.svg" class="px-1"/>
-                                <label for="">Phone</label>
-                            </div>
-                            <div>
-                                {{orderDetails.customerphone}}
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                  </div>
-            </div>
-            <div class="col-md-4 mt-2">
-                <div class="card address-custom-card">
-                    <div class="card-body">
-                        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
-                            <h5 style="font-size: 1.25rem; font-weight: 600;">Address</h5>
-                        </div>
-                        <div class="mt-3">
-                            <div class="card AddressStyling">
-                                <div class="row" id="logo">
-                                    <div class="col-md-2 imagedesign">
-                                        <img src="../../../assets/img/orders/address.svg" class="px-1"/>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <div>Billing Address</div>
-                                        <div>
-                                            BANK
-                                        </div>
-                                    </div>     
-                                </div>
-                            </div>
-                            <div class="card AddressStyling">
-                                <div class="row" id="logo">
-                                    <div class="col-md-2 imagedesign">
-                                        <img src="../../../assets/img/orders/address.svg" class="px-1"/>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <div>Shipping Address</div>
-                                        <div>
-                                            {{orderDetails.shippingAddress}}
-                                        </div>
-                                    </div>     
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-            </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="content px-2 mt-1">
+  <div class="row">
+    <div class="col-md-8 mt-2">
+      <p-card>
+        <div class="order-list">
+          <h3 style="font-weight: 500">
+            Order List <span class="badge">{{totalproducts}}</span>
+          </h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>SKU</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of orderDetails.orderProducts">
+                <td>
+                  <img
+                    [src]="'data:image/jpeg;base64,' + order.thumbnail"
+                    class="thumbnail"
+                  />
+                  <span style="font-weight: bold">{{ order.productName }}</span>
+                </td>
+                <td>{{ order.productId }}</td>
+                <td>{{ order.quantity }} pcs</td>
+                <td>${{ order.productPrice}}</td>
+                <td>${{calculateproductstotal(order)}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">Subtotal</td>
+                <td>{{ subtotal | currency }}</td>
+              </tr>
+              <tr>
+                <td colspan="3">VAT(0%)</td>
+                <td>$0</td>
+              </tr>
+              <tr>
+                <td colspan="3">Shipping Rate</td>
+                <td>$20</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Total</strong></td>
+                <td><strong>{{ total | currency }}</strong></td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
-    </section>
-    <section class="content px-2 mt-1">
-        <div class="row">
-            <div class="col-md-8 mt-2">
-                <p-card>                    
-                    <div class="order-list">
-                        <h3 style="font-weight: 500;">Order List <span class="badge">{{totalproducts}}</span></h3>
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>Product</th>
-                              <th>SKU</th>     
-                              <th>Quantity</th>                        
-                              <th>Price</th>
-                              <th>Total</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let order of orderDetails.orderProducts">
-                              <td><img [src]="'data:image/jpeg;base64,' + order.thumbnail" class="thumbnail"> 
-                                <span style="font-weight: bold;">{{ order.productName }}</span> </td>
-                              <td>{{ order.productId }}</td>
-                              <td>{{ order.quantity }} pcs</td>
-                              <td>${{ order.productPrice}}</td>
-                              <td>${{calculateproductstotal(order)}}</td>
-                            </tr>
-                          </tbody>
-                          <tfoot>
-                            <tr>
-                              <td colspan="3">Subtotal</td>
-                              <td>{{ subtotal | currency }}</td>
-                            </tr>
-                            <tr>
-                              <td colspan="3">VAT(0%)</td>
-                              <td> $0 </td>
-                            </tr>
-                            <tr>
-                              <td colspan="3">Shipping Rate</td>
-                              <td>$20</td>
-                            </tr>
-                            <tr>
-                              <td colspan="3"><strong>Total</strong></td>
-                              <td><strong>{{ total | currency }}</strong></td>
-                            </tr>
-                          </tfoot>
-                        </table>
-                      </div>
-                       
-                    
-                </p-card>
-            </div>
-            <div class="col-md-4 mt-2 ordercards">
-                <p-card>
-                    <div class="order">
-                        <h5 id="order">Document</h5>
-                    </div>
-                    <div class="documentstyling">
-                        <div>
-                            <img src="../../../assets/img/orders/docinvoice.svg" class="px-1"/>
-                            <label for="">Invoice</label>
-                        </div>
-                        <div>
-                            INV-32011
-                        </div>
-                    </div>
-                    <div class="documentstyling">
-                        <div>
-                            <img src="../../../assets/img/orders/docshipping.svg" class="px-1"/>
-                            <label for="">Shipping</label>
-                        </div>
-                        <div>
-                            SHP-2011REG
-                        </div>
-                    </div>
-                </p-card>
-                <p-card>
-                    <div class="order">
-                        <h5 id="order">Order Status</h5>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <div>
-                            <img src="../../../assets/img/orders/orderplaced.svg" class="px-1"/>
-                            <label for="">Order Placed</label>
-                        </div>
-                        <div class="d-flex justify-content-around">
-                            An order has been placed.
-                        </div>
-                        <div class="d-flex justify-content-around">
-                            {{ orderDetails.creationDate.format('DD MMM YYYY')}}
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <div >
-                            <img src="../../../assets/img/orders/orderprocessing.svg" class="px-1"/>
-                            <label for="">Processing</label>
-                        </div>
-                        <div class="d-flex justify-content-around">
-                            Seller has processed your order.
-                        </div>
-                        <div class="d-flex justify-content-around" >
-                            {{ orderDetails.creationDate.format('DD MMM YYYY ')}}
-                        </div>
-                    </div>
-                    <!-- <div class="d-flex flex-column">
+      </p-card>
+    </div>
+    <div class="col-md-4 mt-2 ordercards">
+      <p-card>
+        <div class="order">
+          <h5 id="order">Document</h5>
+        </div>
+        <div class="documentstyling">
+          <div>
+            <img src="../../../assets/img/orders/docinvoice.svg" class="px-1" />
+            <label for="">Invoice</label>
+          </div>
+          <div>INV-32011</div>
+        </div>
+        <div class="documentstyling">
+          <div>
+            <img
+              src="../../../assets/img/orders/docshipping.svg"
+              class="px-1"
+            />
+            <label for="">Shipping</label>
+          </div>
+          <div>SHP-2011REG</div>
+        </div>
+      </p-card>
+      <p-card>
+        <div class="order">
+          <h5 id="order">Order Status</h5>
+        </div>
+        <div class="d-flex flex-column">
+          <div>
+            <img
+              src="../../../assets/img/orders/orderplaced.svg"
+              class="px-1"
+            />
+            <label for="">Order Placed</label>
+          </div>
+          <div class="d-flex justify-content-around">
+            An order has been placed.
+          </div>
+          <div class="d-flex justify-content-around">
+            {{ orderDetails.creationDate.format('DD MMM YYYY')}}
+          </div>
+        </div>
+        <div class="d-flex flex-column">
+          <div>
+            <img
+              src="../../../assets/img/orders/orderprocessing.svg"
+              class="px-1"
+            />
+            <label for="">Processing</label>
+          </div>
+          <div class="d-flex justify-content-around">
+            Seller has processed your order.
+          </div>
+          <div class="d-flex justify-content-around">
+            {{ orderDetails.creationDate.format('DD MMM YYYY ')}}
+          </div>
+        </div>
+        <!-- <div class="d-flex flex-column">
                         <div >
                             <img src="../../../assets/img/orders/orderpacked.svg" class="px-1"/>
                             <label for="">Packed</label>
@@ -245,31 +266,49 @@
                             DD/MM/YYYY, 00:00
                         </div>
                     </div> -->
-                    <div class="d-flex flex-column ">
-                        <div>
-                            <img src="../../../assets/img/orders/ordershipping.svg" class="px-1"/>
-                            <label for="">Shipping</label>
-                        </div>
-                        <div class="d-flex justify-content-around" *ngIf="orderDetails.orderStatus === 1">
-                            Your Order Has Been Shipped.
-                        </div>
-                        <div class="d-flex justify-content-around" *ngIf="orderDetails.orderStatus === 1">
-                            {{ orderDetails.creationDate.format('DD MMM YYYY ')}}
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <div >
-                            <img src="../../../assets/img/orders/orderdelivered.svg" class="px-1"/>
-                            <label for="">Delivered</label>
-                        </div>
-                        <div class="d-flex justify-content-around" *ngIf="orderDetails.orderStatus === 2">
-                            Your Order Is being Delivered.
-                        </div>
-                        <div class="d-flex justify-content-around" *ngIf="orderDetails.orderStatus === 2">
-                            {{ orderDetails.creationDate.format('DD MMM YYYY ')}}
-                        </div>
-                    </div>
-                </p-card>
-            </div>
+        <div class="d-flex flex-column">
+          <div>
+            <img
+              src="../../../assets/img/orders/ordershipping.svg"
+              class="px-1"
+            />
+            <label for="">Shipping</label>
+          </div>
+          <div
+            class="d-flex justify-content-around"
+            *ngIf="orderDetails.orderStatus === 1"
+          >
+            Your Order Has Been Shipped.
+          </div>
+          <div
+            class="d-flex justify-content-around"
+            *ngIf="orderDetails.orderStatus === 1"
+          >
+            {{ orderDetails.creationDate.format('DD MMM YYYY ')}}
+          </div>
         </div>
-    </section>
+        <div class="d-flex flex-column">
+          <div>
+            <img
+              src="../../../assets/img/orders/orderdelivered.svg"
+              class="px-1"
+            />
+            <label for="">Delivered</label>
+          </div>
+          <div
+            class="d-flex justify-content-around"
+            *ngIf="orderDetails.orderStatus === 2"
+          >
+            Your Order Is being Delivered.
+          </div>
+          <div
+            class="d-flex justify-content-around"
+            *ngIf="orderDetails.orderStatus === 2"
+          >
+            {{ orderDetails.creationDate.format('DD MMM YYYY ')}}
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</section>

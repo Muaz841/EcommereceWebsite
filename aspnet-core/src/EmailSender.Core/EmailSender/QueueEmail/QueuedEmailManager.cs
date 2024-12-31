@@ -99,7 +99,7 @@ namespace EmailSender.EmailSender.QueueEmail
 
         public async Task<List<QueuedEmailDto>> GetPendingEmailsTWAsync(int tenantid)
         {
-            using (var unitOfWork = _unitOfWorkManager.Current.SetTenantId(tenantid)) {
+            using (var unitOfWork = _unitOfWorkManager.Current.SetTenantId(1)) {
                 var queued = await _queuedRepository.GetAllListAsync(q => q.Status != "Sent" && q.RetryCount < 6);
                 return _objectMapper.Map<List<QueuedEmailDto>>(queued);
             }

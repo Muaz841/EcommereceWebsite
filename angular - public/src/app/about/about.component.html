@@ -4,17 +4,19 @@
       <h1 id="heading1">YOUR TRUSTED</h1>
       <h1 id="heading2">MARKETPLACE</h1>
     </div>
-    
-    <div class="d-flex p-2 bd-highlight" style="justify-content: center;">    
+
+    <div class="d-flex p-2" style="position: relative; justify-content: center;">
       <img
-      [src]="'data:image/jpeg;base64,' + mainproduct.thumbnail"
-      class="card-img-top"
-      alt="Product Image"
-      style="height: 950px; object-fit: cover; border-radius: 30px;" 
-    />   
-      </div>
-      <div class="d-flex justify-content-center">
-        <button
+        [src]="'data:image/jpeg;base64,' + mainproduct.thumbnail"
+        class="card-img-top"
+        alt="Product Image"
+        style="height: 950px; object-fit: cover; border-radius: 30px"
+      />
+      <button class="bottom-left-button" (click)="addToCart( mainproduct.productID)">AddToCart</button>
+    </div>
+    
+    <div class="d-flex justify-content-center">
+      <button
         type="button"
         (click)="viewProduct(mainproduct.productID)"
         class="btn btn-primary btn-sm"
@@ -27,137 +29,161 @@
       >
         View Product - ${{ mainproduct.basePrice }}
       </button>
-      </div>
-  <div
-    style="
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 15vh;
-      text-align: center;
-    "
-  >
-    <p style="margin: 0; font-size: 24px">About Us</p>
-  </div>
-  <div class="image-container">
-    <img src="../../assets/img/group.PNG" alt="User Image" />
-  </div>
-
-  <div class="d-flex flex-row">
-    <div class="sub-heading1">
-      <h1 id="heading3">DON'T MISS OUT</h1>
-      <h1 id="heading4">NEW DROPS</h1>
     </div>
-  </div>
-
-  <div class="d-flex flex-row-reverse">
-    <button
-      type="button"
-      class="btn btn-warning"
-      style="border-radius: 24px; color: white"
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 15vh;
+        text-align: center;
+      "
     >
-      SHOP NEW DROPS
-    </button>
-  </div>
+      <p style="margin: 0; font-size: 24px">About Us</p>
+    </div>
+    <div class="image-container">
+      <img src="../../assets/img/group.PNG" alt="User Image" />
+    </div>
 
-  <div class="d-flex justify-content-center">
-    <div class="card" style="width: 18rem; margin: 10px;"  *ngFor="let product of lastestproduct">
-      <img
+    <div class="d-flex flex-row">
+      <div class="sub-heading1">
+        <h1 id="heading3">DON'T MISS OUT</h1>
+        <h1 id="heading4">NEW DROPS</h1>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row-reverse">
+      <button
+        type="button"
+        class="btn btn-warning"
+        style="border-radius: 24px; color: white"
+      >
+        SHOP NEW DROPS
+      </button>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <div
+        class="card"
+        style="width: 18rem; margin: 10px"
+        *ngFor="let product of lastestproduct"
+      >
+        <img
           [src]="'data:image/jpeg;base64,' + product.thumbnail"
           class="card-img-top"
           alt="Product Image"
-          style="height: 250px; object-fit: cover;" 
+          style="height: 250px; object-fit: cover"
         />
-      <div class="card-body">
-        <p-rating [(ngModel)]="product.rating"   [disabled]="true" [stars]="5"></p-rating>
-          <p class="card-text" style="
-          color: #131a3f; 
-          font-weight: 700; 
-          height: 50px; 
-          overflow: hidden; 
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-        ">
+        <div class="card-body">
+          <p-rating
+            [(ngModel)]="product.rating"
+            [disabled]="true"
+            [stars]="5"
+          ></p-rating>
+          <p
+            class="card-text"
+            style="
+              color: #131a3f;
+              font-weight: 700;
+              height: 50px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+            "
+          >
             {{ product.description }}
           </p>
-      </div>
-      <div class="card-body">
-        <button
-        type="button"
-        (click)="viewProduct(product.productID)"
-        class="btn btn-primary btn-sm"
-        style="
-          background-color: #131a3f;
-          color: white;
-          border-radius: 24px;
-          border: 2px solid #131a3f;
-        "
-      >
-        View Product - ${{ product.basePrice }}
-      </button>
+        </div>
+        <div class="card-body">
+          <button
+            type="button"
+            (click)="viewProduct(product.productID)"
+            class="btn btn-primary btn-sm"
+            style="
+              background-color: #131a3f;
+              color: white;
+              border-radius: 24px;
+              border: 2px solid #131a3f;
+            "
+          >
+            View Product - ${{ product.basePrice }}
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- <div class="d-flex p-2 bd-highlight">
+    <!-- <div class="d-flex p-2 bd-highlight">
     <div class="main-heading">
       <h1 id="heading5">OUR HAPPY </h1>
       <h1 id="heading6">CUSTOMERS</h1>
     </div>
   </div>
    -->
-  <section class="testimonials-section">
-    <h2 class="section-title">OUR HAPPY <span class="highlight">CUSTOMERS</span></h2>
-    <div class="testimonials-container">
-      <div class="testimonial" *ngFor="let review of customerReviews; let i = index" [ngClass]="{'testimonial-row': i % 4 === 0}">
+    <section class="testimonials-section">
+      <h2 class="section-title">
+        OUR HAPPY <span class="highlight">CUSTOMERS</span>
+      </h2>
+      <div class="testimonials-container">
+        <div
+          class="testimonial"
+          *ngFor="let review of customerReviews; let i = index"
+          [ngClass]="{ 'testimonial-row': i % 4 === 0 }"
+        >
           <div class="stars">
             <ng-container *ngIf="review.ratings">
-              <span *ngFor="let star of [].constructor(review.ratings); let j = index">★</span>
-          </ng-container>              
+              <span
+                *ngFor="
+                  let star of [].constructor(review.ratings);
+                  let j = index
+                "
+                >★</span
+              >
+            </ng-container>
           </div>
           <div class="emptystars">
-            <ng-container *ngIf="review.ratings ===  0">
-              <span >★★★★★</span>
-          </ng-container>              
+            <ng-container *ngIf="review.ratings === 0">
+              <span>★★★★★</span>
+            </ng-container>
           </div>
-          <h3 class="customer-name">{{review.reviewerName}} <span class="verified-badge">✔</span></h3>
-          <p class="testimonial-text">
-              "{{review.reviews}}"
-          </p>
-          
+          <h3 class="customer-name">
+            {{ review.reviewerName }} <span class="verified-badge">✔</span>
+          </h3>
+          <p class="testimonial-text">"{{ review.reviews }}"</p>
+        </div>
       </div>
-  </div>  
-</section>
-  
-  <div class="container col-md-12">
-    <div class="box">
-      <i class="fas fa-truck"></i>
-      <h2>Free Shipping</h2>
-      <p>Enjoy the convenience of free shipment on all your orders.</p>
-    </div>
-    <div class="box">
-      <i class="fas fa-money-bill-wave"></i>
-      <h2>Easy Refund</h2>
-      <p>Shop with confidence that our easy refund policy has got you covered.</p>
-    </div>
-    <div class="box">
-      <i class="fas fa-headset"></i>
-      <h2>Online Support</h2>
-      <p>Our dedicated online support team is just a click away.</p>
-    </div>
-    <div class="box">
-      <i class="fas fa-wallet"></i>
-      <h2>Flexible Payment</h2>
-      <p>We understand that flexibility is key when it comes to payments.</p>
-    </div>
-  </div>
+    </section>
 
-  <!-- <div class="d-flex justify-content-center">
+    <div class="container col-md-12">
+      <div class="box">
+        <i class="fas fa-truck"></i>
+        <h2>Free Shipping</h2>
+        <p>Enjoy the convenience of free shipment on all your orders.</p>
+      </div>
+      <div class="box">
+        <i class="fas fa-money-bill-wave"></i>
+        <h2>Easy Refund</h2>
+        <p>
+          Shop with confidence that our easy refund policy has got you covered.
+        </p>
+      </div>
+      <div class="box">
+        <i class="fas fa-headset"></i>
+        <h2>Online Support</h2>
+        <p>Our dedicated online support team is just a click away.</p>
+      </div>
+      <div class="box">
+        <i class="fas fa-wallet"></i>
+        <h2>Flexible Payment</h2>
+        <p>We understand that flexibility is key when it comes to payments.</p>
+      </div>
+    </div>
+
+    <!-- <div class="d-flex justify-content-center">
     <div class="image-container">
       <img src="../../assets/img/shipping-image.png" alt="footer Image" />
     </div>
   </div> -->
-
-
+  </div>
+</div>

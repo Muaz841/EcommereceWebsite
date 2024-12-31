@@ -7,7 +7,7 @@ import {
   OrderDto,
   StripePaymentServiceProxy,
   OrderProductDto,
-  OrderServicesServiceProxy
+  OrderServicesServiceProxy,
 } from "../../../shared/service-proxies/service-proxies";
 import { AppSessionService } from "../../../shared/session/app-session.service";
 import {
@@ -27,8 +27,8 @@ export class ContactDetailsComponent implements OnInit {
   shippingAddress: string;
   cartProducts: CartDto[] = [];
   itemsCount: number;
-  isOver13: boolean = false;  
-  isCardReady: boolean = false; 
+  isOver13: boolean = false;
+  isCardReady: boolean = false;
   isSameBillingAndDelivery: boolean = false;
   loading: boolean = false;
   stripePublicKey: string =
@@ -59,7 +59,7 @@ export class ContactDetailsComponent implements OnInit {
     this._productServices.getCart(this._sessionService.userId).subscribe(
       (cartItems: CartDto[]) => {
         this.cartProducts = cartItems;
-        this.itemsCount = cartItems.length;                
+        this.itemsCount = cartItems.length;
         this.cd.detectChanges();
       },
       () => {
@@ -71,85 +71,88 @@ export class ContactDetailsComponent implements OnInit {
     if (stripeInstance) {
       this.stripe = stripeInstance;
       this.elements = stripeInstance.elements();
-      this.card = this.elements.create("card"); 
-      this.card.mount("#card-element"); 
+      this.card = this.elements.create("card");
+      this.card.mount("#card-element");
       this.card.on("change", (event) => {
-        this.isCardReady = !event.empty && !event.error; 
-        this.cd.detectChanges(); 
+        this.isCardReady = !event.empty && !event.error;
+        this.cd.detectChanges();
       });
     }
     this.cd.detectChanges();
   }
 
-
   calculateSubtotal(): number {
     return this.cartProducts.reduce(
       (sum, item) => sum + item.products.basePrice * item.quantity,
       0
-    );        
+    );
   }
 
   calculateTotal(): number {
     return this.calculateSubtotal() + 6.99 + 71.3;
   }
   allCheckboxesChecked(): boolean {
-    return this.isSameBillingAndDelivery && this.isOver13 && this.isCardReady;;
+    return this.isSameBillingAndDelivery && this.isOver13 && this.isCardReady;
   }
-
 
   submitPayment(): void {
     this.loading = true;
     this._stripeService
-      .createPaymentIntent(this.calculateTotal(), this._sessionService.user.emailAddress)
-      .subscribe((result) => {
-        this.clientSecret = result;  
-        if (!this.stripe || !this.clientSecret || !this.card) {
-          this.loading = false;
-          abp.notify.error("Card is missing");
-          return;
-        }    
-        this.stripe.confirmCardPayment(this.clientSecret, {      
-          payment_method: {
-            card: this.card,
-            billing_details: {
-              email: this._sessionService.user.emailAddress,
-            },
-          },              
-        })
-        .then(({ paymentIntent, error }) => {
-          if (error) {
+      .createPaymentIntent(
+        this.calculateTotal(),
+        this._sessionService.user.emailAddress
+      )
+      .subscribe(
+        (result) => {
+          this.clientSecret = result;
+          if (!this.stripe || !this.clientSecret || !this.card) {
             this.loading = false;
-            abp.notify.error('Payment failed', error.message);
-          } else if (paymentIntent?.status === "succeeded") {  
-
-            abp.notify.success("Payment succeeded Thanks For Purchasing");
-            this.loading = false;
-            this.router.navigate(['./app/about' ]);
-              const order = new OrderDto();
-              order.customerId = this._sessionService.userId;
-              order.totalPrice = this.calculateTotal();
-              order.shippingAddress = this.shippingAddress;     
-              order.orderProducts  = this.cartProducts.map( cart=> {
-              const orderproduct = new OrderProductDto();
-              orderproduct.productId = cart.productID;
-              orderproduct.quantity = cart.quantity;              
-              return orderproduct;                            
-             }) 
-             this._orderService.placeOrder(order).subscribe();                   
+            abp.notify.error("Card is missing");
+            return;
           }
-        })
-        .catch((error) => {
-          this.loading = false; 
-          abp.notify.error('An error occurred', error.message);
-        });
-      }, 
-      (error) => {
-        this.loading = false; 
-        abp.notify.error('Failed to create payment intent', error.message);
-      });
-  }  
+          this.stripe
+            .confirmCardPayment(this.clientSecret, {
+              payment_method: {
+                card: this.card,
+                billing_details: {
+                  email: this._sessionService.user.emailAddress,
+                },
+              },
+            })
+            .then(({ paymentIntent, error }) => {
+              if (error) {
+                this.loading = true;
+                abp.notify.error("Payment failed", error.message);
+              } else if (paymentIntent?.status === "succeeded") {
+                abp.notify.success("Payment succeeded Thanks For Purchasing");
+                this.loading = false;
+                this.router.navigate(["./app/about"]);
+                const order = new OrderDto();
+                order.customerId = this._sessionService.userId;
+                order.totalPrice = this.calculateTotal();
+                order.shippingAddress = this.shippingAddress;
+                order.orderProducts = this.cartProducts.map((cart) => {
+                  const orderproduct = new OrderProductDto();
+                  orderproduct.productId = cart.productID;
+                  orderproduct.quantity = cart.quantity;
+                  return orderproduct;
+                });
+                this._orderService.placeOrder(order).subscribe();
+              }
+            })
+            .catch((error) => {
+              this.loading = false;
+              abp.notify.error("An error occurred", error.message);
+            });
+        },
+        (error) => {
+          this.loading = false;
+          abp.notify.error("Failed to create payment intent", error.message);
+        }
+      );
+  }
 
   getStripe(): Stripe | null {
     return this.stripe;
-  }  
+  }
 }
