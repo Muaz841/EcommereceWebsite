@@ -6,10 +6,11 @@ import { RatingModule } from 'primeng/rating';
 import { ModalModule } from 'ngx-bootstrap/modal'; 
 import { reviewScreenRoutingModule } from './reviewScreenRoutingModule';
 import { ReviewScreenComponent } from './reviewScreenComponent';
+import{ThanksScreenComponent} from './thanksScreen/thanksScreenComponent'
 
 
 @NgModule({
-    declarations: [ReviewScreenComponent],
+    declarations: [ReviewScreenComponent,ThanksScreenComponent],
     imports: [SharedModule,  ModalModule.forRoot(),reviewScreenRoutingModule,RatingModule,CommonModule],
     providers: [PublicSiteServiceProxy]
 })

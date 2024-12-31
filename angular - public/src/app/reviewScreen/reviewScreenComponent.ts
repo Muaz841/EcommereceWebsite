@@ -4,13 +4,14 @@ import {
   Injector,
   OnInit,
 } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot,Router } from "@angular/router";
 import {
   ProductReviewsDto,
   PublicSiteServiceProxy,
   ReviewProductsDto,
 } from "../../shared/service-proxies/service-proxies";
 import { AppSessionService } from "../../shared/session/app-session.service";
+import { AppRouteGuard } from '@shared/auth/auth-route-guard';
 
 @Component({
   templateUrl: "./reviewScreenView.html",
@@ -22,14 +23,17 @@ export class ReviewScreenComponent implements OnInit {
 
   constructor(
     injector: Injector,
-    private router: Router,
+    private _router: Router,
+    private _authGuard: AppRouteGuard,
     private route: ActivatedRoute,
     private _sessionService: AppSessionService,
     private _publicSiteService: PublicSiteServiceProxy,
     private cd: ChangeDetectorRef
   ) {}
 
+
   ngOnInit(): void {
+    const canProceed = this._authGuard.checkReviewStatus();
     const orderId = Number(this.route.snapshot.paramMap.get("id"));
     this._publicSiteService.getProductForReview(orderId).subscribe(
       (result) => {
@@ -76,6 +80,8 @@ export class ReviewScreenComponent implements OnInit {
     this._publicSiteService.addRatings(reviewDataArray).subscribe(
       (response) => {
         abp.notify.success("Thanks for your reviews!");
+        this._sessionService.setReviewSubmitted(true);
+        this._router.navigate(['app/reviewScreen/thank-you']);
       },
       (error) => {
         abp.notify.error("Error submitting reviews");

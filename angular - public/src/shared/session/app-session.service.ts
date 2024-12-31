@@ -10,7 +10,7 @@ import {
 
 @Injectable()
 export class AppSessionService {
-
+    private reviewSubmitted: boolean = false;  
     private _user: UserLoginInfoDto;
     private _tenant: TenantLoginInfoDto;
     private _application: ApplicationInfoDto;
@@ -19,6 +19,19 @@ export class AppSessionService {
         private _sessionService: SessionServiceProxy,
         private _abpMultiTenancyService: AbpMultiTenancyService) {
     }
+
+    setReviewSubmitted(status: boolean): void {
+        this.reviewSubmitted = status;
+      }
+
+      isReviewSubmitted(): boolean {
+        return this.reviewSubmitted;
+      }
+
+      resetReviewStatus(): void {
+        this.reviewSubmitted = false;
+      }
+    
 
     get application(): ApplicationInfoDto {
         return this._application;

@@ -20,6 +20,18 @@ export class AppRouteGuard  {
             return false;
         }     
     }
+    
+    checkReviewStatus(): boolean {
+        const isReviewSubmitted = this._sessionService.isReviewSubmitted();
+    
+        if (isReviewSubmitted) {
+          
+          this._router.navigate(['/app/reviewScreen/thank-you']);
+          return false; 
+        }    
+        return true; 
+      }
+
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         return this.canActivate(route, state);
