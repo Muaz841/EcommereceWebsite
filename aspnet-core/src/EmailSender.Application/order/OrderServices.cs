@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace EmailSender.order
 {
-    public  class OrderServices : EmailSenderAppServiceBase, IOrderService
+    public class OrderServices : EmailSenderAppServiceBase, IOrderService
     {
 
         private readonly IRepository<Order, int> _orderRepository;
@@ -52,28 +52,28 @@ namespace EmailSender.order
                 TotalPrice = order.TotalPrice,
                 ShippingAddress = order.ShippingAddress,
                 OrderProducts = order.OrderProducts.Select(op => new OrderProduct
-                {                    
+                {
                     ProductId = op.ProductId,
-                    Quantity = op.Quantity,                    
+                    Quantity = op.Quantity,
                 }).ToList()
             };
-            var OrderID =  await _orderRepository.InsertAndGetIdAsync(data);
+            var OrderID = await _orderRepository.InsertAndGetIdAsync(data);
 
-                foreach (var product in order.OrderProducts)
-                {
-                  await   _productDetailRepository.GetAll().Where(p => p.ProductId == product.ProductId)
-                        .UpdateFromQueryAsync( pd => new ProductDetail
-                        {  
-                            Stock = pd.Stock - product.Quantity,                            
-                        });
-                 
-                   var catId = _productCategoryRepository.GetAll().Where(p => p.ProductId == product.ProductId).Select(p => p.CategoryId).FirstOrDefault();                    
-                       await _categoryRepository.GetAll().Where(c => c.Id == catId)
-                                .UpdateFromQueryAsync(cd => new Category
-                                {
-                                    Sold = cd.Sold+1
-                                });
-                }
+            foreach (var product in order.OrderProducts)
+            {
+                await _productDetailRepository.GetAll().Where(p => p.ProductId == product.ProductId)
+                      .UpdateFromQueryAsync(pd => new ProductDetail
+                      {
+                          Stock = pd.Stock - product.Quantity,
+                      });
+
+                var catId = _productCategoryRepository.GetAll().Where(p => p.ProductId == product.ProductId).Select(p => p.CategoryId).FirstOrDefault();
+                await _categoryRepository.GetAll().Where(c => c.Id == catId)
+                         .UpdateFromQueryAsync(cd => new Category
+                         {
+                             Sold = cd.Sold + 1
+                         });
+            }
 
             await _cartRepository.GetAll().Where(c => c.userID == order.CustomerId).ExecuteDeleteAsync();
 
@@ -112,15 +112,15 @@ namespace EmailSender.order
                 Status = o.Status,
                 ProductsCount = o.OrderProducts.Count(),
                 ProductThumbnail = o.OrderProducts
-                              .OrderBy(op => op.Id) 
-                              .Select(op => op.products.Thumbnail) 
+                              .OrderBy(op => op.Id)
+                              .Select(op => op.products.Thumbnail)
                               .FirstOrDefault()
 
             }).OrderBy(input.Sorting ?? "OrderID asc")
                 .PageBy(input)
                 .ToListAsync();
 
-            
+
             var totalCount = await filteredOrders.CountAsync();
             return new PagedResultDto<OrderListDto>(totalCount, data);
         }
@@ -156,7 +156,7 @@ namespace EmailSender.order
                         Quantity = op.Quantity,
                         productPrice = productDetail?.DiscountedPrice > 0
                             ? productDetail.DiscountedPrice
-                            : productDetail?.BasePrice ?? 0, 
+                            : productDetail?.BasePrice ?? 0,
                     };
                 }).ToList()
             };
@@ -184,19 +184,19 @@ namespace EmailSender.order
             return orderstats;
         }
 
-        public async Task OrderStatusChange(int OrderID, int  Status)
+        public async Task OrderStatusChange(int OrderID, int Status)
         {
-           await  _orderRepository.GetAll().Where(o => o.Id == OrderID)
-               .UpdateFromQueryAsync(os => new Order
-               {
-                   Status = Status,
-               });
+            await _orderRepository.GetAll().Where(o => o.Id == OrderID)
+                .UpdateFromQueryAsync(os => new Order
+                {
+                    Status = Status,
+                });
 
             var userdata = await _orderRepository.GetAll()
                                     .Where(o => o.Id == OrderID)
                                     .Include(o => o.Customer)
                                     .FirstOrDefaultAsync();
-            
+
             string orderStatusName = Enum.GetName(typeof(OrderStatus), userdata.Status);
             var email = new EmailSenderDto
             {

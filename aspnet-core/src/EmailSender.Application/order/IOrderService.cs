@@ -14,5 +14,9 @@ namespace EmailSender.order
         Task<PagedResultDto<OrderListDto>> OrderList(PagedOrderResultRequestDto input);
 
         Task<OrderDetailsDto> OrderByID(int id);
+
+        Task GetExcelFile();
+
+        Task OrderStatusChange(int OrderID, int Status);
     }
 }

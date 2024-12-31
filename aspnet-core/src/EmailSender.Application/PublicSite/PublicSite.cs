@@ -16,9 +16,6 @@ using Castle.MicroKernel;
 using System;
 using EmailSender.OrderDomain;
 
-
-
-
 namespace EmailSender.PublicSite
 {
     public class PublicSiteAppService : EmailSenderAppServiceBase, IPublicSiteAppService
@@ -61,7 +58,7 @@ namespace EmailSender.PublicSite
 
             var data = await filteredProducts
                 .Where(x => x.ProductDetails.Any(pd => pd.Stock > 0))
-                .OrderByDescending(product => product.CreationTime)                
+                .OrderByDescending(product => product.CreationTime)
                 .Select(x => new PublicProductDto
                 {
                     productID = x.Id,
@@ -229,7 +226,7 @@ namespace EmailSender.PublicSite
         {
             var cartcount = _CartRepository.Count(c => c.userID == UserID);
             return cartcount;
-         }
+        }
 
 
         public async Task<List<CartDto>> GetCart(long userID)
@@ -237,21 +234,22 @@ namespace EmailSender.PublicSite
             var items = await _CartRepository.GetAll()
                 .AsNoTracking()
                 .Where(p => p.userID == userID)
-                .Include(c => c.Product) 
+                .Include(c => c.Product)
                 .ThenInclude(p => p.ProductDetails)
                 .ToListAsync();
 
             var data = items
                 .Select(x => new CartDto
-                {   CartID = x.Id,
+                {
+                    CartID = x.Id,
                     userID = x.userID,
                     productID = x.ProductId,
-                    quantity = x.Quantity,                     
+                    quantity = x.Quantity,
                     products = new ProductDto
                     {
-                            Id = x.ProductId,
-                            Name = x.Product.Name,
-                         Thumbnail = x.Product.Thumbnail,
+                        Id = x.ProductId,
+                        Name = x.Product.Name,
+                        Thumbnail = x.Product.Thumbnail,
                         BasePrice = x.Product.ProductDetails.FirstOrDefault().BasePrice,
                     }
                 })
@@ -265,14 +263,14 @@ namespace EmailSender.PublicSite
             _CartRepository.GetAll().Where(c => c.Id == input.cartId).UpdateFromQuery(pc => new Cart
             {
                 Quantity = pc.Quantity + input.quantitychange,
-            });                     
+            });
         }
         public async Task RemoveFromCart(long userID, int productId)
         {
-            await _CartRepository.GetAll().Where( p => p.userID == userID && p.ProductId == productId).ExecuteDeleteAsync();                    
+            await _CartRepository.GetAll().Where(p => p.userID == userID && p.ProductId == productId).ExecuteDeleteAsync();
         }
-        
-       public async Task<ContactDetailsDto> contactDetails(long userId)
+
+        public async Task<ContactDetailsDto> contactDetails(long userId)
         {
             var data = await _userRepository.GetAll().Where(p => p.Id == userId)
 
@@ -320,20 +318,20 @@ namespace EmailSender.PublicSite
         public async Task<List<ReviewProductsDto>> GetProductForReview(int orderId)
         {
             var products = await _orderRepository.GetAll()
-                .Where(o => o.Id == orderId) 
+                .Where(o => o.Id == orderId)
                 .Include(o => o.OrderProducts)
                 .ThenInclude(op => op.products)
                 .SelectMany(o => o.OrderProducts)
                 .Select(op => new ReviewProductsDto
                 {
-                    ProductId = op.products.Id, 
-                    ProductName = op.products.Name, 
-                    ProductThumbnail = op.products.Thumbnail 
+                    ProductId = op.products.Id,
+                    ProductName = op.products.Name,
+                    ProductThumbnail = op.products.Thumbnail
                 })
                 .ToListAsync();
 
             return products;
         }
-      
+
     }
 }

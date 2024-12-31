@@ -25,7 +25,7 @@ export class orderStatusModalComponent
   selectedStatus: number;
   availableStatus = [
     { id: 0, name: "processing" },
-    { id: 1, name: "shipped" },
+    { id: 1, name: "Shipped" },
     { id: 2, name: "Delivered" },
     { id: 3, name: "Cancelled" },
   ];
