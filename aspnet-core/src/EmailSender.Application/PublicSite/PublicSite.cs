@@ -14,6 +14,7 @@ using EmailSender.ProductEntities;
 using EmailSender.Authorization.Users;
 using Castle.MicroKernel;
 using System;
+using EmailSender.OrderDomain;
 
 
 
@@ -30,10 +31,11 @@ namespace EmailSender.PublicSite
         private readonly IRepository<Cart, int> _CartRepository;
         private readonly IRepository<User, long> _userRepository;
         private readonly IRepository<ProductReview, int> _productReviewRepository;
+        private readonly IRepository<Order, int> _orderRepository;
 
         public PublicSiteAppService(IRepository<Product, int> productRepository, IRepository<ProductMedia, int> mediaRepository,
            IRepository<ProductCategory, int> ProductCategoryRepository,
-           IRepository<ProductDetail, int> productDetailRepository, IRepository<ProductReview, int> productReviewRepository, IRepository<Cart, int> CartRepository, IRepository<DiscountType, int> discountRepository, IRepository<User, long> userRepository)
+           IRepository<ProductDetail, int> productDetailRepository, IRepository<ProductReview, int> productReviewRepository, IRepository<Cart, int> CartRepository, IRepository<DiscountType, int> discountRepository, IRepository<User, long> userRepository, IRepository<Order, int> orderRepository)
         {
             _productRepository = productRepository;
             _mediaRepository = mediaRepository;
@@ -43,7 +45,7 @@ namespace EmailSender.PublicSite
             _CartRepository = CartRepository;
             _userRepository = userRepository;
             _productReviewRepository = productReviewRepository;
-
+            _orderRepository = orderRepository;
         }
 
 
@@ -285,17 +287,21 @@ namespace EmailSender.PublicSite
             return data;
         }
 
-        public async Task AddRatings(ProductReviewsDto input)
+        public async Task AddRatings(List<ProductReviewsDto> input)
         {
-            var data = new ProductReview
+            foreach (var review in input)
             {
-                UserId = input.UserId,
-                ProductId = input.ProductId,
-                ratings = input.Ratings,
-                review = input.Reviews,
-            };
-            await _productReviewRepository.InsertAsync(data);
+                var data = new ProductReview
+                {
+                    UserId = review.UserId,
+                    ProductId = review.ProductId,
+                    ratings = review.Ratings,
+                    review = review.Reviews,
+                };
+                await _productReviewRepository.InsertAsync(data);
+            }
         }
+
 
         public async Task<List<ProductReviewsDto>> GetReviews()
         {
@@ -310,9 +316,24 @@ namespace EmailSender.PublicSite
                 })
                 .ToListAsync();
         }
-            
-        
-        
-     
+
+        public async Task<List<ReviewProductsDto>> GetProductForReview(int orderId)
+        {
+            var products = await _orderRepository.GetAll()
+                .Where(o => o.Id == orderId) 
+                .Include(o => o.OrderProducts)
+                .ThenInclude(op => op.products)
+                .SelectMany(o => o.OrderProducts)
+                .Select(op => new ReviewProductsDto
+                {
+                    ProductId = op.products.Id, 
+                    ProductName = op.products.Name, 
+                    ProductThumbnail = op.products.Thumbnail 
+                })
+                .ToListAsync();
+
+            return products;
+        }
+      
     }
 }

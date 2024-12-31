@@ -142,6 +142,7 @@ namespace EmailSender.order
                 CustomerMail = order.Customer?.EmailAddress,
                 Customerphone = order.Customer?.PhoneNumber,
                 CreationDate = order.CreationTime,
+                OrderStatus = order.Status,
                 OrderProducts = order.OrderProducts.Select(op =>
                 {
                     var product = op.products;

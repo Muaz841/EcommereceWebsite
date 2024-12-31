@@ -18,5 +18,7 @@ namespace EmailSender.order.OrderDtos
         public string Customerphone { get; set; }
 
         public DateTime CreationDate { get; set; }
+
+        public int OrderStatus { get; set; }
     }
 }

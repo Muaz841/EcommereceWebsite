@@ -16,14 +16,15 @@ namespace EmailSender.PublicSite
         Task<PublicProductDto> GetMainProduct();
         Task<CreateUpdateProductDto> GetById(int input);
         Task AddToCart(CartDto input);
-
+        Task<List<ReviewProductsDto>> GetProductForReview(int orderId);
         Task<List<PublicProductDto>> NewArrivals();
         Task<int> CartCount(long userID);
         Task<List<CartDto>> GetCart(long userID);
         Task ProductQuantityControl(CartQuantityDto input);
+
+        Task AddRatings(List<ProductReviewsDto> input);
         Task RemoveFromCart(long userID, int productId);
-        Task<ContactDetailsDto> contactDetails(long userId);
-        Task AddRatings(ProductReviewsDto input);
+        Task<ContactDetailsDto> contactDetails(long userId);        
         Task<List<ProductReviewsDto>> GetReviews();
 
     }

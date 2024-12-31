@@ -14,7 +14,12 @@ import { AppAuthService } from '@shared/auth/app-auth.service';
 @Component({
     selector: 'sidebar-menu',
     templateUrl: './sidebar-menu.component.html',
-    styleUrls: ['./side-menu-style.css']
+    styleUrls: ['./side-menu-style.css'],
+    styles:`.footerButton {
+        position: absolute;
+        height: 100px;
+        bottom: 2em;
+    }`
 })
 export class SidebarMenuComponent extends AppComponentBase implements OnInit {
     menuItems: MenuItem[];

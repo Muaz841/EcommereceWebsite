@@ -19,7 +19,7 @@ import { AppSessionService } from '@shared/session/app-session.service';
 })
 export class ProductReviewDialogComponent extends AppComponentBase 
   implements OnInit {
-    productId: number;
+  productId: number;
   ratings : number = 0;
   review: string = " ";  
   @Output() onSave = new EventEmitter<any>();
@@ -46,7 +46,7 @@ export class ProductReviewDialogComponent extends AppComponentBase
     reviewdata.reviews = this.review;
     reviewdata.ratings = this.ratings;
     reviewdata.productId =  this.bsModalRef.content.productId;
-    this._publicSiteService.addRatings(reviewdata).subscribe(
+    this._publicSiteService.addRatings([reviewdata]).subscribe(
       (response) => {
           
         abp.notify.success(`Thanks For Your Review`);   

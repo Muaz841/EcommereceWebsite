@@ -12,7 +12,16 @@
       />
     <div class="card-body">
       <p-rating [(ngModel)]="product.rating"   [disabled]="true" [stars]="5"></p-rating>
-        <p class="card-text" style="color: #131a3f; font-weight: 700">
+        <p class="card-text"style="
+        color: #131a3f; 
+        font-weight: 700; 
+        height: 50px; 
+        overflow: hidden; 
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      ">
           {{ product.description }}
         </p>
     </div>

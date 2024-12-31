@@ -17,6 +17,7 @@ class queuedEmailRequestDto extends PagedRequestDto {
 
 
 export class queuedEmailComponent extends PagedListingComponentBase<QueuedEmailDto>{
+  
   queuedEmails : QueuedEmailDto[] = [];
   keyqord = "";
   status = "";
@@ -63,7 +64,7 @@ protected updateFailed(id)
     response => {});
     abp.notify.success(('status updated'));
     this.refresh();
-    
+    window.location.reload()
 }
 
 

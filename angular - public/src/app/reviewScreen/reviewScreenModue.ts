@@ -5,11 +5,11 @@ import { PublicSiteServiceProxy } from '../../shared/service-proxies/service-pro
 import { RatingModule } from 'primeng/rating';
 import { ModalModule } from 'ngx-bootstrap/modal'; 
 import { reviewScreenRoutingModule } from './reviewScreenRoutingModule';
-import { reviewScreenComponent } from './reviewScreenComponent';
+import { ReviewScreenComponent } from './reviewScreenComponent';
 
 
 @NgModule({
-    declarations: [reviewScreenComponent],
+    declarations: [ReviewScreenComponent],
     imports: [SharedModule,  ModalModule.forRoot(),reviewScreenRoutingModule,RatingModule,CommonModule],
     providers: [PublicSiteServiceProxy]
 })

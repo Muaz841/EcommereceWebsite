@@ -28,6 +28,7 @@ export class ContactDetailsComponent implements OnInit {
   cartProducts: CartDto[] = [];
   itemsCount: number;
   isOver13: boolean = false;  
+  isCardReady: boolean = false; 
   isSameBillingAndDelivery: boolean = false;
   loading: boolean = false;
   stripePublicKey: string =
@@ -72,9 +73,14 @@ export class ContactDetailsComponent implements OnInit {
       this.elements = stripeInstance.elements();
       this.card = this.elements.create("card"); 
       this.card.mount("#card-element"); 
+      this.card.on("change", (event) => {
+        this.isCardReady = !event.empty && !event.error; 
+        this.cd.detectChanges(); 
+      });
     }
     this.cd.detectChanges();
   }
+
 
   calculateSubtotal(): number {
     return this.cartProducts.reduce(
@@ -87,7 +93,7 @@ export class ContactDetailsComponent implements OnInit {
     return this.calculateSubtotal() + 6.99 + 71.3;
   }
   allCheckboxesChecked(): boolean {
-    return this.isSameBillingAndDelivery && this.isOver13;
+    return this.isSameBillingAndDelivery && this.isOver13 && this.isCardReady;;
   }
 
 

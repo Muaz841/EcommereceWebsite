@@ -27,6 +27,8 @@ customerReviews:  ProductReviewsDto[] = [];
    () => abp.notify.error('Error fetching latest products')
   )       
   this._productServie.getMainProduct().subscribe((result) => {this.mainproduct = result;
+    console.log((this.mainproduct));
+    
     this.cd.detectChanges();            
    },
  () => abp.notify.error('Error fetching main products')

@@ -1,44 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="d-flex row">
+  <div class="review-card" *ngFor="let prod of products">
+    Leave a Review for <b>{{ prod.productName }}</b>
 
-<body>
+    <img
+    [src]="'data:image/jpeg;base64,' + (prod.productThumbnail || '')"
+    class="card-img-top"
+    alt="{{ prod.productName || 'Product Image' }} Image"
+    style="height: 250px; object-fit: cover"
+  />
 
-    <div class="review-container">
-        <h1>Product Reviews</h1>
-        <div class="product-review">
-            <div class="product-card">
-                <img src="https://via.placeholder.com/150" alt="Product Image" class="product-image">
-                <div class="product-info">
-                    <h2 class="product-title">Product 1</h2>
-                    <div class="star-rating">
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="5">&#9733;</span>
-                    </div>
-                    <textarea placeholder="Write your review..." class="review-box"></textarea>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <img src="https://via.placeholder.com/150" alt="Product Image" class="product-image">
-                <div class="product-info">
-                    <h2 class="product-title">Product 2</h2>
-                    <div class="star-rating">
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="5">&#9733;</span>
-                    </div>
-                    <textarea placeholder="Write your review..." class="review-box"></textarea>
-                </div>
-            </div>
-        </div>
+  <div class="stars">
+    <p-rating
+      [(ngModel)]="reviews[prod.productId].ratings "
+      (onRateChange)="handleReviewInput(prod.productId, $event.value, reviews[prod.productId].review )"
+      [stars]="5"
+      cancel="false"
+    >
+    </p-rating>
+  </div>
 
-        <button class="submit-btn">Submit Reviews</button>
-    </div>
-
-</body>
-</html>
+  <textarea
+    placeholder="Write a review..."
+    (input)="handleReviewInput(prod.productId, reviews[prod.productId]?.ratings || 0, $event.target.value)"
+    [(ngModel)]="reviews[prod.productId].review"
+  ></textarea>
+</div>
+</div>
+<div class="d-flex flex-row-reverse bd-highlight">
+  <button
+    style="background-color: #eea520; color: white"
+    (click)="submitAllReviews()"
+    class="submit-btn"
+  >
+    Submit Review
+  </button>
+</div>
