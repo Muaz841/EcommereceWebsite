@@ -6338,6 +6338,7 @@ export class OrderDetailsDto implements IOrderDetailsDto {
     customerMail: string | undefined;
     customerphone: string | undefined;
     creationDate: moment.Moment;
+    orderStatus: number;
 
     constructor(data?: IOrderDetailsDto) {
         if (data) {
@@ -6360,6 +6361,7 @@ export class OrderDetailsDto implements IOrderDetailsDto {
             this.customerMail = _data["customerMail"];
             this.customerphone = _data["customerphone"];
             this.creationDate = _data["creationDate"] ? moment(_data["creationDate"].toString()) : <any>undefined;
+            this.orderStatus = _data["orderStatus"];
         }
     }
 
@@ -6382,6 +6384,7 @@ export class OrderDetailsDto implements IOrderDetailsDto {
         data["customerMail"] = this.customerMail;
         data["customerphone"] = this.customerphone;
         data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
+        data["orderStatus"] = this.orderStatus;
         return data;
     }
 
@@ -6400,6 +6403,7 @@ export interface IOrderDetailsDto {
     customerMail: string | undefined;
     customerphone: string | undefined;
     creationDate: moment.Moment;
+    orderStatus: number;
 }
 
 export class OrderDto implements IOrderDto {

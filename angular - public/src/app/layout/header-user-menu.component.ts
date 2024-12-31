@@ -47,9 +47,7 @@ export class HeaderUserMenuComponent extends AppComponentBase {
     });             
     this._cartService.cartUpdated$.subscribe(() => {
       this. refreshCart();
-    });
-
-    console.log("cart troggered");
+    });    
     
   }
   refreshCart() {

@@ -4,9 +4,10 @@ import { appModuleAnimation } from '../../shared/animations/routerTransition';
 import { AppComponentBase } from '../../shared/app-component-base';
 import { Router } from '@angular/router';
 import { PagedListingComponentBase, PagedRequestDto } from '@shared/paged-listing-component-base';
-import { finalize } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import {orderStatusModalComponent} from './orderStatusModal/orderStatusModalComponent'
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import {EventTriggerServiceComponent} from '../../shared/EventTriggerService';
 import * as moment from 'moment';
 
 
@@ -37,9 +38,11 @@ orderStats: OrderCountDto;
 keyword: string = " ";  
 sortby = " ";  
 dateRange: Date[] = [];
+private orderUpdatedSubscription: Subscription;
 
 
   constructor(
+    private _eventTriggerService: EventTriggerServiceComponent,
     private _modalService: BsModalService,
     private injector: Injector,
      cd: ChangeDetectorRef,
@@ -48,12 +51,16 @@ dateRange: Date[] = [];
   ){
     super(injector,cd)
   }
+   
 
-  protected list(
+  protected list(   
     request: PagedOrderRequestDto,
     pageNumber: number,
     finishedCallback: Function
   ): void {
+    this.orderUpdatedSubscription = this._eventTriggerService.orderComponentUpdated$.subscribe(() => {     
+      this.getDataPage(1);
+    });   
     request.keyword = this.keyword;
     this.AllOrder = [];
       if (this.dateRange && this.dateRange.length === 2) {
@@ -184,6 +191,11 @@ dateRange: Date[] = [];
         break;
     }
   }
+
+
+
+
+ 
 
   onsearch() {
     this.getDataPage(1);

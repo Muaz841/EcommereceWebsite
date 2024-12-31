@@ -23,6 +23,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import {BreadcrumbComponent} from './breadCrumb.component'
+import {EventTriggerServiceComponent} from '../shared/EventTriggerService';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
@@ -73,7 +74,8 @@ export class SharedModule {
                 AppUrlService,
                 AppAuthService,
                 AppRouteGuard,
-                LayoutStoreService
+                LayoutStoreService,
+                EventTriggerServiceComponent
             ]
         };
     }

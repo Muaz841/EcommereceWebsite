@@ -10,6 +10,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AppComponentBase } from '../../../shared/app-component-base';
 import { OrderListDto } from '@shared/service-proxies/service-proxies';
 import { OrderServicesServiceProxy } from '@shared/service-proxies/service-proxies';
+import { EventTriggerServiceComponent } from '../../../shared/EventTriggerService';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class orderStatusModalComponent extends AppComponentBase
   @Output() onSave = new EventEmitter<any>();
 
   constructor(
+    private _eventTriggerService: EventTriggerServiceComponent,
     injector: Injector,      
     private _orderService :OrderServicesServiceProxy,
     public bsModalRef: BsModalRef,
@@ -53,6 +55,7 @@ export class orderStatusModalComponent extends AppComponentBase
       abp.notify.success("Status Changed");
       this.onSave.emit({ orderId: this.entity.orderID, status: this.selectedStatus });
       this.bsModalRef.hide();
+      this._eventTriggerService.notifyOrderUpdated();
     });
   }
   
