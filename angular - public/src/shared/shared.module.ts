@@ -22,7 +22,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import {BreadcrumbComponent} from './breadCrumb.component'
+import {BreadcrumbComponent} from './breadCrumb.component';
+import {EventTriggerServiceComponent} from './eventTriggerServiceComponent';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
@@ -43,7 +44,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
         AbpModalHeaderComponent,
         AbpModalFooterComponent,
         BreadcrumbComponent,
-        LocalizePipe,
+        LocalizePipe,        
         BusyDirective,
         EqualValidator
     ],
@@ -73,6 +74,7 @@ export class SharedModule {
                 AppUrlService,
                 AppAuthService,
                 AppRouteGuard,
+                EventTriggerServiceComponent,
                 LayoutStoreService
             ]
         };

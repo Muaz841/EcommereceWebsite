@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, Injector, ChangeDetectorRef, } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
 import { AppAuthService } from '@shared/auth/app-auth.service';
+import{EventTriggerServiceComponent} from '@shared/eventTriggerServiceComponent';
 import {AbpSessionService } from 'abp-ng2-module'
 import {
   RoleDto,
@@ -11,6 +12,7 @@ import { PublicSiteServiceProxy } from '@shared/service-proxies/service-proxies'
 
 @Component({
   selector: 'header-user-menu',
+  
   templateUrl: './header-user-menu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./side-menu-style.css']
@@ -19,6 +21,7 @@ export class HeaderUserMenuComponent extends AppComponentBase {
   userRoles: RoleDto[] = [];
   cartCount: number;
   constructor(
+    private _cartService: EventTriggerServiceComponent,
     private _publicSite: PublicSiteServiceProxy,
     private _authService: AppAuthService, 
      private _usersessionService: AppSessionService,
@@ -40,8 +43,20 @@ export class HeaderUserMenuComponent extends AppComponentBase {
     this.cdr.detectChanges();
     this._userService.getRoles().subscribe((result) => {
       this.userRoles = result.items;           
-      this.cdr.detectChanges();
+      this.cdr.detectChanges();      
     });             
+    this._cartService.cartUpdated$.subscribe(() => {
+      this. refreshCart();
+    });
+
+    console.log("cart troggered");
+    
+  }
+  refreshCart() {
+    this._publicSite.cartCount(this._usersessionService.userId).subscribe((result) => {
+      this.cartCount = result;  
+      this.cdr.detectChanges(); 
+    });
   }
 
   ToCart(): void {   

@@ -19,7 +19,7 @@ import { AppComponent } from './app.component';
                     {
                         path: 'reviewScreen',
                         loadChildren: () => import('./reviewScreen/reviewScreenModue').then((m) => m.reviewScreenModule),
-                        // canActivate: [AppRouteGuard]
+                         canActivate: [AppRouteGuard]
                     },
                     {
                         path: 'newArrivals',

@@ -72,10 +72,7 @@ export class ReviewScreenComponent implements OnInit {
   
         return reviewData;
       })
-      .filter((review) => review !== null); 
-  
-    
-  
+      .filter((review) => review !== null);         
     this._publicSiteService.addRatings(reviewDataArray).subscribe(
       (response) => {
         abp.notify.success("Thanks for your reviews!");

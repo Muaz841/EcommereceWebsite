@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { PublicSiteServiceProxy , CreateUpdateProductDto, CartDto} from "../../../shared/service-proxies/service-proxies";
 import { AppSessionService } from "../../../shared/session/app-session.service"; 
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal'; 
+import{EventTriggerServiceComponent} from '@shared/eventTriggerServiceComponent';
 import { ProductReviewDialogComponent } from "../productReview/productReviewComponent";
 @Component({
   templateUrl: './viewProduct.html',
@@ -14,6 +15,7 @@ Images: string[] = [];
 selectedQuantity: number = 1;
 productId: number;
   constructor(
+    private _cartRefreshService: EventTriggerServiceComponent,
     injector: Injector,
     private router: Router,
     private route: ActivatedRoute,
@@ -57,6 +59,7 @@ productId: number;
           
           abp.notify.success(`Successfully added ${this.selectedQuantity} of the product to the cart.`);
           this.router.navigate(['./app/about/cart' ]);
+          this._cartRefreshService.notifyCartUpdate();
         },
         (error) => {         
           abp.notify.error('Error adding product to the cart.');
