@@ -1,37 +1,18 @@
-# Important
+username :admin
+password: 123qwe
+This project is a dynamic and scalable e-commerce platform built during my internship, showcasing robust web development skills and industry practices.
 
-Issues of this repository are tracked on https://github.com/aspnetboilerplate/aspnetboilerplate. Please create your issues on https://github.com/aspnetboilerplate/aspnetboilerplate/issues.
+Features
+Admin and Public Interfaces: Separate functionalities for administrators and end-users.
+Responsive UI: Designed with Angular for a seamless and user-friendly experience.
+Email Notifications: Integrated Mailtrap to send emails for user creation, order placement, and delivery updates.
+Secure Payments: Implemented payment processing using Stripe.
+Product Reviews and Ratings: Includes functionality for users to rate and review products.
+Order Management: Comprehensive order handling and status tracking.
+Technologies Used
+Backend: ASP.NET Boilerplate
+Frontend: Angular
+Payment Gateway: Stripe
+Email Service: Mailtrap
+This project highlights my expertise in full-stack development, as well as my ability to deliver scalable and feature-rich web applications.
 
-# Introduction
-
-This is a template to create **ASP.NET Core MVC / Angular** based startup projects for [ASP.NET Boilerplate](https://aspnetboilerplate.com/Pages/Documents). It has 2 different versions:
-
-1. [ASP.NET Core MVC & jQuery](https://aspnetboilerplate.com/Pages/Documents/Zero/Startup-Template-Core) (server rendered multi-page application).
-2. [ASP.NET Core & Angular](https://aspnetboilerplate.com/Pages/Documents/Zero/Startup-Template-Angular) (single page application).
- 
-User Interface is based on [AdminLTE theme](https://github.com/ColorlibHQ/AdminLTE).
- 
-# Download
-
-Create & download your project from https://aspnetboilerplate.com/Templates
-
-# Screenshots
-
-#### Sample Dashboard Page
-![](_screenshots/module-zero-core-template-ui-home.png)
-
-#### User Creation Modal
-![](_screenshots/module-zero-core-template-ui-user-create-modal.png)
-
-#### Login Page
-
-![](_screenshots/module-zero-core-template-ui-login.png)
-
-# Documentation
-
-* [ASP.NET Core MVC & jQuery version.](https://aspnetboilerplate.com/Pages/Documents/Zero/Startup-Template-Core)
-* [ASP.NET Core & Angular  version.](https://aspnetboilerplate.com/Pages/Documents/Zero/Startup-Template-Angular)
-
-# License
-
-[MIT](LICENSE).
