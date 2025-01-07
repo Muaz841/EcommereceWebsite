@@ -37,8 +37,11 @@ export class CartComponent implements OnInit {
        var data = new CartQuantityDto();
        data.cartId = item.cartID;
        data.quantitychange = 1;
-        this._productServie.productQuantityControl(data).subscribe(); 
+       this._productServie.productQuantityControl(data).subscribe(() => {
         item.quantity++;
+        this.cd.detectChanges(); 
+      });
+    
     }
   
     decreaseQuantity(item: CartDto): void {
@@ -46,9 +49,11 @@ export class CartComponent implements OnInit {
         var data = new CartQuantityDto();
         data.cartId = item.cartID;
         data.quantitychange = -1;
-         this._productServie.productQuantityControl(data).subscribe(); 
-         item.quantity--;
-      }
+            this._productServie.productQuantityControl(data).subscribe(() => {
+        item.quantity--;
+        this.cd.detectChanges(); 
+      });
+    }
     }
 
     calculateSubtotal(): number {
@@ -60,7 +65,7 @@ export class CartComponent implements OnInit {
       // }
       
       calculateTotal(): number {
-        return this.calculateSubtotal()   ;
+        return this.calculateSubtotal()  +15 ;
       }
 
       removeProductFromCart(pID: number): void {

@@ -14,9 +14,27 @@
         />
         <div class="item-details">
           <h3>{{ item.products.name }}</h3>
-          <p class="price">${{ item.products.basePrice }}</p>
-        </div>                
-        <i class="bi bi-trash-fill" (click)="removeProductFromCart(item.products.id)" style="color: red;"></i>
+          <p class="price">${{ item.products.basePrice }}</p> 
+          <p>{{ item.products.stock }} Items</p>        
+      </div>                                  
+        <div class="quantity-selector my-2">
+          <button
+            class="quantity-btn"   
+            (click)="decreaseQuantity(item)"
+            [disabled]="item.quantity  <= 1"                     
+          >
+            -
+          </button>
+          <span class="quantity-display">{{ item.quantity }}</span>
+          <button
+            class="quantity-btn"  
+            (click)="increaseQuantity(item)"
+            [disabled]="item.quantity  >= item.products.stock"                      
+          >
+            +
+          </button>
+          <i class="bi bi-trash-fill" (click)="removeProductFromCart(item.products.id)" style="color: red;" [style.cursor]="'pointer'"></i> 
+        </div>
       </div>
     </div>
     <div class="order-summary">

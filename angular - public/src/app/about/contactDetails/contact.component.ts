@@ -84,7 +84,7 @@ export class ContactDetailsComponent implements OnInit {
 
   calculateSubtotal(): number {
     return this.cartProducts.reduce(
-      (sum, item) => sum + item.products.basePrice * item.products.stock,
+      (sum, item) => sum + item.products.basePrice * item.quantity,
       0
     );
   }

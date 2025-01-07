@@ -16,6 +16,32 @@
     color: #1a1a1a;
     font-weight: bold;
   }
+  .quantity-selector {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .quantity-btn {
+    font-size: 18px;
+    padding: 5px 15px;
+    margin: 0 10px;
+    border: 1px solid #eea520;
+    background-color: #eea520;
+    cursor: pointer;
+    border-radius: 30%;
+  }
+
+  .quantity-btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+    border: 1px solid white;
+  }
+
+  .quantity-display {
+    font-size: 18px;
+    font-weight: bold;
+  }
   
   .cart-content {
     display: flex;

@@ -251,7 +251,8 @@ namespace EmailSender.PublicSite
                         Name = x.Product.Name,
                         Thumbnail = x.Product.Thumbnail,
                         BasePrice = x.Product.ProductDetails.FirstOrDefault().BasePrice,                       
-                        Stock = x.Quantity,
+                        Stock = x.Product.ProductDetails.FirstOrDefault().Stock,
+
                     }
                 })
                 .ToList();
