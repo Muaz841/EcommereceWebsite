@@ -56,6 +56,7 @@ export class ContactDetailsComponent implements OnInit {
         this.contactDetails = result;
         this.cd.detectChanges();
       });
+
     this._productServices.getCart(this._sessionService.userId).subscribe(
       (cartItems: CartDto[]) => {
         this.cartProducts = cartItems;
@@ -83,13 +84,13 @@ export class ContactDetailsComponent implements OnInit {
 
   calculateSubtotal(): number {
     return this.cartProducts.reduce(
-      (sum, item) => sum + item.products.basePrice * item.quantity,
+      (sum, item) => sum + item.products.basePrice * item.products.stock,
       0
     );
   }
 
   calculateTotal(): number {
-    return this.calculateSubtotal() + 6.99 + 71.3;
+    return this.calculateSubtotal() + 6 + 71;
   }
   allCheckboxesChecked(): boolean {
     return this.isSameBillingAndDelivery && this.isOver13 && this.isCardReady;

@@ -9,9 +9,10 @@ import { AppSessionService } from "../../../shared/session/app-session.service";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { EventTriggerServiceComponent } from "@shared/eventTriggerServiceComponent";
 import { ProductReviewDialogComponent } from "../productReview/productReviewComponent";
+import { accountModuleAnimation } from "@shared/animations/routerTransition";
 @Component({
   templateUrl: "./viewProduct.html",
-  styleUrls: ["./viewProductstyle.css"],
+  styleUrls: ["./viewProductstyle.css"],  
 })
 export class viewProductComponent implements OnInit {
   product: CreateUpdateProductDto = new CreateUpdateProductDto();
