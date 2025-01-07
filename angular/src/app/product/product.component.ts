@@ -25,6 +25,8 @@ class PagedproductRequestDto extends PagedRequestDto {
 })
 export class ProductComponent extends PagedListingComponentBase<ProductDto> {
   selectedButton: string = "all";
+  selectedProductToDelete: ProductDto[] = [];
+  allSelected: boolean = false;
   sortby = " ";
   keyword = " ";
   allProducts: ProductDto[] = [];
@@ -94,6 +96,25 @@ export class ProductComponent extends PagedListingComponentBase<ProductDto> {
     this.dateRange = [];
   }
 
+  onProductSelectChange(product: ProductDto, isChecked: boolean): void {
+    if (isChecked) {
+      this.selectedProductToDelete.push(product);
+    } else {
+      this.selectedProductToDelete = this.selectedProductToDelete.filter(p => p.id !== product.id);
+    }
+  }
+
+  toggleAllCheckboxes(isChecked: boolean): void {
+    this.allSelected = isChecked;
+  
+    if (isChecked) {      
+      this.selectedProductToDelete = [...this.allProducts];
+    } else {     
+      this.selectedProductToDelete = [];
+    }
+  
+    console.log(this.selectedProductToDelete);
+  }
   protected delete(entity: ProductDto): void {
     const idsToDelete: number[] = Array.isArray(entity.id)
       ? entity.id
@@ -111,6 +132,30 @@ export class ProductComponent extends PagedListingComponentBase<ProductDto> {
       }
     );
   }
+
+  protected deleteList(): void {    
+    const idsToDelete: number[] = this.selectedProductToDelete.map(product => product.id);
+      
+    if (idsToDelete.length === 0) {
+      abp.notify.error("No products selected for deletion.");
+      return;
+    }
+  
+    abp.message.confirm(
+      "Are you sure you want to delete the selected products?",
+      undefined,
+      (result: boolean) => {
+        if (result) {
+          this._productService.delete(idsToDelete).subscribe((response) => {
+            abp.notify.success("Successfully deleted selected products.");
+          this.selectedProductToDelete = []; 
+            this.refresh();
+          });
+        }
+      }
+    );
+  }
+  
 
   protected ExportFile(): void {
     this._productService.getExcelFile().subscribe((response) => {

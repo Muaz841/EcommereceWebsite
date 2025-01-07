@@ -96,11 +96,10 @@
                   (onClose)="onDateSearch()"
                 />
               </div>
-
-              <!-- Danger Button -->
-              <!-- <div class="col-md-2">
-                                <button type="button" class="action-button"><i class="fa fa-thin fa-trash-can"></i></button>
-                            </div> -->
+              <div class="col-md-1">
+                <button type="button" (click)="deleteList()" class="action-button" style="length: 10 rem;"><i class="fa fa-thin fa-trash-can"></i></button>
+            </div>
+              <!-- Danger Button -->           
             </div>
           </div>
         </div>
@@ -114,7 +113,16 @@
     <table>
       <thead>
         <tr>
-          <th>Product</th>
+          <th>
+            <div class="form-check">
+              <input  [checked]="allSelected"
+              (change)="toggleAllCheckboxes($event.target.checked)" 
+              class="master-form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+              <label class="master-form-check-label" for="flexCheckIndeterminate">
+                Products
+              </label>
+            </div>
+          </th>
           <th>ID</th>
           <th>Category</th>
           <th>Stock</th>
@@ -129,8 +137,19 @@
         itemsPerPage: pageSize, currentPage: pageNumber, totalItems: totalItems
         } ; track prod.id) {
         <tr>
-          <td>
+          <td>          
             <div style="display: flex; align-items: center">
+              <div class="form-check">
+                <input
+                    class="form-check-input custom-checkbox"
+                    type="checkbox"
+                    [checked]="selectedProductToDelete.includes(prod)"
+                    (change)="onProductSelectChange(prod, $event.target.checked)"
+                    id="productCheckbox{{ prod.id }}"
+                  />
+                <label class="form-check-label" for="flexCheckDefault">                  
+                </label>
+            </div>
               <ng-container *ngIf="prod.thumbnail; else showIcon">
                 <img
                   [src]="'data:image/jpeg;base64,' + prod.thumbnail"
