@@ -144,7 +144,7 @@ namespace EmailSender.PublicSite
                    .Include(product => product.ProductDetails)
                    .Include(product => product.ProductCategories)
                      .ThenInclude(pc => pc.Category)
-                     .Where(p => p.main == true);
+                     .Where(p => p.main == true && p.ProductDetails.Any(pd => pd.Stock > 0));
 
             var data = await filteredProducts
                 .Select(x => new PublicProductDto
