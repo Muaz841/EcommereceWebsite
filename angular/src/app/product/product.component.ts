@@ -82,12 +82,12 @@ export class ProductComponent extends PagedListingComponentBase<ProductDto> {
         this.filteredProducts = result.items;
         this.allProducts = result.items;
         this.allProducts.forEach((product) => {
-          if (product.isActive) {
+          if (!product.isActive) {
             this.publishedProducts.push(product);
           }
-          if (product.lowStock) {
+          if (product.lowStock && !product.isActive) {
             this.lowstockProducts.push(product);
-          } else if (!product.isActive) {
+          } else if (product.isActive) {
             this.draftProducts.push(product);
           }
         });
@@ -173,23 +173,26 @@ export class ProductComponent extends PagedListingComponentBase<ProductDto> {
   }
 
   getStatusLabel(product: any): string {
-    if (product.lowStock) {
+    if(product.isActive) {
+      return "DRAFT"}
+    else if (product.lowStock) {
       return "LOW STOCK";
-    } else if (product.isActive) {
+    } else if (product.isActive === false) {
       return "PUBLISHED";
-    } else {
-      return "DRAFT";
-    }
+    } 
+    
   }
 
   getStatusColor(product: any): string {
-    if (product.lowStock) {
-      return "#ED4765";
-    } else if (product.isActive) {
-      return "#EEA520";
-    } else {
+    if(product.isActive)
+    {
       return "#313131";
     }
+   else if (product.lowStock) {
+      return "#ED4765";
+    } else if (product.isActive === false) {
+      return "#EEA520";
+    } 
   }
 
   getStatusClass(product: any): string {
@@ -197,9 +200,9 @@ export class ProductComponent extends PagedListingComponentBase<ProductDto> {
       return "status-lowstock";
     } else if (product.isActive) {
       return "status-draft";
-    } else {
-      return "status-draft";
-    }
+    }else if (product.isActive === false) {
+      return "status-published";
+    } 
   }
 
   selectButton(button: string): void {

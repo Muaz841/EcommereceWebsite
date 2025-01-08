@@ -65,6 +65,7 @@ namespace EmailSender.ProductServices
                 Name = input.Name,
                 TenantId = Tenant,
                 Thumbnail = input.Thumbnail,
+                IsActive = input.IsActive,
 
                 ProductDetails = new List<ProductDetail>
                  {
@@ -156,6 +157,7 @@ namespace EmailSender.ProductServices
                     BasePrice = x.ProductDetails.FirstOrDefault().BasePrice,
                     Stock = x.ProductDetails.FirstOrDefault().Stock,
                     Ismain = x.main,
+                    IsActive = x.IsActive,
                 })
                 .OrderBy(input.Sorting ?? "id desc")
                 .PageBy(input)  
@@ -182,6 +184,7 @@ namespace EmailSender.ProductServices
                                        {
                                            Name = input.Name,
                                            Thumbnail = input.Thumbnail,
+                                           IsActive = input.IsActive,
                                        });
 
             await _productDetailRepository.GetAll().Where(pd => pd.ProductId == input.Id)
@@ -253,6 +256,7 @@ namespace EmailSender.ProductServices
             {
                 Name = product.Name,
                 Thumbnail = product.Thumbnail,
+                IsActive = product.IsActive,
                 DiscountId = product.ProductDetails.FirstOrDefault()?.DiscountId, 
                 DiscountPrice = product.ProductDetails.FirstOrDefault()?.DiscountedPrice, 
                 BasePrice = product.ProductDetails.FirstOrDefault().BasePrice, 

@@ -5561,6 +5561,7 @@ export class CreateUpdateProductDto implements ICreateUpdateProductDto {
     id: number;
     main: boolean;
     discountPrice: number | undefined;
+    isActive: boolean;
 
     constructor(data?: ICreateUpdateProductDto) {
         if (data) {
@@ -5597,6 +5598,7 @@ export class CreateUpdateProductDto implements ICreateUpdateProductDto {
             this.id = _data["id"];
             this.main = _data["main"];
             this.discountPrice = _data["discountPrice"];
+            this.isActive = _data["isActive"];
         }
     }
 
@@ -5633,6 +5635,7 @@ export class CreateUpdateProductDto implements ICreateUpdateProductDto {
         data["id"] = this.id;
         data["main"] = this.main;
         data["discountPrice"] = this.discountPrice;
+        data["isActive"] = this.isActive;
         return data;
     }
 
@@ -5661,6 +5664,7 @@ export interface ICreateUpdateProductDto {
     id: number;
     main: boolean;
     discountPrice: number | undefined;
+    isActive: boolean;
 }
 
 export class CreateUserDto implements ICreateUserDto {
@@ -6873,7 +6877,7 @@ export class ProductDto implements IProductDto {
     categoryName: string | undefined;
     stock: number;
     basePrice: number;
-    readonly isActive: boolean;
+    isActive: boolean;
     readonly lowStock: boolean;
     creationTime: moment.Moment;
     ismain: boolean;
@@ -6895,7 +6899,7 @@ export class ProductDto implements IProductDto {
             this.categoryName = _data["categoryName"];
             this.stock = _data["stock"];
             this.basePrice = _data["basePrice"];
-            (<any>this).isActive = _data["isActive"];
+            this.isActive = _data["isActive"];
             (<any>this).lowStock = _data["lowStock"];
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
             this.ismain = _data["ismain"];

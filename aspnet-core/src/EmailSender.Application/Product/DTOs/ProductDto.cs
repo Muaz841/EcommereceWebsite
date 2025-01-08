@@ -19,8 +19,8 @@ namespace EmailSender.ProductDtos
         public string CategoryName { get; set; }
         public int Stock { get; set; }
         public decimal BasePrice { get; set; }      
-        public bool IsActive => Stock > 0;
-        public bool LowStock => Stock > 0 && Stock < 5;
+        public bool IsActive { get; set; }
+        public bool LowStock =>  Stock < 5;
         public DateTime CreationTime { get; set; }
         public bool Ismain {  get; set; }
         public byte[] Thumbnail { get; set; }
@@ -63,7 +63,9 @@ namespace EmailSender.ProductDtos
         public bool main { get; set; }
 
         public decimal? DiscountPrice {  get; set; }
-                        
+
+        public bool IsActive { get; set; }
+
     }
 
     public class PagedProductResultRequestDto : PagedAndSortedResultRequestDto

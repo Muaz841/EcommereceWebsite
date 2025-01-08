@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace EmailSender.Dashboard
 {
-    public class DashboardService : EmailSenderAppServiceBase
+    public class DashboardService : EmailSenderAppServiceBase, IDashboardService
     {
         private readonly IRepository<Order ,int> _orderRepository;
         private readonly IRepository<Product ,int> _productRepository;
