@@ -98,6 +98,18 @@ export class ContactDetailsComponent implements OnInit {
 
   submitPayment(): void {
     this.loading = true;
+    if(!this.shippingAddress || this.shippingAddress.trim() === "" )
+    {
+      abp.notify.error("Shipping Address is missing")
+      this.loading = false;
+      return;
+    }
+    else if (!this.contactDetails.phoneNumber || this.contactDetails.phoneNumber.trim() === "")
+      {
+        abp.notify.error("Phone Number is missing")
+        this.loading = false;
+        return;
+      }    
     this._stripeService
       .createPaymentIntent(
         this.calculateTotal(),

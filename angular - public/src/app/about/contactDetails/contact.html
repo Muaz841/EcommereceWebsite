@@ -39,14 +39,22 @@
           required
           [(ngModel)]="shippingAddress"
           name="shippingAddress"
+          #shippingAddressModel="ngModel"
         />
+        <div *ngIf="shippingAddressModel.invalid && shippingAddressModel.touched">
+          <small class="error">Shipping address is required</small>
+        </div>
         <input
           type="tel"
-          placeholder="Phone Number*"
+          placeholder="PhoneNumber*"
           [(ngModel)]="contactDetails.phoneNumber"
           required
           name="phoneNumber"
+          #phoneNumberModel="ngModel"
         />
+        <div *ngIf="phoneNumberModel.invalid && phoneNumberModel.touched">
+          <small class="error">Phone number is required</small>
+        </div>
       </div>
 
       <!-- Delivery Options -->
