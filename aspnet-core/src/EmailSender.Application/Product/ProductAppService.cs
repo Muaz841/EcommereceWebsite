@@ -18,6 +18,7 @@ using Abp.UI;
 using EmailSender.ProductEntities;
 using EmailSender.CategoryEntity;
 using EFCore.BulkExtensions;
+using Z.EntityFramework.Plus;
 
 
 namespace EmailSender.ProductServices
@@ -127,7 +128,7 @@ namespace EmailSender.ProductServices
                             {
                                 quantity = c.quantity - 1
                             });                            
-                await _productRepository.GetAll().Where(p => input.Contains(p.Id)).ExecuteDeleteAsync();
+                await _productRepository.GetAll().Where(p => input.Contains(p.Id)).DeleteAsync();
         }
 
         public async Task<PagedResultDto<ProductDto>> GetAllAsync(PagedProductResultRequestDto input)

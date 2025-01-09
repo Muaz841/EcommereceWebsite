@@ -31,11 +31,12 @@ namespace EmailSender.EntityFrameworkCore.Seed.Email
         {
             try
             {
-                using (var unitOfWork = _unitOfWorkManager.Begin())
+                using (var unitOfWork = _unitOfWorkManager.Begin() )
                 {                   
                     var checkExists =  _context.EmailTemplates.Where(t => t.TenantId== 1).Take(1).SingleOrDefault();
                     if (checkExists != null)
                     {
+                        await unitOfWork.CompleteAsync();
                         return; 
                     }
                     else
@@ -72,7 +73,7 @@ namespace EmailSender.EntityFrameworkCore.Seed.Email
                         await _context.SaveChangesAsync();
                         await unitOfWork.CompleteAsync();
                     }
-                   //await  unitOfWork.CompleteAsync();
+                   await  unitOfWork.CompleteAsync();
                 }
             }
             catch (Exception ex)

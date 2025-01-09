@@ -54,6 +54,6 @@ export class OrderDetailsComponent extends AppComponentBase implements OnInit {
       (acc, item) => acc + item.productPrice * item.quantity,
       0
     );
-    this.total = this.subtotal + 20;
+    this.total = this.subtotal + 71 + 6;
   }
 }

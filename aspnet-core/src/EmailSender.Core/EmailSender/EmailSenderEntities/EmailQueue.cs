@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EmailSender.EmailSender.EmailSenderEntities
 {
-    public class EmailQueue : Entity<int> , IMustHaveTenant
+    public class EmailQueue : Entity<int> 
     {
         public string EmailPriority { get; set; }
         public string From { get; set; }

@@ -75,7 +75,7 @@
                   <img [src]="'data:image/jpeg;base64,' + order.productThumbnail" alt="Product Thumbnail" class="thumbnail">
                   + {{order.productsCount }}
               </td>  
-                <td>{{order.totalPrice}}</td>
+                <td>${{order.totalPrice}}</td>
                 <td><span [ngClass]="getStatusClass(order)" [style.background-color]="getStatusColor(order)">
                   {{ getStatusLabel(order) }}
               </span></td>

@@ -6,6 +6,7 @@ using Abp.ObjectMapping;
 using EmailSender.EmailSender.EmailSenderEntities;
 using EmailSender.EmailSender.QueueEmail.QueueEmailDto;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -108,15 +109,31 @@ namespace EmailSender.EmailSender.QueueEmail
 
         public async Task UpdateFailedMails(int emailId)
         {
-            var email = await _queuedRepository.GetAsync(emailId);
-            email.RetryCount = 0; 
+            // Retrieve a single email entity
+            var email = _queuedRepository.GetAll().FirstOrDefault(q => q.Id == emailId);
+            if (email == null)
+            {
+                throw new Exception($"Email with ID {emailId} not found.");
+            }
+
+            // Update properties
+            email.RetryCount = 0;
             email.Status = "pending";
 
-            using (var unitOfWork = _unitOfWorkManager.Begin(System.Transactions.TransactionScopeOption.RequiresNew))
+            try
             {
-                await _queuedRepository.UpdateAsync(email);
-                await unitOfWork.CompleteAsync();
+                using (var unitOfWork = _unitOfWorkManager.Begin(System.Transactions.TransactionScopeOption.RequiresNew))
+                {
+                    await _queuedRepository.UpdateAsync(email); 
+                    await unitOfWork.CompleteAsync();           
+                }
+            }
+            catch (Exception ex)
+            {                
+                
+               
             }
         }
+
     }
 }
