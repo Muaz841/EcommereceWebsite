@@ -149,6 +149,7 @@ export class ContactDetailsComponent implements OnInit {
                 order.customerId = this._sessionService.userId;
                 order.totalPrice = this.calculateTotal();
                 order.shippingAddress = this.shippingAddress;
+                order.phoneNumber = this.contactDetails.phoneNumber;
                 order.orderProducts = this.cartProducts.map((cart) => {
                   const orderproduct = new OrderProductDto();
                   orderproduct.productId = cart.productID;

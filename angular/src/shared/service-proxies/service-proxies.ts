@@ -6338,6 +6338,7 @@ export interface IOrderCountDto {
 export class OrderDetailsDto implements IOrderDetailsDto {
     orderProducts: OrderProductDto[] | undefined;
     shippingAddress: string | undefined;
+    phoneNumber: string | undefined;
     customerName: string | undefined;
     customerMail: string | undefined;
     customerphone: string | undefined;
@@ -6361,6 +6362,7 @@ export class OrderDetailsDto implements IOrderDetailsDto {
                     this.orderProducts.push(OrderProductDto.fromJS(item));
             }
             this.shippingAddress = _data["shippingAddress"];
+            this.phoneNumber = _data["phoneNumber"];
             this.customerName = _data["customerName"];
             this.customerMail = _data["customerMail"];
             this.customerphone = _data["customerphone"];
@@ -6384,6 +6386,7 @@ export class OrderDetailsDto implements IOrderDetailsDto {
                 data["orderProducts"].push(item.toJSON());
         }
         data["shippingAddress"] = this.shippingAddress;
+        data["phoneNumber"] = this.phoneNumber;
         data["customerName"] = this.customerName;
         data["customerMail"] = this.customerMail;
         data["customerphone"] = this.customerphone;
@@ -6403,6 +6406,7 @@ export class OrderDetailsDto implements IOrderDetailsDto {
 export interface IOrderDetailsDto {
     orderProducts: OrderProductDto[] | undefined;
     shippingAddress: string | undefined;
+    phoneNumber: string | undefined;
     customerName: string | undefined;
     customerMail: string | undefined;
     customerphone: string | undefined;
@@ -6416,6 +6420,7 @@ export class OrderDto implements IOrderDto {
     paymentMethod: string | undefined;
     orderProducts: OrderProductDto[] | undefined;
     shippingAddress: string | undefined;
+    phoneNumber: string | undefined;
     orderId: number;
     creationDate: moment.Moment;
     status: number;
@@ -6442,6 +6447,7 @@ export class OrderDto implements IOrderDto {
                     this.orderProducts.push(OrderProductDto.fromJS(item));
             }
             this.shippingAddress = _data["shippingAddress"];
+            this.phoneNumber = _data["phoneNumber"];
             this.orderId = _data["orderId"];
             this.creationDate = _data["creationDate"] ? moment(_data["creationDate"].toString()) : <any>undefined;
             this.status = _data["status"];
@@ -6468,6 +6474,7 @@ export class OrderDto implements IOrderDto {
                 data["orderProducts"].push(item.toJSON());
         }
         data["shippingAddress"] = this.shippingAddress;
+        data["phoneNumber"] = this.phoneNumber;
         data["orderId"] = this.orderId;
         data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
         data["status"] = this.status;
@@ -6490,6 +6497,7 @@ export interface IOrderDto {
     paymentMethod: string | undefined;
     orderProducts: OrderProductDto[] | undefined;
     shippingAddress: string | undefined;
+    phoneNumber: string | undefined;
     orderId: number;
     creationDate: moment.Moment;
     status: number;

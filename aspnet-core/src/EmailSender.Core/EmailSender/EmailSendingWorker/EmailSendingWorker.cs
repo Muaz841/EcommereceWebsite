@@ -36,7 +36,7 @@ namespace EmailSender.EmailSender.EmailWorker
             _settingManager = settingManager;
             _emailQueueRepository = emailQueueRepository;
             _logger = logger;
-            Timer.Period = (5 * 1000);
+            Timer.Period = (5* 1000);
             _unitOfWorkManager = unitOfWorkManager;
             _tenantRepository = tenantRepository;
         }

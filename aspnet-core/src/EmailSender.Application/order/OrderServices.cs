@@ -51,6 +51,7 @@ namespace EmailSender.order
                 CustomerId = order.CustomerId,
                 TotalPrice = order.TotalPrice,
                 ShippingAddress = order.ShippingAddress,
+                PhoneNumber = order.PhoneNumber,
                 OrderProducts = order.OrderProducts.Select(op => new OrderProduct
                 {
                     ProductId = op.ProductId,
@@ -138,6 +139,7 @@ namespace EmailSender.order
             var orderDetails = new OrderDetailsDto
             {
                 ShippingAddress = order.ShippingAddress,
+                PhoneNumber = order.PhoneNumber,
                 CustomerName = order.Customer?.Name,
                 CustomerMail = order.Customer?.EmailAddress,
                 Customerphone = order.Customer?.PhoneNumber,

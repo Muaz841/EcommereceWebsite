@@ -11,6 +11,7 @@ namespace EmailSender.order.OrderDtos
         public virtual List<OrderProductDto> OrderProducts { get; set; }
 
         public string ShippingAddress { get; set; }
+        public string PhoneNumber { get; set; }
         public string CustomerName { get; set; }
 
         public string CustomerMail { get; set; }

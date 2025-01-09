@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmailSender.Migrations
 {
     [DbContext(typeof(EmailSenderDbContext))]
-    [Migration("20241231105130_Ecommerece")]
-    partial class Ecommerece
+    [Migration("20250109104220_Phone-added-inOrder")]
+    partial class PhoneaddedinOrder
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1859,6 +1859,9 @@ namespace EmailSender.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("PaymentMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShippingAddress")

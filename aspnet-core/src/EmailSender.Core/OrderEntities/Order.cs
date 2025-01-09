@@ -29,6 +29,8 @@ namespace EmailSender.OrderDomain
         public virtual List<OrderProduct> OrderProducts { get; set; } 
 
         public string ShippingAddress { get; set; }
+
+        public string PhoneNumber { get; set; }
         public int TenantId {  get; set; }
     }
 

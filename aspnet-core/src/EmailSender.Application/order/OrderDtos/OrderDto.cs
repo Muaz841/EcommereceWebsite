@@ -17,7 +17,9 @@ namespace EmailSender.order.OrderDtos
 
         public string ShippingAddress { get; set; }
 
-       public int OrderId { get; set; }
+        public string PhoneNumber { get; set; }
+
+        public int OrderId { get; set; }
 
         public DateTime CreationDate { get; set; }
 

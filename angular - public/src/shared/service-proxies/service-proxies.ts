@@ -5561,6 +5561,7 @@ export class CreateUpdateProductDto implements ICreateUpdateProductDto {
     id: number;
     main: boolean;
     discountPrice: number | undefined;
+    isActive: boolean;
 
     constructor(data?: ICreateUpdateProductDto) {
         if (data) {
@@ -5597,6 +5598,7 @@ export class CreateUpdateProductDto implements ICreateUpdateProductDto {
             this.id = _data["id"];
             this.main = _data["main"];
             this.discountPrice = _data["discountPrice"];
+            this.isActive = _data["isActive"];
         }
     }
 
@@ -5633,6 +5635,7 @@ export class CreateUpdateProductDto implements ICreateUpdateProductDto {
         data["id"] = this.id;
         data["main"] = this.main;
         data["discountPrice"] = this.discountPrice;
+        data["isActive"] = this.isActive;
         return data;
     }
 
@@ -5661,6 +5664,7 @@ export interface ICreateUpdateProductDto {
     id: number;
     main: boolean;
     discountPrice: number | undefined;
+    isActive: boolean;
 }
 
 export class CreateUserDto implements ICreateUserDto {
@@ -6334,6 +6338,7 @@ export interface IOrderCountDto {
 export class OrderDetailsDto implements IOrderDetailsDto {
     orderProducts: OrderProductDto[] | undefined;
     shippingAddress: string | undefined;
+    phoneNumber: string | undefined;
     customerName: string | undefined;
     customerMail: string | undefined;
     customerphone: string | undefined;
@@ -6357,6 +6362,7 @@ export class OrderDetailsDto implements IOrderDetailsDto {
                     this.orderProducts.push(OrderProductDto.fromJS(item));
             }
             this.shippingAddress = _data["shippingAddress"];
+            this.phoneNumber = _data["phoneNumber"];
             this.customerName = _data["customerName"];
             this.customerMail = _data["customerMail"];
             this.customerphone = _data["customerphone"];
@@ -6380,6 +6386,7 @@ export class OrderDetailsDto implements IOrderDetailsDto {
                 data["orderProducts"].push(item.toJSON());
         }
         data["shippingAddress"] = this.shippingAddress;
+        data["phoneNumber"] = this.phoneNumber;
         data["customerName"] = this.customerName;
         data["customerMail"] = this.customerMail;
         data["customerphone"] = this.customerphone;
@@ -6399,6 +6406,7 @@ export class OrderDetailsDto implements IOrderDetailsDto {
 export interface IOrderDetailsDto {
     orderProducts: OrderProductDto[] | undefined;
     shippingAddress: string | undefined;
+    phoneNumber: string | undefined;
     customerName: string | undefined;
     customerMail: string | undefined;
     customerphone: string | undefined;
@@ -6412,6 +6420,7 @@ export class OrderDto implements IOrderDto {
     paymentMethod: string | undefined;
     orderProducts: OrderProductDto[] | undefined;
     shippingAddress: string | undefined;
+    phoneNumber: string | undefined;
     orderId: number;
     creationDate: moment.Moment;
     status: number;
@@ -6438,6 +6447,7 @@ export class OrderDto implements IOrderDto {
                     this.orderProducts.push(OrderProductDto.fromJS(item));
             }
             this.shippingAddress = _data["shippingAddress"];
+            this.phoneNumber = _data["phoneNumber"];
             this.orderId = _data["orderId"];
             this.creationDate = _data["creationDate"] ? moment(_data["creationDate"].toString()) : <any>undefined;
             this.status = _data["status"];
@@ -6464,6 +6474,7 @@ export class OrderDto implements IOrderDto {
                 data["orderProducts"].push(item.toJSON());
         }
         data["shippingAddress"] = this.shippingAddress;
+        data["phoneNumber"] = this.phoneNumber;
         data["orderId"] = this.orderId;
         data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
         data["status"] = this.status;
@@ -6486,6 +6497,7 @@ export interface IOrderDto {
     paymentMethod: string | undefined;
     orderProducts: OrderProductDto[] | undefined;
     shippingAddress: string | undefined;
+    phoneNumber: string | undefined;
     orderId: number;
     creationDate: moment.Moment;
     status: number;
@@ -6873,7 +6885,7 @@ export class ProductDto implements IProductDto {
     categoryName: string | undefined;
     stock: number;
     basePrice: number;
-    readonly isActive: boolean;
+    isActive: boolean;
     readonly lowStock: boolean;
     creationTime: moment.Moment;
     ismain: boolean;
@@ -6895,7 +6907,7 @@ export class ProductDto implements IProductDto {
             this.categoryName = _data["categoryName"];
             this.stock = _data["stock"];
             this.basePrice = _data["basePrice"];
-            (<any>this).isActive = _data["isActive"];
+            this.isActive = _data["isActive"];
             (<any>this).lowStock = _data["lowStock"];
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
             this.ismain = _data["ismain"];
