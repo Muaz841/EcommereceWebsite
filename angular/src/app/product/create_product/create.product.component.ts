@@ -154,6 +154,18 @@ export class CreateProductComponent implements OnInit {
       this.previewThumbnail = URL.createObjectURL(this.thumbnail);
     }
   }
+  onPriceInput(event: Event) {
+    const inputElement = event.target as HTMLInputElement;      
+    const value = Number(inputElement.value);      
+    if (value < 1) {      
+      abp.message.warn("price value cannot less than 1");
+      this.productDto.basePrice = 1;  
+      inputElement.value = "1";    
+      this.cdr.detectChanges();
+      console.log(  this.productDto.basePrice);
+      
+    }
+  }
 
   onImageUpload(event: Event): void {
     const input = event.target as HTMLInputElement;

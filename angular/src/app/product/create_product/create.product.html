@@ -328,7 +328,9 @@
                     pInputText
                     [(ngModel)]="productDto.basePrice"
                     placeholder="Type Base Price Here..."
-                    class="form-control"
+                    class="form-control" 
+                    [min]="1"
+                    (input)="onPriceInput($event)"                   
                   />
                 </div>
                 <div class="col-md-6">

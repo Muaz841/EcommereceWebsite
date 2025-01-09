@@ -57,7 +57,7 @@ namespace EmailSender.PublicSite
                      .ThenInclude(pc => pc.Category);
 
             var data = await filteredProducts
-                .Where(x => x.ProductDetails.Any(pd => pd.Stock > 0))
+                .Where(x => !x.IsActive &&  x.ProductDetails.Any(pd => pd.Stock > 0))
                 .OrderByDescending(product => product.CreationTime)
                 .Select(x => new PublicProductDto
                 {
@@ -88,7 +88,7 @@ namespace EmailSender.PublicSite
                      .ThenInclude(pc => pc.Category);
 
             var data = await filteredProducts
-                .Where(x => x.ProductDetails.Any(pd => pd.Stock > 0) && x.CreationTime >= thirtyDaysAgo)
+                .Where(x => !x.IsActive && x.ProductDetails.Any(pd => pd.Stock > 0) && x.CreationTime >= thirtyDaysAgo)
                 .OrderByDescending(product => product.CreationTime)
                 .Select(x => new PublicProductDto
                 {
@@ -117,7 +117,7 @@ namespace EmailSender.PublicSite
                      .ThenInclude(pc => pc.Category);
 
             var data = await filteredProducts
-                .Where(x => x.ProductDetails.Any(pd => pd.Stock > 0))
+                .Where(x => !x.IsActive && x.ProductDetails.Any(pd => pd.Stock > 0))
                 .OrderByDescending(product => product.CreationTime)
                 .Take(4)
                 .Select(x => new PublicProductDto
@@ -233,7 +233,7 @@ namespace EmailSender.PublicSite
         {
             var items = await _CartRepository.GetAll()
                 .AsNoTracking()
-                .Where(p => p.userID == userID)
+                .Where(p => p.userID == userID && !p.Product.IsActive)
                 .Include(c => c.Product)
                 .ThenInclude(p => p.ProductDetails)
                 .ToListAsync();

@@ -70,8 +70,9 @@ namespace EmailSender.EntityFrameworkCore.Seed.Email
 
                         await _context.EmailTemplates.AddAsync(template);
                         await _context.SaveChangesAsync();
+                         unitOfWork.CompleteAsync();
                     }
-                    await unitOfWork.CompleteAsync();
+                     unitOfWork.CompleteAsync();
                 }
             }
             catch (Exception ex)

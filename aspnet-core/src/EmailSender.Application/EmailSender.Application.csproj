@@ -24,7 +24,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.0" />
     <PackageReference Include="SpreadsheetLight" Version="3.5.0" />
     <PackageReference Include="Stripe.net" Version="47.1.0" />
-    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="9.103.6.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmailSender.Core\EmailSender.Core.csproj" />

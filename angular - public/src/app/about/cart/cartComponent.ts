@@ -65,7 +65,7 @@ export class CartComponent implements OnInit {
       // }
       
       calculateTotal(): number {
-        return this.calculateSubtotal()  +15 ;
+        return this.calculateSubtotal() ; //+15 ;
       }
 
       removeProductFromCart(pID: number): void {
