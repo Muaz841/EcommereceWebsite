@@ -1,222 +1,235 @@
-<section class="content-header">
-  <div class="container-fluid">
-    <div class="row align-items-center">
-      <div class="col-md-6 d-flex align-items-center">
-        <h1 class="mr-3">
-          {{ "Product" | localize }}<app-breadcrumb></app-breadcrumb>
-        </h1>
-      </div>
-
-      <!-- Right Section: Buttons -->
-      <div class="col-md-6 text-right gap">
-        <a
-          href="javascript:;"
-          (click)="ExportFile()"
-          class="btn bg-outline-blue"
-        >
-          <i class="fas fa-download"></i>
-          {{ "Export" | localize }}
-        </a>
-        <a
-          href="javascript:;"
-          class="btn bg-inline-blue"
-          [routerLink]="['create-product']"
-        >
-          <i class="fa fa-plus-square"></i>
-          {{ "Add Product" | localize }}
-        </a>
+<div class="container-fluid">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-6 d-flex align-items-center">
+          <h1 class="mr-3">
+            {{ "Product" | localize }}<app-breadcrumb></app-breadcrumb>
+          </h1>
+        </div>
+  
+        <!-- Right Section: Buttons -->
+        <div class="col-md-6 text-right gap">
+          <a
+            href="javascript:;"
+            (click)="ExportFile()"
+            class="btn bg-outline-blue"
+          >
+            <i class="fas fa-download"></i>
+            {{ "Export" | localize }}
+          </a>
+          <a
+            href="javascript:;"
+            class="btn bg-inline-blue"
+            [routerLink]="['create-product']"
+          >
+            <i class="fa fa-plus-square"></i>
+            {{ "Add Product" | localize }}
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card p-3">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="button-group">
-              <button
-                [ngClass]="{ selected: selectedButton === 'all' }"
-                (click)="selectButton('all')"
-              >
-                All
-              </button>
-              <button
-                [ngClass]="{ selected: selectedButton === 'published' }"
-                (click)="selectButton('published')"
-              >
-                Published
-              </button>
-              <button
-                [ngClass]="{ selected: selectedButton === 'lowStock' }"
-                (click)="selectButton('lowStock')"
-              >
-                LowStock
-              </button>
-              <button
-                [ngClass]="{ selected: selectedButton === 'draft' }"
-                (click)="selectButton('draft')"
-              >
-                Draft
-              </button>
-            </div>
-          </div>
-
-          <div class="col-md-6 d-flex justify-content-end">
-            <div class="row">
-              <div class="col-md-6">
-                <p-iconField iconPosition="left">
-                  <p-inputIcon
-                    styleClass="fas fa-search"
-                    (click)="onsearch()"
-                  />
-                  <input
-                    type="text"
-                    pInputText
-                    [(ngModel)]="keyword"
-                    style="width: 100%"
-                    placeholder="Search..."
-                    (keyup.enter)="onsearch()"
-                  />
-                </p-iconField>
+  </section>
+  
+  <section class="content px-2">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card p-3" >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="button-group">
+                <button
+                  [ngClass]="{ selected: selectedButton === 'all' }"
+                  (click)="selectButton('all')"
+                  style="border: none; border-radius: 20%; "
+                >
+                  All
+                </button>
+                <button
+                  [ngClass]="{ selected: selectedButton === 'published' }"
+                  (click)="selectButton('published')"
+                  style="border: none; border-radius: 20%; "
+                >
+                  Published
+                </button>
+                <button
+                  [ngClass]="{ selected: selectedButton === 'lowStock' }"
+                  (click)="selectButton('lowStock')"
+                  style="border: none; border-radius: 20%; "
+                >
+                  LowStock
+                </button>
+                <button
+                  [ngClass]="{ selected: selectedButton === 'draft' }"
+                  (click)="selectButton('draft')"
+                  style="border: none; border-radius: 20%; "
+                >
+                  Draft
+                </button>
               </div>
-
-              <div class="col-md-5">
-                <p-calendar
-                  [iconDisplay]="'input'"
-                  [showIcon]="true"
-                  inputId="icondisplay"
-                  [numberOfMonths]="2"
-                  selectionMode="range"
-                  class="py-1 px-1 calendar-small"
-                  placeholder="Select Date..."
-                  [(ngModel)]="dateRange"
-                  (onClose)="onDateSearch()"
-                />
+            </div>
+  
+            <div class="col-md-6 d-flex justify-content-end">
+              <div class="row w-100 align-items-center justify-content-end">
+                <div class="col-md-5">
+                  <p-iconField iconPosition="left">
+                    <p-inputIcon
+                      styleClass="fas fa-search"
+                      (click)="onsearch()"
+                    />
+                    <input
+                      type="text"
+                      pInputText
+                      [(ngModel)]="keyword"
+                      style="width: 100%"
+                      placeholder="Search..."
+                      (keyup.enter)="onsearch()"
+                    />
+                  </p-iconField>
+                </div>
+            
+                <div class="col-md-4">
+                  <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="icondisplay"
+                    [numberOfMonths]="2"
+                    selectionMode="range"
+                    class="py-1 px-1 calendar-small"
+                    placeholder="Select Date..."
+                    [(ngModel)]="dateRange"
+                    (onClose)="onDateSearch()"
+                  />
+                </div>
+            
+                <div class="d-flex justify-content-end">
+                  <button
+                  (click)="deleteList()"
+                    class="btn"
+                    style="padding: 10px 20px; background-color: #ED4765; color: white; ">
+                    <i class="fa fa-trash-can"></i> Delete
+                  </button>
+                </div>
               </div>
-              <div class="col-md-1">
-                <button type="button" (click)="deleteList()" class="action-button" style="length: 10 rem;"><i class="fa fa-thin fa-trash-can"></i></button>
             </div>
-              <!-- Danger Button -->           
-            </div>
+            
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="content px-2">
-  <div class="card">
-    <table>
-      <thead>
-        <tr>
-          <th>
-            <div class="form-check">
-              <input  [checked]="allSelected"
-              (change)="toggleAllCheckboxes($event.target.checked)" 
-              class="master-form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-              <label class="master-form-check-label" for="flexCheckIndeterminate">
-                Products
-              </label>
-            </div>
-          </th>
-          <th>ID</th>
-          <th>Category</th>
-          <th>Stock</th>
-          <th>Price</th>
-          <th>Status</th>
-          <th>Added</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for ( prod of filteredProducts | paginate : { id: 'server',
-        itemsPerPage: pageSize, currentPage: pageNumber, totalItems: totalItems
-        } ; track prod.id) {
-        <tr>
-          <td>          
-            <div style="display: flex; align-items: center">
+  </section>
+  
+  <section class="content px-2">
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>
               <div class="form-check">
-                <input
-                    class="form-check-input custom-checkbox"
-                    type="checkbox"
-                    [checked]="selectedProductToDelete.includes(prod)"
-                    (change)="onProductSelectChange(prod, $event.target.checked)"
-                    id="productCheckbox{{ prod.id }}"
-                  />
-                <label class="form-check-label" for="flexCheckDefault">                  
+                <input  [checked]="allSelected"
+                (change)="toggleAllCheckboxes($event.target.checked)" 
+                class="master-form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+                <label class="master-form-check-label" for="flexCheckIndeterminate">
+                  Products
                 </label>
-            </div>
-              <ng-container *ngIf="prod.thumbnail; else showIcon">
-                <img
-                  [src]="'data:image/jpeg;base64,' + prod.thumbnail"
-                  alt="Product Thumbnail"
-                  class="thumbnail"
-                />
-              </ng-container>
-              <ng-template #showIcon>
-                <i class="fa-regular fa-image imageicon"></i>
-              </ng-template>
-              <span>
-                {{ prod.name }} <br />
-                <small style="color: gray"> +3 </small></span
-              >
-            </div>
-          </td>
-          <td>{{ prod.id }}</td>
-          <td>{{ prod.categoryName }}</td>
-          <td>{{ prod.stock }}</td>
-          <td>{{ prod.basePrice }}</td>
-          <td>
-            <span
-              [ngClass]="getStatusClass(prod)"
+              </div>
+            </th>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Stock</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Added</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for ( prod of filteredProducts | paginate : { id: 'server',
+          itemsPerPage: pageSize, currentPage: pageNumber, totalItems: totalItems
+          } ; track prod.id) {
+          <tr>
+            <td>          
+              <div style="display: flex; align-items: center">
+                <div class="form-check">
+                  <input
+                      class="form-check-input custom-checkbox"
+                      type="checkbox"
+                      [checked]="selectedProductToDelete.includes(prod)"
+                      (change)="onProductSelectChange(prod, $event.target.checked)"
+                      id="productCheckbox{{ prod.id }}"
+                    />
+                  <label class="form-check-label" for="flexCheckDefault">                  
+                  </label>
+              </div>
+                <ng-container *ngIf="prod.thumbnail; else showIcon">
+                  <img
+                    [src]="'data:image/jpeg;base64,' + prod.thumbnail"
+                    alt="Product Thumbnail"
+                    class="thumbnail"
+                  />
+                </ng-container>
+                <ng-template #showIcon>
+                  <i class="fa-regular fa-image imageicon"></i>
+                </ng-template>
+                <span>
+                  {{ prod.name }} <br />
+                  <small style="color: gray"> +3 </small></span
+                >
+              </div>
+            </td>
+            <td>{{ prod.id }}</td>
+            <td>{{ prod.categoryName }}</td>
+            <td>{{ prod.stock }}</td>
+            <td>{{ prod.basePrice }}</td>
+            <td>
+              <span
+              [ngClass]="'status-tag ' + getStatusClass(prod)"
               [style.background-color]="getStatusColor(prod)"
             >
               {{ getStatusLabel(prod) }}
             </span>
-          </td>
-          <td>{{ prod.creationTime.toDate() | date : "dd MMM yyyy" }}</td>
-
-          <td class="buttonstyling">
-            <button type="button" (click)="editProduct(prod)">
-              <i class="fas fa-pencil-alt colorsetting"></i>
-            </button>
-            <button type="button" class="px-1" (click)="viewProduct(prod)">
-              <i class="fas fa-eye colorsetting"></i>
-            </button>
-            <button type="button" (click)="delete(prod)">
-              <i class="fas fa-trash colorsetting"></i>
-            </button>
-            <p-tag *ngIf="prod.ismain" severity="success" value="Main" />
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-  <div class="card-footer table-card-footer bg-light border-top">
-    <div class="row">
-      <div class="col-sm-4 col-12 text-sm-left text-center">
-        <p style="color: gray">
-          Showing {{ firstShowingItem }} - {{ lastShowingItems }} FROM
-          {{ totalItems }}
-        </p>
-      </div>
-      <div class="col-sm-4 col-12 text-center">
-        <p class="mb-0 my-2"></p>
-      </div>
-      <div class="col-sm-4 col-12">
-        <div class="float-sm-right m-auto">
-          <abp-pagination-controls
-            id="server"
-            (pageChange)="getDataPage($event)"
-          >
-          </abp-pagination-controls>
+            </td>
+            <td>{{ prod.creationTime.toDate() | date : "dd MMM yyyy" }}</td>
+  
+            <td class="buttonstyling">
+              <button type="button" (click)="editProduct(prod)">
+                <i class="fas fa-pencil-alt colorsetting"></i>
+              </button>
+              <button type="button" class="px-1" (click)="viewProduct(prod)">
+                <i class="fas fa-eye colorsetting"></i>
+              </button>
+              <button type="button" (click)="delete(prod)">
+                <i class="fas fa-trash colorsetting"></i>
+              </button>
+              <p-tag *ngIf="prod.ismain" severity="success" value="Main" />
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer table-card-footer bg-light border-top">
+      <div class="row">
+        <div class="col-sm-4 col-12 text-sm-left text-center">
+          <p style="color: gray">
+            Showing {{ firstShowingItem }} - {{ lastShowingItems }} FROM
+            {{ totalItems }}
+          </p>
+        </div>
+        <div class="col-sm-4 col-12 text-center">
+          <p class="mb-0 my-2"></p>
+        </div>
+        <div class="col-sm-4 col-12">
+          <div class="float-sm-right m-auto">
+            <abp-pagination-controls
+              id="server"
+              (pageChange)="getDataPage($event)"
+            >
+            </abp-pagination-controls>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  
+</div>

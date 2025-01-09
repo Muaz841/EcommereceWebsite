@@ -232,7 +232,7 @@
               totalItems } ; track order.orderID){
               <tr>
                 <td style="color: #eea520; font-weight: 800">
-                  {{ order.orderID }}
+                  <i   (click)="viewOrderDetails(order)" style="cursor: pointer;"> {{ order.orderID }} </i>
                 </td>
                 <td>
                   <img

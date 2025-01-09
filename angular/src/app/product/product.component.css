@@ -181,16 +181,22 @@ button.selected {
 table {
   width: 100%;
   border-collapse: collapse !important;
+  margin: 0;
+   table-layout: auto;
 }
 
 th, td {
-  padding: 10px;
+ padding: 5px 10px;
   text-align: left;
   border: none; 
 }
 
+
 th {
   background-color: #f4f4f4;
+}
+tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Very subtle border */
 }
 
 .thumbnail {
@@ -201,17 +207,59 @@ th {
 }
 
 
-.status-published,
+/* .status-published,
 .status-lowstock,
 .status-draft {
   color: white;
   padding: 5px 10px;
   border-radius: 4px;
+} */
+
+/* Product Status Styles */
+/* Shared Styling for Both Product and Order Tags */
+.status-tag {
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;  /* Text color for contrast */ 
 }
+
+/* Order Status Styles */
+.status-processing {
+  background-color: #EEA5201A; /* Light golden background */
+}
+
+.status-shipped {
+  background-color: #2BB2FE1A; /* Light blue background */
+}
+
+.status-delivered {
+  background-color: #87CE6F1A; /* Light green background */
+}
+
+.status-cancelled {
+  background-color: #ED47651A; /* Light red background */
+}
+
+/* Product Status Styles */
+.status-lowstock {
+  background-color: #ED4765; /* Red for low stock */
+}
+
+.status-draft {
+  background-color: #313131; /* Dark gray for draft */
+}
+
+.status-published {
+  background-color: #EEA520; /* Golden for published */
+}
+
+
 .buttonstyling button{
   border: none;
+  padding: 0%;
   background: none;
 }
+
 
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
   background: rgb(238, 165, 32);
