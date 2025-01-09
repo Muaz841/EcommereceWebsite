@@ -60,6 +60,7 @@ export class CreateProductComponent implements OnInit {
         this._productService.getById(this.productDto.id).subscribe(
           (product) => {
             Object.assign(this.productDto, product);
+            this.productDto.images = product.images || [];
             this.previewThumbnail = `data:image/jpeg;base64,${product.thumbnail}`;
             this.previewImages =
               product.images?.map(
@@ -86,9 +87,17 @@ export class CreateProductComponent implements OnInit {
         this.thumbnail
       );
     }
-    this.productDto.images = await this.convertFilesToProductMediaDTO(
-      this.images
+
+    this.productDto.images = this.productDto.images.filter((image) =>
+      this.previewImages.includes(`data:image/jpeg;base64,${image.image}`)
     );
+  
+    // Convert new images to Base64 and create ProductMediaDTOs
+    const newImages = await this.convertFilesToProductMediaDTO(this.images);
+  
+    // Combine existing and new images
+    this.productDto.images = [...this.productDto.images, ...newImages];
+  
 
     const request = this.productDto.id
       ? this._productService.update(this.productDto)
@@ -176,8 +185,7 @@ export class CreateProductComponent implements OnInit {
       });
     }
   }
-  onDiscountTypeChange(discountId: number): void {
-    debugger;
+  onDiscountTypeChange(discountId: number): void {    
     const selectedDiscount = this.discounts.find((d) => d.id === discountId);
     if (selectedDiscount) {
       this.productDto.discountPercentage = selectedDiscount.discountPercent;
@@ -185,8 +193,19 @@ export class CreateProductComponent implements OnInit {
       this.productDto.discountPercentage = null;
     }
   }
-  removeImage(index: number) {
-    this.previewImages.splice(index, 1);
+
+  removeImage(index: number): void {
+    // Remove from previewImages
+    const removedPreviewImage = this.previewImages.splice(index, 1)[0];
+  
+    // Remove from images (newly uploaded files)
     this.images.splice(index, 1);
+  
+    // Remove from productDto.images if it exists
+    const removedBase64 = removedPreviewImage.split(",")[1];
+    this.productDto.images = this.productDto.images.filter(
+      (image) => image.image !== removedBase64
+    );
   }
+  
 }

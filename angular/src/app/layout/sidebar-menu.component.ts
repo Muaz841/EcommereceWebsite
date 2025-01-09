@@ -63,7 +63,7 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                   '#EEA520'
             ),
             new MenuItem(
-                this.l('Categorys'),
+                this.l('Categories'),
                 '/app/categories',
                 'bi bi-box-seam',
                 'Pages.Roles',

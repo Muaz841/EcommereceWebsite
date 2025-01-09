@@ -117,6 +117,11 @@ export class ContactDetailsComponent implements OnInit {
       )
       .subscribe(
         (result) => {
+          if (!result) {
+            this.loading = false;
+            abp.notify.error("Stripe Is Not Working. Please try again.");
+            return;
+          }
           this.clientSecret = result;
           if (!this.stripe || !this.clientSecret || !this.card) {
             this.loading = false;
@@ -163,6 +168,7 @@ export class ContactDetailsComponent implements OnInit {
           abp.notify.error("Failed to create payment intent", error.message);
         }
       );
+      this.loading = false;
   }
 
   getStripe(): Stripe | null {

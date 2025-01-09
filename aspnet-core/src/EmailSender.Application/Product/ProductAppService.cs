@@ -8,7 +8,6 @@ using Abp.Linq.Extensions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Abp.Runtime.Session;
-using Z.EntityFramework.Plus;
 using Abp.EntityFrameworkCore.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -18,6 +17,7 @@ using System;
 using Abp.UI;
 using EmailSender.ProductEntities;
 using EmailSender.CategoryEntity;
+using EFCore.BulkExtensions;
 
 
 namespace EmailSender.ProductServices
@@ -190,15 +190,14 @@ namespace EmailSender.ProductServices
             await _productDetailRepository.GetAll().Where(pd => pd.ProductId == input.Id)
                                         .UpdateFromQueryAsync(pd => new ProductDetail
                                         {
-                                            Stock = input.Quantity.Value,
+                                            Stock = input.Quantity.Value,   
                                             Description = input.Description,
                                             BasePrice = input.BasePrice,
                                             DiscountedPrice = discountedprice,
                                             DiscountId = input.DiscountId.Value
                                         });
 
-            if (input.Images != null && input.Images.Any(img => img.image != null))
-            {
+           
                 await _mediaRepository.GetAll().Where(m => m.ProductId == input.Id).ExecuteDeleteAsync();
                 var media = input.Images.Select(img => new ProductMedia
                 {
@@ -207,8 +206,10 @@ namespace EmailSender.ProductServices
                     Description = img.imagename,
                     TenantId = Tenant
                 });
-                await _mediaRepository.GetDbContext().BulkInsertAsync(media);
-            }
+                //await _mediaRepository.GetDbContext().BulkInsertAsync(media);
+                await _mediaRepository.GetDbContext().AddRangeAsync(media);
+
+            
 
             await _ProductCategoryRepository.GetAll().Where(pc => pc.ProductId == input.Id)
                      .UpdateFromQueryAsync(pc => new ProductCategory
