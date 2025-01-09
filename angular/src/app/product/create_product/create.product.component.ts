@@ -88,10 +88,11 @@ export class CreateProductComponent implements OnInit {
       );
     }
 
-    this.productDto.images = this.productDto.images.filter((image) =>
-      this.previewImages.includes(`data:image/jpeg;base64,${image.image}`)
-    );
-  
+    // this.productDto.images = this.productDto.images.filter((image) =>
+    //   this.previewImages.includes(`data:image/jpeg;base64,${image.image}`)
+    // );
+
+    this.productDto.images = this.productDto.images || [];
     // Convert new images to Base64 and create ProductMediaDTOs
     const newImages = await this.convertFilesToProductMediaDTO(this.images);
   
