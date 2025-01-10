@@ -246,34 +246,29 @@ namespace EmailSender.ProductServices
 
         public async Task<CreateUpdateProductDto> GetById(int? input)
         {
-            var product = await _productRepository.GetAll()
-                          .AsNoTracking()                          
-                          .Include(p => p.ProductDetails)       
-                          .Include(p => p.ProductCategories)                          
-                          .Include(p => p.ProductMedia)         
-                          .Where(p => p.Id == input)
-                          .FirstOrDefaultAsync();            
-
-            var productDto = new CreateUpdateProductDto
+            if (input == null)
             {
-                Name = product.Name,
-                Thumbnail = product.Thumbnail,
-                IsActive = product.IsActive,
-                DiscountId = product.ProductDetails.FirstOrDefault()?.DiscountId, 
-                DiscountPrice = product.ProductDetails.FirstOrDefault()?.DiscountedPrice, 
-                BasePrice = product.ProductDetails.FirstOrDefault().BasePrice, 
-                Quantity = product.ProductDetails.FirstOrDefault()?.Stock, 
-                CategoryId = product.ProductCategories.FirstOrDefault()?.CategoryId, 
-                Description = product.ProductDetails.FirstOrDefault()?.Description,
-                Images = product.ProductMedia.Select(m => new ProductMediaDTO
-                {
-                    image = m.image,
-                    imagename = m.Description
-                }).ToList()
-            };
+                return null; 
+            }
+            var product = await _productRepository.GetAll()
+                          .AsNoTracking()
+                          .Where(p => p.Id == input)
+                          .Select( p => new CreateUpdateProductDto
+                            {
+                                Name = p.Name,
+                                Thumbnail = p.Thumbnail,
+                                IsActive = p.IsActive,
+                                DiscountId = p.ProductDetails.FirstOrDefault().DiscountId, 
+                                DiscountPrice = p.ProductDetails.FirstOrDefault().DiscountedPrice, 
+                                BasePrice = p.ProductDetails.FirstOrDefault().BasePrice, 
+                                Quantity = p.ProductDetails.FirstOrDefault().Stock, 
+                                CategoryId = p.ProductCategories.FirstOrDefault().CategoryId, 
+                                Description = p.ProductDetails.FirstOrDefault().Description,
+             
+                            }).FirstOrDefaultAsync();
         
 
-            return productDto;
+            return product;
         }
 
         public async Task<List<DiscountType>> GetDiscountTypes()

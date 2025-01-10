@@ -106,6 +106,7 @@
                   <button
                   (click)="deleteList()"
                     class="btn"
+                    [disabled]="selectedProductToDelete.length  < 1"
                     style="padding: 10px 20px; background-color: #ED4765; color: white; ">
                     <i class="fa fa-trash-can"></i> Delete
                   </button>

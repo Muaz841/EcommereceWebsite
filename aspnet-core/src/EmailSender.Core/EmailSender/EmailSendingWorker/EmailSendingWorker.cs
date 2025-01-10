@@ -12,6 +12,7 @@ using EmailSender.MultiTenancy;
 using Abp.Domain.Repositories;
 using static EmailSender.EmailSender.EmailSenderManager.SmtpDto.SmtpSettingsMethod;
 using System;
+using EmailSender.EmailSender.EmailSenderManager.SmtpDto;
 
 namespace EmailSender.EmailSender.EmailWorker
 {
@@ -97,7 +98,7 @@ namespace EmailSender.EmailSender.EmailWorker
                         }
                     
                 }
-                finally  // Finally block for completing the unit of work
+                finally  
                 {
                     await unitOfWork.CompleteAsync();
                 }

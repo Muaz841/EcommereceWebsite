@@ -186,7 +186,7 @@ namespace EmailSender.PublicSite
                 CategoryId = product.ProductCategories.FirstOrDefault()?.CategoryId,
                 Description = product.ProductDetails.FirstOrDefault()?.Description,
 
-                Images = product.ProductMedia.Select(m => new ProductMediaDTO
+                Images = product.ProductMedia.Take(4).Select(m => new ProductMediaDTO
                 {
                     image = m.image,
                     imagename = m.Description

@@ -16,6 +16,7 @@ using EmailSender.MultiTenancy;
 using EmailSender.Authorization.Users;
 using Abp.UI;
 using EmailSender.EmailSender.EmailSenderManager;
+using EmailSender.EmailSender.EmailSenderManager.SmtpDto;
 
 
 namespace EmailSender.EmailSender.EmailSender
